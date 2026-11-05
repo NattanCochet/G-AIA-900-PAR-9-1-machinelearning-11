@@ -7,7 +7,7 @@ split and a timing are mandatory for every reported score).
 
 import csv
 import json
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from pathlib import Path
 
 FIELDNAMES = [
@@ -48,7 +48,7 @@ def log_result(
     is_new_file = not csv_path.exists()
 
     row = {
-        "date": datetime.now(timezone.utc).isoformat(timespec="seconds"),
+        "date": datetime.now(UTC).isoformat(timespec="seconds"),
         "task": task,
         "seed": seed,
         "config": json.dumps(config or {}, sort_keys=True),

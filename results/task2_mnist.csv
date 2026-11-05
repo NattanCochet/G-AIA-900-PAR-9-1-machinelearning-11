@@ -1,2 +1,3 @@
 date,task,seed,config,split,metric,score,duration_seconds
 2026-11-05T09:45:43+00:00,task2_mnist,0,"{""batch_size"": 32, ""epochs"": 10, ""eval_seconds"": 0.5011994189999314, ""load_seconds"": 0.055982107000090764, ""model"": ""course_baseline_cnn"", ""optimizer"": ""adam""}",test,accuracy,0.9827,78.22114362899993
+2026-11-05T10:02:52+00:00,task2_mnist,0,"{""batch_size"": 32, ""epochs"": 10, ""eval_seconds"": 0.49932727400027943, ""load_seconds"": 0.14463088600041374, ""model"": ""course_baseline_cnn"", ""optimizer"": ""adam""}",test,accuracy,0.9827,72.01666987099998

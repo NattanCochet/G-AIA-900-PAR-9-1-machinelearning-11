@@ -17,7 +17,8 @@ remotely on Colab/Kaggle instead).
 Run any script or notebook with:
 
 ```bash
-uv run python -m task2_mnist.baseline   # -m, so `import common` resolves
+# From the repository root
+uv run python -m task2_mnist.baseline
 uv run jupyter lab
 ```
 

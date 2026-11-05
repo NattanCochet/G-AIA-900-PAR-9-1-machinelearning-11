@@ -1,0 +1,71 @@
+[project]
+name = "ml-tek5-project"
+version = "0.1.0"
+description = "ML Tek5 project: MNIST, UVR, Food-101, Covertype, Fashion-MNIST clustering"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    # --- common: seeds, timers, CSV logging, figures (all tasks) ---
+    "numpy>=2.3.3",
+    "pandas>=2.3.2",
+    "scipy>=1.16.2",
+    "matplotlib>=3.10.6",
+    "seaborn>=0.13.2",
+    "scikit-learn>=1.7.2",
+    "joblib>=1.5.1",
+    "kneed>=0.8.5",
+    "yellowbrick>=1.5",
+    "graphviz>=0.21",
+    "termcolor>=3.1.0",
+
+    # --- task 2: MNIST (PyTorch baseline + Keras baseline comparison) ---
+    "torch>=2.15.0",
+    "torchvision>=0.20.0",
+    "tensorflow>=2.21.0",
+    "tensorboard>=2.21.0",
+
+    # --- task 3: UVR scripts (training/fine-tuning/eval, not the GUI app itself) ---
+    "soundfile>=0.12.1",
+    "onnx>=1.17.0",
+    "onnxruntime>=1.20.0",
+    "onnx2pytorch>=0.5.1",
+    "mir_eval>=0.8.1",
+
+    # --- task 4: Food-101 compression (reference model + distillation) ---
+    "transformers>=4.46.0",
+    "datasets>=3.1.0",
+    "accelerate>=1.1.0",
+    "timm>=1.0.11",
+
+    # --- task 5: Covertype (ensemble/boosting beyond scikit-learn) ---
+    "optuna==3.1.0",
+    "optuna-dashboard>=0.19.0",
+    "lightgbm>=4.5.0",
+    "xgboost>=2.1.0",
+
+    # --- task 6: Fashion-MNIST clustering (UMAP projection) ---
+    "umap-learn>=0.5.7",
+
+    # --- dev tooling ---
+    "jupyterlab>=4.4.7",
+    "ipdb>=0.13.13",
+    "pytest>=8.4.2",
+    "ruff>=0.13.1",
+    "black>=25.1.0",
+    "isort>=6.0.1",
+    "pre-commit>=4.6.0",
+    "snakeviz>=2.2.2",
+]
+
+# This laptop has no dedicated GPU (task 2/5/6 run on CPU anyway); pin torch
+# to the CPU-only wheels so the local env doesn't pull several GB of unused
+# CUDA runtime libraries. GPU work (tasks 3 and 4) runs remotely on Colab/
+# Kaggle, which already ship their own GPU-enabled torch build.
+[tool.uv.sources]
+torch = [{ index = "pytorch-cpu" }]
+torchvision = [{ index = "pytorch-cpu" }]
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

@@ -1,0 +1,24 @@
+# Environments
+.venv/
+__pycache__/
+*.pyc
+
+# Data, models, audio (downloaded by scripts, not versioned)
+data/
+models/
+*.wav
+*.mp3
+*.flac
+*.onnx
+*.ckpt
+*.pt
+*.pth
+*.h5
+
+# Jupyter / editors
+.ipynb_checkpoints/
+.vscode/
+.idea/
+
+# OS
+.DS_Store

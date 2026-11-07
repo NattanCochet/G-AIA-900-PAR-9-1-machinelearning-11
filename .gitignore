@@ -22,3 +22,7 @@ models/
 
 # OS
 .DS_Store
+
+# Archives and profiler traces (Colab uploads, perfetto)
+*.zip
+trace_*.json

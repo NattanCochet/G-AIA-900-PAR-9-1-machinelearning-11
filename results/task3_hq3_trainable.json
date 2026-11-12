@@ -1,0 +1,194 @@
+{
+  "pytorch_check": {
+    "machine": "fedora.home",
+    "versions": {
+      "python": "3.13.18",
+      "torch": "2.15.0+cpu",
+      "onnx": "1.23.2",
+      "onnx2pytorch": "0.6.0",
+      "onnxruntime": "1.31.1",
+      "numpy": "2.5.4"
+    },
+    "torch_threads": 4,
+    "seed": 0,
+    "model": {
+      "file": "UVR-MDX-NET-Inst_HQ_3.onnx",
+      "md5": "81452e3891782d67b1ce7fd05d6ac757",
+      "unchanged": true
+    },
+    "input_shape": [
+      1,
+      4,
+      3072,
+      256
+    ],
+    "input": "standard normal noise, not a real spectrogram",
+    "inspect": {
+      "ir_version": 6,
+      "opsets": {
+        "ai.onnx": 13
+      },
+      "producer": "pytorch 1.9",
+      "inputs": {
+        "input": [
+          "batch_size",
+          4,
+          3072,
+          256
+        ]
+      },
+      "outputs": {
+        "output": [
+          "batch_size",
+          4,
+          3072,
+          256
+        ]
+      },
+      "operators": {
+        "Relu": 66,
+        "Conv": 40,
+        "BatchNormalization": 27,
+        "MatMul": 22,
+        "Add": 11,
+        "ConvTranspose": 5,
+        "Mul": 5,
+        "Transpose": 2
+      },
+      "n_initializers": 220,
+      "n_values": 16684228,
+      "n_batchnorm_statistics_values": 8352,
+      "n_trainable_values_expected": 16675876
+    },
+    "settings": {
+      "uvr_hash": "55657dd70583b0fedfba5f67df11d711",
+      "source": "model_data.json",
+      "settings": {
+        "compensate": 1.022,
+        "mdx_dim_f_set": 3072,
+        "mdx_dim_t_set": 8,
+        "mdx_n_fft_scale_set": 6144,
+        "primary_stem": "Instrumental"
+      },
+      "matches_expected": true
+    },
+    "converted": {
+      "n_parameter_tensors": 166,
+      "n_parameter_values": 16675876,
+      "n_buffer_values": 16692607
+    },
+    "parity_conversion": {
+      "max_abs_diff": 8.034706115722656e-05,
+      "max_abs_reference": 9.119565963745117,
+      "relative_diff": 8.810404078071996e-06,
+      "threshold": 0.0001,
+      "identical": true
+    },
+    "train_mode_effect": {
+      "max_abs_diff": 23.362253189086914,
+      "max_abs_reference": 9.11956787109375,
+      "relative_diff": 2.561771952280561,
+      "threshold": 0.0001,
+      "identical": false
+    },
+    "gradient_step": {
+      "loss": "l1 between output and a random target",
+      "loss_value": 1.018249750137329,
+      "optimizer": "adam",
+      "lr": 1e-05,
+      "n_parameter_tensors": 166,
+      "n_without_gradient": 0,
+      "n_zero_gradient": 0,
+      "layers_without_gradient": [],
+      "parameters_without_gradient": [],
+      "n_values_without_gradient": 0,
+      "n_tensors_changed_by_step": 166,
+      "max_abs_weight_change": 1.0013580322265625e-05
+    },
+    "export": {
+      "n_initializers_changed": 166,
+      "file": "HQ3_T3-05_step1.onnx",
+      "size_bytes": 66774704,
+      "uvr_hash": "fac837f566082189e25ab946a13e6d27",
+      "ir_version": 8,
+      "opset": 17,
+      "fits_onnxruntime_1_13": true,
+      "operators": {
+        "Relu": 66,
+        "Conv": 40,
+        "BatchNormalization": 27,
+        "MatMul": 22,
+        "Add": 11,
+        "ConvTranspose": 5,
+        "Mul": 5,
+        "Transpose": 2
+      },
+      "n_values": 16684228
+    },
+    "parity_export": {
+      "max_abs_diff": 7.033348083496094e-05,
+      "max_abs_reference": 9.11915111541748,
+      "relative_diff": 7.71272237347292e-06,
+      "threshold": 0.0001,
+      "identical": true
+    },
+    "step_changed_output": {
+      "max_abs_diff": 3.2239058017730713,
+      "max_abs_reference": 9.11956787109375,
+      "relative_diff": 0.3535151936301576,
+      "threshold": 0.0001,
+      "identical": false
+    },
+    "timings_seconds": {
+      "inspect": 0.05,
+      "settings": 0.02,
+      "convert": 0.11,
+      "parity_conversion": 6.63,
+      "train_mode_effect": 3.93,
+      "gradient_step": 13.16,
+      "export": 4.74,
+      "parity_export": 8.8
+    },
+    "peak_memory_mb": 6696,
+    "passed": true
+  },
+  "onnxruntime_1_13_check": {
+    "machine": "fedora.home",
+    "versions": {
+      "python": "3.10.18",
+      "onnxruntime": "1.13.1",
+      "numpy": "1.23.5"
+    },
+    "file": "HQ3_T3-05_step1.onnx",
+    "uvr_hash": "fac837f566082189e25ab946a13e6d27",
+    "loads": true,
+    "parity_export_vs_pytorch": {
+      "max_abs_diff": 7.748603820800781e-05,
+      "max_abs_reference": 9.11915111541748,
+      "relative_diff": 8.497067021622708e-06,
+      "threshold": 0.0001,
+      "identical": true
+    },
+    "parity_original_vs_newer_onnxruntime": {
+      "max_abs_diff": 6.198883056640625e-05,
+      "max_abs_reference": 9.119565963745117,
+      "relative_diff": 6.797344392577802e-06,
+      "threshold": 0.0001,
+      "identical": true
+    },
+    "passed": true
+  },
+  "uvr_install": {
+    "file": "HQ3_T3-05_step1.onnx",
+    "uvr_hash": "fac837f566082189e25ab946a13e6d27",
+    "settings_file": "model_data/fac837f566082189e25ab946a13e6d27.json",
+    "settings": {
+      "compensate": 1.022,
+      "mdx_dim_f_set": 3072,
+      "mdx_dim_t_set": 8,
+      "mdx_n_fft_scale_set": 6144,
+      "primary_stem": "Instrumental"
+    },
+    "original_unchanged": true
+  }
+}

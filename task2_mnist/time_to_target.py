@@ -10,10 +10,17 @@ The accuracy is checked every `eval_every` optimization steps rather than once
 per epoch: an epoch is 1875 steps at batch size 32, which is too coarse to
 tell two methods apart if the target is reached early.
 
+By default the images go through a torchvision DataLoader, which converts every
+image on the CPU at each step (the bottleneck measured in
+Results/result_task_2_default.md). With --data-on-device, MNIST is converted
+once and kept as tensors on the device, and the batches are cut directly from
+them. The conversion and the transfer count in the "load" phase.
+
 Run from the repository root (-m, so that `import common` resolves):
 
     uv run python -m task2_mnist.time_to_target
     uv run python -m task2_mnist.time_to_target --batch-size 128 --lr 0.003
+    uv run python -m task2_mnist.time_to_target --data-on-device
 
 Each run appends one row to results/task2_mnist.csv (disable with --no-log).
 The first run downloads MNIST, which inflates `load_seconds`: run it once
@@ -21,8 +28,10 @@ before measuring.
 """
 
 import argparse
+import math
 import os
 import platform
+from collections.abc import Callable, Iterator
 from pathlib import Path
 
 import torch
@@ -39,6 +48,8 @@ BATCH_SIZE = 32
 LEARNING_RATE = 1e-3  # Adam's default, as in baseline.py
 EVAL_EVERY = 100  # optimization steps between two control evaluations
 MAX_EPOCHS = 20  # give up if the target is not reached by then
+
+Split = tuple[torch.Tensor, torch.Tensor]  # (images, labels)
 
 
 def get_device(name: str) -> torch.device:
@@ -111,10 +122,53 @@ def evaluate(model: nn.Module, loader: DataLoader, device: torch.device) -> floa
     return correct / len(loader.dataset)
 
 
+def to_float_images(data: torch.Tensor, device: torch.device) -> torch.Tensor:
+    """uint8 images (N, 28, 28) -> float (N, 1, 28, 28) in [0, 1] on `device`,
+    the same preprocessing as transforms.ToTensor. The transfer is done on the
+    uint8 tensor (4 times smaller) and the conversion on the device."""
+    return data.to(device).unsqueeze(1).float().div(255)
+
+
+def load_data_on_device(device: torch.device) -> tuple[Split, Split]:
+    """Whole MNIST as tensors on `device`: (train, test), each (images, labels)."""
+    train_set = datasets.MNIST(DATA_DIR, train=True, download=True)
+    test_set = datasets.MNIST(DATA_DIR, train=False, download=True)
+    return (
+        (to_float_images(train_set.data, device), train_set.targets.to(device)),
+        (to_float_images(test_set.data, device), test_set.targets.to(device)),
+    )
+
+
+def batches_on_device(
+    images: torch.Tensor, labels: torch.Tensor, batch_size: int
+) -> Iterator[Split]:
+    """Same sampling as DataLoader(shuffle=True), repeated forever: one random
+    permutation per epoch, cut in batches (the last one may be smaller)."""
+    while True:
+        permutation = torch.randperm(len(images), device=images.device)
+        for start in range(0, len(images), batch_size):
+            indices = permutation[start : start + batch_size]
+            yield images[indices], labels[indices]
+
+
+@torch.no_grad()
+def evaluate_on_device(
+    model: nn.Module, images: torch.Tensor, labels: torch.Tensor, chunk: int = 2048
+) -> float:
+    """Test accuracy when the whole test set already lives on the device."""
+    model.eval()
+    correct = 0
+    for start in range(0, len(images), chunk):
+        predictions = model(images[start : start + chunk]).argmax(dim=1)
+        correct += (predictions == labels[start : start + chunk]).sum()
+    return correct.item() / len(images)
+
+
 def train_until_target(
     model: nn.Module,
-    train_loader: DataLoader,
-    test_loader: DataLoader,
+    batches: Iterator[Split],
+    steps_per_epoch: int,
+    evaluate_fn: Callable[[], float],
     device: torch.device,
     learning_rate: float,
     target: float,
@@ -125,12 +179,13 @@ def train_until_target(
     """Train by chunks of `eval_every` steps, checking the test accuracy after
     each chunk, until `target` is reached or `max_epochs` epochs are spent.
 
+    `batches` yields (images, labels) forever, `evaluate_fn()` returns the
+    current test accuracy of `model`.
     Time spent in a chunk goes to the "train" phase, the check to "eval".
     """
     optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     criterion = nn.CrossEntropyLoss()
-    batches = cycle(train_loader)
-    max_steps = max_epochs * len(train_loader)
+    max_steps = max_epochs * steps_per_epoch
 
     steps, accuracy = 0, 0.0
     while steps < max_steps:
@@ -146,7 +201,7 @@ def train_until_target(
         steps += eval_every
 
         with timer.phase("eval"):
-            accuracy = evaluate(model, test_loader, device)
+            accuracy = evaluate_fn()
         if accuracy >= target:
             break
 
@@ -158,16 +213,13 @@ def train_until_target(
 
 
 def measure_inference(
-    model: nn.Module,
-    test_loader: DataLoader,
-    device: torch.device,
-    timer: PhaseTimer,
+    evaluate_fn: Callable[[], float], device: torch.device, timer: PhaseTimer
 ) -> None:
-    """Time one full pass over the test set (data loader included), after a
-    warm-up pass."""
-    evaluate(model, test_loader, device)
+    """Time one full pass over the test set (data loader included, if any),
+    after a warm-up pass."""
+    evaluate_fn()
     with timer.phase("inference"):
-        evaluate(model, test_loader, device)
+        evaluate_fn()
         synchronize(device)
 
 
@@ -179,6 +231,7 @@ def run_experiment(
     target: float = TARGET_ACCURACY,
     eval_every: int = EVAL_EVERY,
     max_epochs: int = MAX_EPOCHS,
+    data_on_device: bool = False,
     device: torch.device | None = None,
     log: bool = True,
 ) -> dict:
@@ -189,15 +242,34 @@ def run_experiment(
 
     timer = PhaseTimer()
     with timer.phase("load"):
-        train_loader, test_loader = load_data(batch_size)
+        if data_on_device:
+            (x_train, y_train), (x_test, y_test) = load_data_on_device(device)
+            synchronize(device)  # the transfer counts as loading time
+            batches = batches_on_device(x_train, y_train, batch_size)
+            steps_per_epoch = math.ceil(len(x_train) / batch_size)
+        else:
+            train_loader, test_loader = load_data(batch_size)
+            batches = cycle(train_loader)
+            steps_per_epoch = len(train_loader)
     with timer.phase("setup"):
         model = CourseBaselineCNN().to(device)  # also starts CUDA if used
         synchronize(device)
 
+    if data_on_device:
+
+        def evaluate_fn() -> float:
+            return evaluate_on_device(model, x_test, y_test)
+
+    else:
+
+        def evaluate_fn() -> float:
+            return evaluate(model, test_loader, device)
+
     outcome = train_until_target(
         model,
-        train_loader,
-        test_loader,
+        batches,
+        steps_per_epoch,
+        evaluate_fn,
         device,
         learning_rate,
         target,
@@ -205,7 +277,7 @@ def run_experiment(
         max_epochs,
         timer,
     )
-    measure_inference(model, test_loader, device, timer)
+    measure_inference(evaluate_fn, device, timer)
 
     # complete learning procedure, without the control evaluations
     learning_seconds = timer.total("load", "setup", "train")
@@ -230,6 +302,7 @@ def run_experiment(
                 "optimizer": "adam",
                 "learning_rate": learning_rate,
                 "batch_size": batch_size,
+                "data_on_device": data_on_device,
                 "target": target,
                 "reached": outcome["reached"],
                 "steps": outcome["steps"],
@@ -255,6 +328,11 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--max-epochs", type=int, default=MAX_EPOCHS)
     parser.add_argument("--device", choices=["auto", "cpu", "cuda"], default="auto")
     parser.add_argument(
+        "--data-on-device",
+        action="store_true",
+        help="keep the whole dataset as tensors on the device (no DataLoader)",
+    )
+    parser.add_argument(
         "--no-log", action="store_true", help="do not append to the results CSV"
     )
     return parser.parse_args()
@@ -264,6 +342,7 @@ def main() -> None:
     args = parse_args()
     device = get_device(args.device)
     print(f"hardware: {hardware_info(device)}")
+    print(f"data: {'on device' if args.data_on_device else 'DataLoader'}")
 
     result = run_experiment(
         seed=args.seed,
@@ -272,6 +351,7 @@ def main() -> None:
         target=args.target,
         eval_every=args.eval_every,
         max_epochs=args.max_epochs,
+        data_on_device=args.data_on_device,
         device=device,
         log=not args.no_log,
     )

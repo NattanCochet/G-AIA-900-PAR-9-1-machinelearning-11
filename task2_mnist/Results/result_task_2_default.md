@@ -84,5 +84,26 @@ Trois mesures séparées sur 300 pas (batch 32, même session T4) :
 - **Hypothèse confirmée** : chargement + copie font environ **68 %** d'un pas, le calcul seulement 28 %.
 - Les étapes s'additionnent presque exactement (3,78 + 1,58 = 5,36 ms pour 5,6 mesurés) : le CPU et le GPU ne travaillent pas en parallèle.
 - Le chargement coûte 0,097 ms par image, comme à l'inférence : c'est la même cause.
-- **Prévision, à vérifier** : avec MNIST chargé une fois sur le GPU, un pas ne coûterait plus que le calcul (environ 1,6 à 1,8 ms), soit un gain proche de ×3.
-- **Prochaine étape** : implémenter les données sur GPU et mesurer sur 3 à 5 graines dans la même session.
+- **Prévision** : avec MNIST chargé une fois sur le GPU, un pas ne coûterait plus que le calcul (environ 1,6 à 1,8 ms), soit un gain proche de ×3. Mesuré ci-dessous : ×2,2 sur le temps d'apprentissage.
+
+## Correction : MNIST chargé sur le GPU (`--data-on-device`)
+
+Les images sont converties une fois et gardées en tenseurs sur le GPU, et les batchs sont tirés directement dessus (même prétraitement que `ToTensor`, vérifié bit pour bit). 5 graines (0 à 4) par mode, lancées à tour de rôle dans la même session Colab (Tesla T4), réglages par défaut.
+
+| | DataLoader | Données sur GPU | Gain |
+|---|---|---|---|
+| **Temps d'apprentissage** (chargement + setup + entraînement) | 9,3 s (± 0,7) | 4,2 s (± 0,6) | **×2,2** |
+| Entraînement seul | 9,0 s | 3,9 s | ×2,3 |
+| Temps par pas | 5,15 ms | 1,89 ms | ×2,7 |
+| Pas pour atteindre 0,97 | 1760 (± 182) | 2060 (± 313) | +17 % |
+| Chargement | 0,07 s | 0,29 s | |
+| Inférence (10 000 images) | 1,0 s | 0,020 s | ×50 |
+| Évaluations de contrôle (total par run, exclues) | 16,9 s | 0,55 s | ×31 |
+| Test accuracy à l'arrêt | 0,9701 à 0,9719 | 0,9700 à 0,9718 | identique |
+
+- **Le goulot est levé** : temps d'apprentissage divisé par 2,2, sans perte de précision (les 10 runs atteignent 0,97).
+- **Un peu sous la prévision (×3)** : un pas coûte 1,89 ms au lieu de 1,6 à 1,8 ms (le tirage des batchs sur le GPU a un petit coût, non mesuré), et les runs sur GPU demandent 17 % de pas en plus. Cet écart de pas est probablement du bruit : il n'est pas significatif avec 5 graines (t de Welch ≈ 1,85).
+- Le chargement passe de 0,07 à 0,29 s (conversion + transfert), compté dans le temps d'apprentissage.
+- L'inférence et les évaluations de contrôle sont 50 et 31 fois plus rapides : c'est la même cause, le chargement des images.
+- Les résultats sont reproductibles : les graines 0, 1 et 2 s'arrêtent aux mêmes pas que dans la session précédente.
+- **Prochaine étape** : balayer le learning rate puis le batch size, maintenant que le chargement ne domine plus.

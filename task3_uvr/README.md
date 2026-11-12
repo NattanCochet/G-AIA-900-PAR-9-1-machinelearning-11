@@ -1,5 +1,48 @@
 # Task 3 · Ultimate Vocal Remover (UVR)
 
+## Installation
+
+1. Clone UVR at tag v5.6 **outside this repository**:
+
+   ```bash
+   git clone --branch v5.6 --depth 1 https://github.com/Anjok07/ultimatevocalremovergui.git
+   ```
+
+2. Install the system dependencies. On Fedora, check which ffmpeg package is
+   installed (`ffmpeg` from RPM Fusion or `ffmpeg-free` from Fedora):
+
+   ```bash
+   rpm -q ffmpeg ffmpeg-free
+   ```
+
+   Install one of them if neither is present.
+
+3. Deactivate this repository's virtual environment, otherwise `uv` warns
+   about `VIRTUAL_ENV`:
+
+   ```bash
+   deactivate
+   ```
+
+4. Copy the three files from `task3_uvr/uvr_env/` (`pyproject.toml`,
+   `uv.lock`, `.python-version`) to the UVR root, then install and launch from
+   there:
+
+   ```bash
+   cp task3_uvr/uvr_env/{pyproject.toml,uv.lock,.python-version} /path/to/ultimatevocalremovergui/
+   cd /path/to/ultimatevocalremovergui
+   uv sync
+   uv run UVR.py
+   ```
+
+5. If UVR crashes at startup, apply the Wayland fix from
+   [Known issues](#known-issues).
+
+6. Download **UVR-MDX-NET Inst HQ 3** from the GUI download center.
+
+7. For the benchmark model, copy the course's `project/uvr_my_models` folder
+   to the UVR root, then run `1_create_benchmark_model.py`.
+
 ## Setup
 
 - UVR v5.6 is cloned **outside this repository** and is not versioned here.

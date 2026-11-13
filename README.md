@@ -56,3 +56,22 @@ student plan: more compute units / better GPU priority than the free tier).
    `common.checkpointing.save_checkpoint`/`load_checkpoint` every epoch, with
    the checkpoint path under the mounted Drive folder, and re-run the
    notebook's setup cells after any disconnect to resume where you left off.
+
+### Task 4: Food-101 reference model and distillation
+
+From the repository root, fine-tune the ResNet-50 reference model first, then
+distill it into the smaller MobileNetV3 model:
+
+```bash
+uv run python -m task4_food101.train --mode teacher \
+  --checkpoint /content/drive/MyDrive/ml_tek5_checkpoints/food101_teacher.pt
+uv run python -m task4_food101.train --mode student \
+  --teacher-checkpoint /content/drive/MyDrive/ml_tek5_checkpoints/food101_teacher.pt \
+  --checkpoint /content/drive/MyDrive/ml_tek5_checkpoints/food101_student.pt
+```
+
+Both runs use a seeded 90/10 train/validation split, save a resumable
+checkpoint after every epoch, and evaluate once on the held-out Food-101 test
+split. Resume an interrupted run by adding `--resume` to the same command.
+Accuracy, cumulative training time and parameter count are recorded in
+`results/task4_food101.csv`.

@@ -1,0 +1,100 @@
+{
+  "musdb7": {
+    "date": "2026-11-13",
+    "expected": {
+      "counts": {
+        "train": 94,
+        "test": 50
+      },
+      "sample_rate": 44100,
+      "channels": 2,
+      "max_abs_residual": 0.001,
+      "max_relative_residual_energy": 1e-06
+    },
+    "splits": {
+      "train": {
+        "n_clips": 94,
+        "n_artists": 66,
+        "n_clips_with_anomalies": 0,
+        "subtypes": [
+          "PCM_16"
+        ],
+        "duration_s": {
+          "min": 6.8034467120181406,
+          "max": 6.8034467120181406,
+          "total": 639.5239909297052
+        },
+        "max_abs_residual": 0.0,
+        "max_abs_residual_clip": "A Classic Education - NightOwl",
+        "max_relative_residual_energy": 0.0,
+        "max_peak_abs_mixture": 1.0,
+        "clips_reaching_full_scale": [
+          "Giselle - Moss",
+          "Jay Menon - Through My Eyes",
+          "Music Delta - Beatles",
+          "The Districts - Vermont"
+        ]
+      },
+      "test": {
+        "n_clips": 50,
+        "n_artists": 45,
+        "n_clips_with_anomalies": 0,
+        "subtypes": [
+          "PCM_16"
+        ],
+        "duration_s": {
+          "min": 6.8034467120181406,
+          "max": 6.8034467120181406,
+          "total": 340.17233560090705
+        },
+        "max_abs_residual": 0.0,
+        "max_abs_residual_clip": "AM Contra - Heart Peripheral",
+        "max_relative_residual_energy": 0.0,
+        "max_peak_abs_mixture": 0.992523193359375,
+        "clips_reaching_full_scale": []
+      }
+    },
+    "anomalies": [],
+    "artist_overlap": {
+      "n_train_artists": 66,
+      "n_test_artists": 45,
+      "shared_artists": {
+        "Hollow Ground": {
+          "train": [
+            "Hollow Ground - Left Blind"
+          ],
+          "test": [
+            "Hollow Ground - Ill Fate"
+          ]
+        },
+        "Skelpolu": {
+          "train": [
+            "Skelpolu - Human Mistakes",
+            "Skelpolu - Together Alone"
+          ],
+          "test": [
+            "Skelpolu - Resurrection"
+          ]
+        },
+        "The Long Wait": {
+          "train": [
+            "The Long Wait - Back Home To Blue"
+          ],
+          "test": [
+            "The Long Wait - Dark Horses"
+          ]
+        },
+        "Triviul": {
+          "train": [
+            "Triviul - Angelsaint",
+            "Triviul - Dorothy"
+          ],
+          "test": [
+            "Triviul feat. The Fiend - Widow"
+          ]
+        }
+      }
+    },
+    "ok": true
+  }
+}

@@ -14,6 +14,7 @@ models/
 *.pt
 *.pth
 *.h5
+task3_uvr/artifacts/
 
 # Jupyter / editors
 .ipynb_checkpoints/

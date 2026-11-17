@@ -1,0 +1,65 @@
+{
+  "UVR-MDX-NET-Inst_HQ_3 | test/Al James - Schoolboy Facination": {
+    "clip": "test/Al James - Schoolboy Facination",
+    "model": "UVR-MDX-NET-Inst_HQ_3",
+    "model_hash": "55657dd70583b0fedfba5f67df11d711",
+    "machine": "fedora.home",
+    "versions": {
+      "onnxruntime": "1.31.1",
+      "torch": "2.15.0+cpu",
+      "numpy": "2.5.4",
+      "soundfile": "0.14.0"
+    },
+    "stems": {
+      "vocals": {
+        "gui_file": "1_mixture_UVR-MDX-NET-Inst_HQ_3_(Vocals).wav",
+        "role": "secondary",
+        "float_vs_gui": {
+          "max_abs_diff": 3.062933683395386e-05,
+          "max_abs_diff_lsb": 1.003662109375,
+          "samples_differing": 599978,
+          "sdr_vs_gui_db": 72.3309249413946
+        },
+        "pcm16_vs_gui": {
+          "max_abs_diff": 3.0517578125e-05,
+          "max_abs_diff_lsb": 1.0,
+          "samples_differing": 687,
+          "sdr_vs_gui_db": 96.33709374286616
+        },
+        "samples_above_full_scale": 0,
+        "sdr_vs_ground_truth_db": {
+          "gui": 10.447101102729462,
+          "pipeline": 10.447406396769797,
+          "pipeline_match_freq_cut": 10.50774806287874
+        },
+        "match_freq_cut_vs_gui": {
+          "max_abs_diff": 0.011131726205348969,
+          "max_abs_diff_lsb": 364.764404296875,
+          "samples_differing": 600064,
+          "sdr_vs_gui_db": 28.42670868545113
+        }
+      },
+      "accompaniment": {
+        "gui_file": "1_mixture_UVR-MDX-NET-Inst_HQ_3_(Instrumental).wav",
+        "role": "primary",
+        "float_vs_gui": {
+          "max_abs_diff": 3.065913915634155e-05,
+          "max_abs_diff_lsb": 1.004638671875,
+          "samples_differing": 600015,
+          "sdr_vs_gui_db": 73.42654955773487
+        },
+        "pcm16_vs_gui": {
+          "max_abs_diff": 3.0517578125e-05,
+          "max_abs_diff_lsb": 1.0,
+          "samples_differing": 693,
+          "sdr_vs_gui_db": 97.41026864304656
+        },
+        "samples_above_full_scale": 0,
+        "sdr_vs_ground_truth_db": {
+          "gui": 11.563969821791753,
+          "pipeline": 11.563674212581631
+        }
+      }
+    }
+  }
+}

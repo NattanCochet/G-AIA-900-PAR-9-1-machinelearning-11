@@ -17,7 +17,8 @@ remotely on Colab/Kaggle instead).
 Run any script or notebook with:
 
 ```bash
-uv run python -m task2_mnist.baseline   # -m, so `import common` resolves
+# From the repository root
+uv run python -m task2_mnist.baseline
 uv run jupyter lab
 ```
 
@@ -40,19 +41,24 @@ each task's scripts re-download/regenerate what they need.
 
 ## Remote GPU (tasks 3 and 4)
 
-Neither task 2/5/6's laptop nor this sandbox has a GPU PyTorch/TensorFlow can
+The laptop used for tasks 2, 5 and 6 has no GPU that PyTorch/TensorFlow can
 use (no CUDA; the AMD GPU isn't on ROCm's supported hardware list), so UVR
 (task 3) and Food-101 (task 4) training runs on **Google Colab** (Google One
 student plan: more compute units / better GPU priority than the free tier).
 
-1. Open [common/colab_remote_gpu_setup.ipynb](common/colab_remote_gpu_setup.ipynb)
+1. The repo is private, so the notebook needs a token to clone it. Create a
+   GitHub fine-grained personal access token limited to this repository only,
+   with read-only **Contents** access, and store it in Colab's **Secrets**
+   panel (key icon in the left sidebar) as `GITHUB_TOKEN`, with notebook
+   access enabled. Never paste the token into the notebook itself.
+2. Open [common/colab_remote_gpu_setup.ipynb](common/colab_remote_gpu_setup.ipynb)
    in Colab, with **Runtime > Change runtime type > GPU**.
-2. Run it top to bottom: it reports the assigned GPU, mounts Drive (for
+3. Run it top to bottom: it reports the assigned GPU, mounts Drive (for
    persistent checkpoints — Colab's local disk is wiped between sessions),
    clones this repo, installs the task 3/4 extras on top of Colab's
    preinstalled CUDA-matched PyTorch, and proves a training run can be
    interrupted and resumed without losing progress (`common/checkpointing.py`).
-3. In your own task 3/4 training scripts, call
+4. In your own task 3/4 training scripts, call
    `common.checkpointing.save_checkpoint`/`load_checkpoint` every epoch, with
    the checkpoint path under the mounted Drive folder, and re-run the
    notebook's setup cells after any disconnect to resume where you left off.

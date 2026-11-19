@@ -7,11 +7,13 @@ split and a timing are mandatory for every reported score).
 
 import csv
 import json
+import socket
 from datetime import UTC, datetime
 from pathlib import Path
 
 FIELDNAMES = [
     "date",
+    "machine",
     "task",
     "seed",
     "config",
@@ -49,6 +51,7 @@ def log_result(
 
     row = {
         "date": datetime.now(UTC).isoformat(timespec="seconds"),
+        "machine": socket.gethostname(),
         "task": task,
         "seed": seed,
         "config": json.dumps(config or {}, sort_keys=True),

@@ -73,6 +73,14 @@ def test_frontier_excludes_dominated_points():
 
 def test_pruning_retrains_and_saves_dense_zero_weights(tmp_path, monkeypatch):
     torch.set_num_threads(1)
+    moves = []
+    original_to = nn.Module.to
+
+    def track_to(model, *args, **kwargs):
+        moves.append((model, args))
+        return original_to(model, *args, **kwargs)
+
+    monkeypatch.setattr(nn.Module, "to", track_to)
     data = TensorDataset(
         torch.randn(2, 3, 32, 32), torch.tensor([0, 1]), torch.arange(2)
     )
@@ -101,6 +109,8 @@ def test_pruning_retrains_and_saves_dense_zero_weights(tmp_path, monkeypatch):
             resume=False,
         )
     )
+    expected_device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    assert any(args == (expected_device,) for _, args in moves)
     model, metadata = load_model(output)
     weights = [
         m.weight for m in model.modules() if isinstance(m, (nn.Conv2d, nn.Linear))

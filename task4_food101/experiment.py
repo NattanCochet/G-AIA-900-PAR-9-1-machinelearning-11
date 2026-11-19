@@ -232,6 +232,7 @@ def train(args):
             or metadata["seed"] != args.seed
         ):
             raise ValueError("Starting checkpoint must be a matching float model")
+    model.to(device)
     targets = pruning_targets(model)
     if args.prune:
         prune.global_unstructured(

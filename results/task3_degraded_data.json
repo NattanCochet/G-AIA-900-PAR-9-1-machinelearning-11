@@ -1,0 +1,182 @@
+{
+  "phone": {
+    "reproduction": {
+      "date": "2026-11-20",
+      "machine": "fedora.home",
+      "versions": {
+        "numpy": "2.5.4",
+        "scipy": "1.18.1",
+        "soundfile": "0.14.0"
+      },
+      "compared_with": "musdb7_phone",
+      "n_clips": 144,
+      "max_diff_lsb": 1,
+      "worst_clip": "train/A Classic Education - NightOwl",
+      "worst_stem": "vocals",
+      "differing_samples": 71691,
+      "total_samples": 259227648,
+      "settings_identical": true,
+      "settings_errors": []
+    },
+    "check": {
+      "date": "2026-11-20",
+      "max_abs_residual_allowed": 6.103515625e-05,
+      "folder": "musdb7_phone",
+      "splits": {
+        "train": {
+          "n_clips": 94,
+          "n_clips_with_anomalies": 0,
+          "max_abs_residual": 3.0517578125e-05,
+          "max_abs_residual_lsb": 1.0,
+          "max_abs_residual_clip": "A Classic Education - NightOwl",
+          "max_peak_abs": {
+            "mixture": 0.8216552734375,
+            "vocals": 0.685577392578125,
+            "accompaniment": 0.6158447265625
+          },
+          "median_level_drop_db": {
+            "mixture": 5.528106754660124,
+            "vocals": 3.069791982833492,
+            "accompaniment": 7.144294902524699
+          }
+        },
+        "test": {
+          "n_clips": 50,
+          "n_clips_with_anomalies": 0,
+          "max_abs_residual": 3.0517578125e-05,
+          "max_abs_residual_lsb": 1.0,
+          "max_abs_residual_clip": "AM Contra - Heart Peripheral",
+          "max_peak_abs": {
+            "mixture": 0.63311767578125,
+            "vocals": 0.64617919921875,
+            "accompaniment": 0.549652099609375
+          },
+          "median_level_drop_db": {
+            "mixture": 5.694386897940266,
+            "vocals": 2.9421846598462773,
+            "accompaniment": 8.02040947076829
+          }
+        }
+      },
+      "anomalies": [],
+      "ranges": {
+        "rt60": [
+          0.3,
+          1.0
+        ],
+        "wet": [
+          0.2,
+          0.5
+        ],
+        "low_cut": [
+          100.0,
+          300.0
+        ],
+        "high_cut": [
+          3000.0,
+          5000.0
+        ]
+      },
+      "observed_ranges": {
+        "rt60": [
+          0.3130246206130552,
+          0.9988359834238087
+        ],
+        "wet": [
+          0.20013334687642076,
+          0.49988702137380614
+        ],
+        "low_cut": [
+          101.01917681673551,
+          298.6442433897465
+        ],
+        "high_cut": [
+          3006.306313416782,
+          4978.989922167372
+        ]
+      },
+      "ok": true
+    }
+  },
+  "narrowband": {
+    "check": {
+      "date": "2026-11-20",
+      "max_abs_residual_allowed": 6.103515625e-05,
+      "folder": "musdb7_narrowband",
+      "splits": {
+        "train": {
+          "n_clips": 94,
+          "n_clips_with_anomalies": 0,
+          "max_abs_residual": 3.0517578125e-05,
+          "max_abs_residual_lsb": 1.0,
+          "max_abs_residual_clip": "A Classic Education - NightOwl",
+          "max_peak_abs": {
+            "mixture": 0.651824951171875,
+            "vocals": 0.604705810546875,
+            "accompaniment": 0.475921630859375
+          },
+          "median_level_drop_db": {
+            "mixture": 6.824586376910223,
+            "vocals": 3.671457261286136,
+            "accompaniment": 9.113221187609085
+          }
+        },
+        "test": {
+          "n_clips": 50,
+          "n_clips_with_anomalies": 0,
+          "max_abs_residual": 3.0517578125e-05,
+          "max_abs_residual_lsb": 1.0,
+          "max_abs_residual_clip": "AM Contra - Heart Peripheral",
+          "max_peak_abs": {
+            "mixture": 0.617095947265625,
+            "vocals": 0.53448486328125,
+            "accompaniment": 0.43817138671875
+          },
+          "median_level_drop_db": {
+            "mixture": 7.459562800483241,
+            "vocals": 3.673940812851965,
+            "accompaniment": 10.305884766081725
+          }
+        }
+      },
+      "anomalies": [],
+      "ranges": {
+        "rt60": [
+          0.8,
+          1.5
+        ],
+        "wet": [
+          0.4,
+          0.7
+        ],
+        "low_cut": [
+          300.0,
+          300.0
+        ],
+        "high_cut": [
+          3400.0,
+          3400.0
+        ]
+      },
+      "observed_ranges": {
+        "rt60": [
+          0.8081426907647447,
+          1.4991549861262414
+        ],
+        "wet": [
+          0.4035899787121194,
+          0.6997473609535585
+        ],
+        "low_cut": [
+          300.0,
+          300.0
+        ],
+        "high_cut": [
+          3400.0,
+          3400.0
+        ]
+      },
+      "ok": true
+    }
+  }
+}

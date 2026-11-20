@@ -76,8 +76,16 @@ def list_clips(split_dir: Path) -> tuple[list[str], list[str]]:
     return clips, others
 
 
-def check_clip(clip_dir: Path) -> dict:
-    """Check one clip folder; 'anomalies' is empty when everything is fine."""
+def check_clip(
+    clip_dir: Path,
+    max_abs_residual: float = MAX_ABS_RESIDUAL,
+    allowed_extra: tuple[str, ...] = (),
+) -> dict:
+    """Check one clip folder; 'anomalies' is empty when everything is fine.
+
+    max_abs_residual: limit on |mixture - vocals - accompaniment|.
+    allowed_extra: other file names expected in the folder.
+    """
     report = {"clip": clip_dir.name, "anomalies": []}
     anomalies = report["anomalies"]
 
@@ -85,9 +93,8 @@ def check_clip(clip_dir: Path) -> dict:
     if missing:
         anomalies.append(f"missing {', '.join(missing)}")
         return report
-    extra = sorted(
-        p.name for p in clip_dir.iterdir() if p.name not in {f"{s}.wav" for s in STEMS}
-    )
+    expected = {f"{s}.wav" for s in STEMS} | set(allowed_extra)
+    extra = sorted(p.name for p in clip_dir.iterdir() if p.name not in expected)
     if extra:
         anomalies.append(f"unexpected files {extra}")
 
@@ -129,7 +136,7 @@ def check_clip(clip_dir: Path) -> dict:
         report["relative_residual_energy"] = ratio
         if ratio > MAX_RELATIVE_RESIDUAL_ENERGY:
             anomalies.append(f"residual energy {to_db(ratio):.1f} dB of mixture")
-    if report["max_abs_residual"] > MAX_ABS_RESIDUAL:
+    if report["max_abs_residual"] > max_abs_residual:
         anomalies.append(f"max abs residual {report['max_abs_residual']:.2e}")
     report["peak_abs_mixture"] = float(np.max(np.abs(mix)))
     return report

@@ -11,7 +11,7 @@ phone recording", not "restore the clean sound").
 
 Run from the repository root:
 
-    uv run python -m task3_uvr.degradation make phone
+    uv run python -m task3_uvr.degradation make narrowband
     uv run python -m task3_uvr.degradation verify phone
 
 The musdb7 folder comes from --data-dir or ML_TEK5_MUSDB7_DIR. A variant is
@@ -53,6 +53,14 @@ VARIANTS = {
         "wet": (0.2, 0.5),  # share of reverberated sound
         "low_cut": (100.0, 300.0),  # Hz, phone microphones lose the low bass
         "high_cut": (3000.0, 5000.0),  # Hz, and the high frequencies
+    },
+    # A phone call: the fixed 300-3400 Hz telephone band, in a larger and
+    # more reverberant room than "phone".
+    "narrowband": {
+        "rt60": (0.8, 1.5),
+        "wet": (0.4, 0.7),
+        "low_cut": (300.0, 300.0),
+        "high_cut": (3400.0, 3400.0),
     },
 }
 

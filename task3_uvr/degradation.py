@@ -128,6 +128,17 @@ def read_float32(path: Path) -> np.ndarray:
     return sf.read(str(path), dtype="float32", always_2d=True)[0]
 
 
+def clip_settings(
+    clip_name: str, variant: str
+) -> tuple[list[int], dict[str, float], np.ndarray]:
+    """Seed, settings and impulse response of one clip, drawn as the course does."""
+    seed = clip_seed(clip_name, variant)
+    rng = np.random.default_rng(seed)
+    params = draw_params(rng, VARIANTS[variant])
+    ir = make_impulse_response(params["rt60"], rng)
+    return seed, params, ir
+
+
 def degrade_clip(clip_dir: Path, variant: str) -> tuple[dict[str, np.ndarray], dict]:
     """Degraded stems and mixture of one clean clip, with their metadata.
 
@@ -136,10 +147,7 @@ def degrade_clip(clip_dir: Path, variant: str) -> tuple[dict[str, np.ndarray], d
     common gain (at most 1) so the loudest of the three peaks at 0.9.
     """
     ranges = VARIANTS[variant]
-    seed = clip_seed(clip_dir.name, variant)
-    rng = np.random.default_rng(seed)
-    params = draw_params(rng, ranges)
-    ir = make_impulse_response(params["rt60"], rng)
+    seed, params, ir = clip_settings(clip_dir.name, variant)
 
     stems = {s: degrade(read_float32(clip_dir / f"{s}.wav"), params, ir) for s in STEMS}
     n = min(len(a) for a in stems.values())

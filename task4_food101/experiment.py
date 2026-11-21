@@ -1,10 +1,17 @@
-"""Food-101 compression experiments. See the task 4 section of the README."""
+"""Food-101 compression experiments. See the task 4 section of the README.
+
+Commands: cache (teacher logits), train (baseline / distillation / pruning),
+compress (dynamic / static / QAT quantization), measure (accuracy, size, latency).
+"""
 
 import argparse
+import copy
 import csv
+import gzip
 import hashlib
 import io
 import json
+import os
 import platform
 import statistics
 import time
@@ -24,6 +31,9 @@ from common import set_seed
 
 REFERENCE = "skylord/swin-finetuned-food101"
 REFERENCE_REVISION = "490c9d67095b36fb709dbd553946e8eb5d97390c"
+# The quantization-ready torchvision classes run unchanged as float models, which is
+# what lets static quantization and QAT start from the same checkpoints.
+# EfficientNet has no quantizable torchvision class, so it cannot be statically quantized.
 ARCHITECTURES = {
     "mobilenet_v3_large": (
         quant_models.mobilenet_v3_large,
@@ -32,8 +42,11 @@ ARCHITECTURES = {
     "efficientnet_b0": (models.efficientnet_b0, models.EfficientNet_B0_Weights.DEFAULT),
     "resnet18": (quant_models.resnet18, models.ResNet18_Weights.DEFAULT),
 }
+FLOAT_METHODS = ("baseline", "distilled", "pruned")
 MEAN = (0.485, 0.456, 0.406)
 STD = (0.229, 0.224, 0.225)
+# No augmentation on purpose: the cached teacher logits were computed on the
+# un-augmented image, so an augmented view would get the wrong soft targets.
 TRANSFORM = transforms.Compose(
     [
         transforms.Resize(256),
@@ -56,6 +69,8 @@ RESULT_FIELDS = [
     "method",
     "architecture",
     "artifact",
+    "gzip_mb",
+    "sparsity",
 ]
 
 
@@ -72,8 +87,6 @@ def make_model(architecture: str, pretrained: bool = False) -> nn.Module:
     model = constructor(weights=weights if pretrained else None)
     if architecture == "resnet18":
         model.fc = nn.Linear(model.fc.in_features, 101)
-    elif architecture == "mobilenet_v3_large":
-        model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, 101)
     else:
         model.classifier[-1] = nn.Linear(model.classifier[-1].in_features, 101)
     return model
@@ -213,6 +226,21 @@ def pruning_targets(model):
     ]
 
 
+def dense_state(model) -> dict:
+    """State dict with pruning masks folded into the weights (zeros stored densely)."""
+    current = model.state_dict()
+    state = {}
+    for key, value in current.items():
+        if key.endswith("_mask"):
+            continue
+        if key.endswith("_orig"):
+            prefix = key[: -len("_orig")]
+            state[prefix] = (value * current[prefix + "_mask"]).cpu()
+        else:
+            state[key] = value.cpu()
+    return state
+
+
 def train(args):
     set_seed(args.seed)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -228,15 +256,14 @@ def train(args):
         model, metadata = load_model(args.start)
         if (
             metadata["architecture"] != args.architecture
-            or metadata["method"] not in ("baseline", "distilled", "pruned")
+            or metadata["method"] not in FLOAT_METHODS
             or metadata["seed"] != args.seed
         ):
             raise ValueError("Starting checkpoint must be a matching float model")
     model.to(device)
-    targets = pruning_targets(model)
     if args.prune:
         prune.global_unstructured(
-            targets, pruning_method=prune.L1Unstructured, amount=args.prune
+            pruning_targets(model), pruning_method=prune.L1Unstructured, amount=args.prune
         )
     optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
     best = -1.0
@@ -267,6 +294,14 @@ def train(args):
         if device.type == "cuda":
             torch.cuda.set_rng_state_all(saved["cuda_rng"])
     method = "pruned" if args.prune else ("distilled" if args.alpha else "baseline")
+    metadata = {
+        "architecture": args.architecture,
+        "method": method,
+        "seed": args.seed,
+        "alpha": args.alpha,
+        "temperature": args.temperature,
+        "prune": args.prune,
+    }
     for epoch in range(start_epoch, args.epochs):
         model.train()
         for images, labels, indices in batches:
@@ -293,47 +328,16 @@ def train(args):
         if top1 > best:
             best = top1
             if args.prune:
-                state = {}
-                for key, value in model.state_dict().items():
-                    if key.endswith("_mask"):
-                        continue
-                    if key.endswith("_orig"):
-                        prefix = key[:-5]
-                        state[prefix] = (
-                            value * model.state_dict()[prefix + "_mask"]
-                        ).cpu()
-                    else:
-                        state[key] = value.cpu()
                 args.output.parent.mkdir(parents=True, exist_ok=True)
                 torch.save(
                     {
-                        "state": state,
-                        "metadata": {
-                            "architecture": args.architecture,
-                            "method": method,
-                            "seed": args.seed,
-                            "alpha": args.alpha,
-                            "temperature": args.temperature,
-                            "prune": args.prune,
-                            "validation_top1": best,
-                        },
+                        "state": dense_state(model),
+                        "metadata": {**metadata, "validation_top1": best},
                     },
                     args.output,
                 )
             else:
-                save_model(
-                    args.output,
-                    model,
-                    {
-                        "architecture": args.architecture,
-                        "method": method,
-                        "seed": args.seed,
-                        "alpha": args.alpha,
-                        "temperature": args.temperature,
-                        "prune": args.prune,
-                        "validation_top1": best,
-                    },
-                )
+                save_model(args.output, model, {**metadata, "validation_top1": best})
         torch.save(
             {
                 "model": model.state_dict(),
@@ -352,12 +356,14 @@ def train(args):
 
 def quantize(model, method: str, calibration=None):
     if method == "dynamic":
+        # Only nn.Linear is converted: for convolutional nets that is just the classifier.
         return torch.ao.quantization.quantize_dynamic(
             model.eval(), {nn.Linear}, dtype=torch.qint8
         )
     if not hasattr(model, "fuse_model"):
         raise ValueError(
-            "Static quantization and QAT require a quantizable torchvision model"
+            "Static quantization and QAT require a quantizable torchvision model "
+            "(mobilenet_v3_large or resnet18); efficientnet_b0 is not supported"
         )
     torch.backends.quantized.engine = "x86"
     model.eval()
@@ -386,13 +392,20 @@ def load_model(path: Path):
 
 def compress(args):
     model, metadata = load_model(args.input)
-    if metadata["method"] not in ("baseline", "distilled", "pruned"):
+    if metadata["method"] not in FLOAT_METHODS:
         raise ValueError("Compression input must be a float model")
     if metadata["seed"] != args.seed:
         raise ValueError("Compression seed must match the input checkpoint")
-    if args.method in ("static", "qat") and metadata["architecture"] != "resnet18":
-        raise ValueError("Static quantization and QAT currently support ResNet-18 only")
+    if args.method in ("static", "qat") and not hasattr(model, "fuse_model"):
+        raise ValueError(
+            f"{metadata['architecture']} has no quantizable torchvision implementation; "
+            "static quantization and QAT support mobilenet_v3_large and resnet18"
+        )
     torch.backends.quantized.engine = "x86"
+    source = {
+        "source_method": metadata["method"],
+        "source_artifact": file_hash(args.input),
+    }
     if args.method == "qat":
         set_seed(args.seed)
         model.train()
@@ -405,8 +418,6 @@ def compress(args):
         validation = dataset_for(args.data_dir, "validation", args.seed)
         optimizer = torch.optim.AdamW(model.parameters(), lr=args.learning_rate)
         best = -1.0
-        import copy
-
         for epoch in range(args.epochs):
             model.train()
             for images, labels, _ in loader(
@@ -426,13 +437,7 @@ def compress(args):
                 save_model(
                     args.output,
                     converted,
-                    {
-                        **metadata,
-                        "method": "qat",
-                        "source_method": metadata["method"],
-                        "source_artifact": file_hash(args.input),
-                        "seed": args.seed,
-                    },
+                    {**metadata, "method": "qat", "seed": args.seed, **source},
                 )
         return
     calibration = None
@@ -447,17 +452,12 @@ def compress(args):
     save_model(
         args.output,
         model,
-        {
-            **metadata,
-            "method": args.method,
-            "source_method": metadata["method"],
-            "source_artifact": file_hash(args.input),
-            "seed": args.seed,
-        },
+        {**metadata, "method": args.method, "seed": args.seed, **source},
     )
 
 
 def median_latency(model, images: torch.Tensor, warmup: int, passes: int) -> float:
+    """Median over passes of the mean per-image time at batch size 1."""
     model.eval()
     with torch.inference_mode():
         for i in range(warmup):
@@ -471,21 +471,32 @@ def median_latency(model, images: torch.Tensor, warmup: int, passes: int) -> flo
     return statistics.median(timings)
 
 
+def read_result(path: Path, name: str, split: str):
+    if not path.exists():
+        return None
+    with path.open(newline="") as stream:
+        for row in csv.DictReader(stream):
+            if (row["name"], row["split"]) == (name, split):
+                return row
+    return None
+
+
 def write_result(path: Path, row: dict):
     path.parent.mkdir(parents=True, exist_ok=True)
     rows = []
     if path.exists():
         with path.open(newline="") as stream:
             reader = csv.DictReader(stream)
-            if reader.fieldnames != RESULT_FIELDS:
+            if not set(reader.fieldnames or ()) <= set(RESULT_FIELDS):
                 raise ValueError(f"Unexpected result columns in {path}")
+            # Files written before gzip_mb / sparsity existed get empty cells.
             rows = [
                 r
                 for r in reader
                 if (r["name"], r["split"]) != (row["name"], row["split"])
             ]
     with path.open("w", newline="") as stream:
-        writer = csv.DictWriter(stream, fieldnames=RESULT_FIELDS)
+        writer = csv.DictWriter(stream, fieldnames=RESULT_FIELDS, restval="")
         writer.writeheader()
         writer.writerows(rows + [row])
 
@@ -498,6 +509,20 @@ def file_hash(path: Path) -> str:
     return digest.hexdigest()
 
 
+def gzip_mb(data: bytes) -> float:
+    """Size after generic compression: a proxy for what zeros (pruning) save on disk."""
+    return len(gzip.compress(data, compresslevel=6)) / 1_000_000
+
+
+def weight_sparsity(model) -> float:
+    zeros = total = 0
+    for module in model.modules():
+        if isinstance(module, (nn.Conv2d, nn.Linear)):
+            zeros += int((module.weight == 0).sum())
+            total += module.weight.numel()
+    return zeros / total if total else float("nan")
+
+
 def cpu_description() -> str:
     cpuinfo = Path("/proc/cpuinfo")
     if cpuinfo.exists():
@@ -508,7 +533,10 @@ def cpu_description() -> str:
 
 
 def measure(args):
-    torch.set_num_threads(args.threads)
+    # Accuracy does not depend on the thread count, so use every core for it.
+    # `args.threads` only applies to the latency measurement below and is what the
+    # `threads` column records.
+    torch.set_num_threads(getattr(args, "accuracy_threads", None) or os.cpu_count() or 1)
     data = dataset_for(
         args.data_dir,
         args.split,
@@ -525,10 +553,9 @@ def measure(args):
         with torch.inference_mode():
             for images, labels, _ in batches:
                 inputs = processor(images=images, return_tensors="pt")["pixel_values"]
-                if sum(len(x) for x in benchmark) < args.latency_images:
-                    benchmark.append(
-                        inputs[: args.latency_images - sum(len(x) for x in benchmark)]
-                    )
+                missing = args.latency_images - sum(len(x) for x in benchmark)
+                if missing > 0:
+                    benchmark.append(inputs[:missing])
                 top5 = (
                     model(pixel_values=inputs.to(device))
                     .logits[:, order]
@@ -542,11 +569,12 @@ def measure(args):
             raise ValueError("Cannot evaluate an empty dataset")
         top1, top5 = correct1 / total, correct5 / total
         model.cpu()
-        size = io.BytesIO()
-        torch.save(model.state_dict(), size)
-        size_mb = size.tell() / 1_000_000
+        buffer = io.BytesIO()
+        torch.save(model.state_dict(), buffer)
+        size_mb = buffer.tell() / 1_000_000
+        compressed_mb = gzip_mb(buffer.getvalue())
         parameters = sum(p.numel() for p in model.parameters())
-        # Swin accepts its input as the first positional argument.
+        sparsity = float("nan")
         latency_model = model
         benchmark_images = torch.cat(benchmark)
         method, architecture = "reference", REFERENCE
@@ -557,7 +585,19 @@ def measure(args):
         model, metadata = load_model(args.input)
         if metadata["seed"] != args.seed:
             raise ValueError("Evaluation seed must match checkpoint seed")
-        top1, top5 = accuracy(model, loader(data, args.batch_size, args.workers), "cpu")
+        artifact = file_hash(args.input)
+        previous = (
+            read_result(args.results, args.name, args.split)
+            if getattr(args, "reuse_accuracy", False)
+            else None
+        )
+        if previous and previous["artifact"] == artifact:
+            # Same checkpoint already scored on this split: only redo latency and sizes.
+            top1, top5 = float(previous["top1"]), float(previous["top5"])
+        else:
+            top1, top5 = accuracy(
+                model, loader(data, args.batch_size, args.workers), "cpu"
+            )
         benchmark_images = torch.stack(
             [data[i][0] for i in range(min(args.latency_images, len(data)))]
         )
@@ -565,9 +605,14 @@ def measure(args):
         parameters = sum(
             p.numel() for p in make_model(metadata["architecture"]).parameters()
         )
-        size_mb = args.input.stat().st_size / 1_000_000
+        raw = args.input.read_bytes()
+        size_mb = len(raw) / 1_000_000
+        compressed_mb = gzip_mb(raw)
+        sparsity = (
+            weight_sparsity(model) if metadata["method"] in FLOAT_METHODS else float("nan")
+        )
         method, architecture = metadata["method"], metadata["architecture"]
-        artifact = file_hash(args.input)
+    torch.set_num_threads(args.threads)
     latency = median_latency(latency_model, benchmark_images, args.warmup, args.passes)
     row = {
         "name": args.name,
@@ -583,6 +628,8 @@ def measure(args):
         "method": method,
         "architecture": architecture,
         "artifact": artifact,
+        "gzip_mb": compressed_mb,
+        "sparsity": sparsity,
     }
     write_result(args.results, row)
     print(json.dumps(row, indent=2))
@@ -638,10 +685,23 @@ def parser():
     evaluation.add_argument(
         "--results", type=Path, default=Path("results/task4_comparison.csv")
     )
-    evaluation.add_argument("--threads", type=int, default=1)
-    evaluation.add_argument("--latency-images", type=int, default=32)
-    evaluation.add_argument("--warmup", type=int, default=10)
-    evaluation.add_argument("--passes", type=int, default=5)
+    evaluation.add_argument(
+        "--threads", type=int, default=1, help="threads for the latency measurement"
+    )
+    evaluation.add_argument(
+        "--accuracy-threads",
+        type=int,
+        default=None,
+        help="threads for the accuracy pass (default: all cores)",
+    )
+    evaluation.add_argument(
+        "--reuse-accuracy",
+        action="store_true",
+        help="skip the accuracy pass if this exact checkpoint was already scored on the split",
+    )
+    evaluation.add_argument("--latency-images", type=int, default=64)
+    evaluation.add_argument("--warmup", type=int, default=20)
+    evaluation.add_argument("--passes", type=int, default=11)
     evaluation.set_defaults(func=measure)
     return root
 
@@ -658,6 +718,8 @@ def main():
     ):
         if hasattr(args, key) and getattr(args, key) < 1:
             raise ValueError(f"{key} must be positive")
+    if getattr(args, "accuracy_threads", None) is not None and args.accuracy_threads < 1:
+        raise ValueError("accuracy_threads must be positive")
     if args.workers < 0 or getattr(args, "warmup", 0) < 0:
         raise ValueError("workers and warmup must be non-negative")
     if hasattr(args, "alpha") and (

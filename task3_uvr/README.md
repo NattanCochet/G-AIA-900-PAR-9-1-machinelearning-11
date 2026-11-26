@@ -158,3 +158,89 @@ installed in UVR as `HQ3_T3-05_step1.onnx`, hash
 - **Give every fine-tuned model a new file name.** Its hash changes, so it
   needs its own `model_data/<hash>.json` with HQ 3's settings, and UVR
   caches hashes by file path until it restarts.
+
+## Data (T3-03)
+
+MUSDB18-7 is a free preview of MUSDB18 with one short excerpt per song. The
+course's `0_download_data.py` downloads it and converts it to WAV **outside
+this repository**, in the course project's `uvr_my_models/data/musdb7/`:
+
+```
+musdb7/
+  train/<artist> - <title>/{mixture,vocals,accompaniment}.wav   94 clips
+  test/<artist> - <title>/{mixture,vocals,accompaniment}.wav    50 clips
+```
+
+The course script builds `accompaniment.wav` as `mixture - vocals`. No audio
+is versioned. `musdb7_phone/` (degraded copies, T3-06) is not covered here.
+
+### Check
+
+Give the `musdb7` folder as an argument, or set `ML_TEK5_MUSDB7_DIR`:
+
+```bash
+export ML_TEK5_MUSDB7_DIR=<course project>/2_3_uvr/uvr_my_models/data/musdb7
+uv run python -m task3_uvr.check_data
+```
+
+For every clip it checks that the three files exist, are 44100 Hz stereo and
+have the same length. It reports the duration. It checks that
+`mixture - vocals - accompaniment` stays within WAV rounding: a max absolute
+residual of 1e-3 or less, and a residual energy of at most -60 dB relative to
+the mixture. The audio is only read. The summary goes to
+`results/task3_data_check.json`, and the exit code is 1 on any anomaly.
+
+Results on 2026-11-13:
+
+| Split | Clips | Artists | Format | Duration per clip | Max abs residual | Anomalies |
+| --- | --- | --- | --- | --- | --- | --- |
+| train | 94 | 66 | 44100 Hz, stereo, 16-bit PCM | 6.803 s (300,032 samples) | 0 | none |
+| test | 50 | 45 | 44100 Hz, stereo, 16-bit PCM | 6.803 s (300,032 samples) | 0 | none |
+
+- The clips last 6.803 s, not the 7 s the dataset name suggests.
+- The residual is exactly 0: subtracting two 16-bit signals gives a value
+  that 16-bit PCM stores exactly, and no accompaniment sample was clipped.
+- 4 training mixtures reach 16-bit full scale and are probably clipped in the
+  source: Giselle - Moss, Jay Menon - Through My Eyes, Music Delta - Beatles
+  and The Districts - Vermont. They are kept.
+
+### Artists in both the official training and test sets
+
+The official split does not separate artists. 4 artists have clips in both
+training and test sets:
+
+| Artist | Train | Test |
+| --- | --- | --- |
+| Hollow Ground | Left Blind | Ill Fate |
+| Skelpolu | Human Mistakes, Together Alone | Resurrection |
+| The Long Wait | Back Home To Blue | Dark Horses |
+| Triviul | Angelsaint, Dorothy | Widow (as "Triviul feat. The Fiend") |
+
+The official test set is left unchanged. Test scores may be slightly
+optimistic for these 4 artists (5 of the 50 test clips).
+
+### Validation split
+
+The validation set is taken from the official **training** clips only. The
+test set is never used for tuning.
+
+```bash
+uv run python -m task3_uvr.make_split            # --seed 0 --fraction 0.15
+```
+
+The script runs the data check again and writes nothing if any clip fails.
+It groups clips by artist: the folder name before `" - "`, with `feat.` guests
+and a trailing `(...)` removed, so `Triviul feat. The Fiend` counts as
+`Triviul`. It sorts the artists and shuffles them with
+`numpy.random.default_rng(0)`. It then adds whole artists, in that order,
+while the validation set stays at or below `round(0.15 × 94) = 14` clips.
+No artist is in both the training and validation lists.
+
+| List | File | Clips | Artists |
+| --- | --- | --- | --- |
+| Training | `task3_uvr/splits/train.json` | 80 | 56 |
+| Validation | `task3_uvr/splits/validation.json` | 14 (14.9%) | 10 |
+| Test (official, unchanged) | `musdb7/test/` | 50 | 45 |
+
+Two of the validation artists, Skelpolu and The Long Wait, also have clips in
+the official test set.

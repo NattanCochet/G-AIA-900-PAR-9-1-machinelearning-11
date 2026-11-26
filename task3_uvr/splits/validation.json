@@ -1,0 +1,35 @@
+{
+  "source": "MUSDB18-7 train/",
+  "method": "Group the official training clips by artist (folder name before ' - ', without 'feat.' guests or a trailing '(...)'). Sort the artists, shuffle them with numpy.random.default_rng(seed), then take whole artists in that order while the validation set stays at or below round(fraction * n) clips.",
+  "seed": 0,
+  "target_fraction": 0.15,
+  "n_clips": 14,
+  "artists": [
+    "Alexander Ross",
+    "AvaLuna",
+    "Drumtracks",
+    "Giselle",
+    "Phre The Eon",
+    "Skelpolu",
+    "Sweet Lights",
+    "Swinging Steaks",
+    "The Long Wait",
+    "Young Griffo"
+  ],
+  "clips": [
+    "Alexander Ross - Goodbye Bolero",
+    "Alexander Ross - Velvet Curtain",
+    "AvaLuna - Waterduct",
+    "Drumtracks - Ghost Bitch",
+    "Giselle - Moss",
+    "Phre The Eon - Everybody's Falling Apart",
+    "Skelpolu - Human Mistakes",
+    "Skelpolu - Together Alone",
+    "Sweet Lights - You Let Me Down",
+    "Swinging Steaks - Lost My Way",
+    "The Long Wait - Back Home To Blue",
+    "Young Griffo - Blood To Bone",
+    "Young Griffo - Facade",
+    "Young Griffo - Pennies"
+  ]
+}

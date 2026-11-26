@@ -172,7 +172,8 @@ musdb7/
 ```
 
 The course script builds `accompaniment.wav` as `mixture - vocals`. No audio
-is versioned. `musdb7_phone/` (degraded copies, T3-06) is not covered here.
+is versioned. The degraded copies (`musdb7_phone/`, `musdb7_narrowband/`)
+are covered in [Degraded data (T3-06)](#degraded-data-t3-06).
 
 ### Check
 
@@ -396,3 +397,127 @@ of 3.0 GB. HQ 3 takes about 11 s per clip; the other two are negligible.
   quality and pull the means down, which is why the medians are reported.
 - **Validation and test are close** for HQ 3 (within 0.5 dB). As said above,
   later choices between models use the validation split only.
+
+## Degraded data (T3-06)
+
+Fine-tuning targets degraded audio: a song played in a room and recorded
+with a phone. **The degraded stems are the new labels.** The task is to
+separate a phone recording, not to restore the clean sound.
+
+`task3_uvr/degradation.py` ports the course's `5_degrade_data.py` and
+`src/degradation.py`. For each clip, one random draw of settings, seeded by
+the clip name, gives a synthetic room reverb: exponentially decaying noise,
+mixed with the dry signal in proportion `wet`. A 4th-order Butterworth
+band-pass follows. The same chain, with the same settings and impulse
+response, is applied to the vocals and to the accompaniment separately. The
+mixture is their sum. One common gain per clip, at most 1, keeps the loudest
+of the three files at or below 0.9. It was 1 for every clip of both
+variants.
+
+```
+<course project>/2_3_uvr/uvr_my_models/data/
+  musdb7/                 clean clips (T3-03)
+  musdb7_phone/           made by the course script
+  musdb7_narrowband/      made by task3_uvr.degradation
+    {train,test}/<clip>/{mixture,vocals,accompaniment}.wav, degradation.json
+```
+
+### Commands
+
+```bash
+export ML_TEK5_MUSDB7_DIR=<course project>/2_3_uvr/uvr_my_models/data/musdb7
+
+# Course dataset, from its own folder and with UVR's environment
+cd <course project>/2_3_uvr/uvr_my_models
+uv run --no-sync --project ../../external/ultimatevocalremovergui python 5_degrade_data.py
+cd -
+
+# This repository
+uv run python -m task3_uvr.degradation make narrowband   # -> musdb7_narrowband/
+uv run python -m task3_uvr.degradation verify phone      # recompute vs musdb7_phone/
+uv run python -m task3_uvr.check_degraded phone narrowband
+uv run python -m task3_uvr.listen_degraded listen        # -> task3_uvr/artifacts/listen/
+uv run python -m task3_uvr.listen_degraded figure        # -> results/task3_degradation_spectrograms.png
+```
+
+`--data-dir` replaces `ML_TEK5_MUSDB7_DIR`. A variant is written to
+`<musdb7 parent>/musdb7_<variant>/`. Like the course script, `make` skips
+clips that already have `degradation.json`, written last, so an interrupted
+run can be resumed. It never overwrites the course's `musdb7_phone/`;
+`--overwrite` redoes finished clips.
+
+### Why the degradations must stay linear
+
+The reverb is a convolution and the band-pass a linear filter, so
+`degrade(vocals + accompaniment) = degrade(vocals) + degrade(accompaniment)`.
+The degraded mixture is then exactly the sum of the degraded stems, which is
+what makes those stems valid labels: a model given the degraded mixture can
+reach them exactly. Noise, clipping or compression are not linear. Applied
+to the mixture, they would make it differ from the sum of the stems by an
+amount no label accounts for. Applied to each stem, they would give a
+mixture that no single recording could produce. They are left out.
+
+### Variants
+
+One uniform draw per setting and clip, in this order:
+
+| Setting | phone (course) | narrowband (new) |
+| --- | --- | --- |
+| Reverb decay `rt60` | 0.3–1.0 s | 0.8–1.5 s |
+| Reverb share `wet` | 0.2–0.5 | 0.4–0.7 |
+| Band-pass low cut | 100–300 Hz | 300 Hz (fixed) |
+| Band-pass high cut | 3000–5000 Hz | 3400 Hz (fixed) |
+| Seed | `[0, crc32(clip)]`, as the course | `[0, crc32(clip), crc32("narrowband")]` |
+
+- **phone** is the course's "phone recording".
+- **narrowband** is a phone call: the fixed 300–3400 Hz telephone band, in
+  a larger, more reverberant room. Its seed adds the variant name, so its
+  reverb is an independent draw rather than the phone one stretched.
+
+Each `degradation.json` written by this repository holds the four settings,
+the variant name, its ranges, the seed and the gain. The course's files hold
+the four settings only.
+
+### Checks
+
+`verify phone` recomputes all 144 clips in memory and compares them with the
+course files, as the 16-bit integers `soundfile` writes. Results are in
+`results/task3_degraded_data.json`, run on 2026-11-20:
+
+- The settings in every `degradation.json` are identical.
+- The audio differs by at most **1 LSB**, on 71,691 of 259,227,648 samples
+  (0.03%). Before the 16-bit write, the floats differ by at most 9e-8
+  (0.003 LSB) between UVR's environment (numpy 1.23.5, scipy 1.11.4) and
+  this one (numpy 2.5.4, scipy 1.18.1). Those few samples sit on a rounding
+  boundary.
+
+`check_degraded` compares each degraded copy with `musdb7`. It checks:
+
+- the same clip names, split by split;
+- 44100 Hz, stereo, and the clean clip's length;
+- `degradation.json` present, with the settings;
+- `|mixture − vocals − accompaniment| ≤ 2 LSB`. Each file is rounded to
+  16 bits on its own, so up to 1.5 LSB is expected;
+- no sample at 16-bit full scale.
+
+| Variant | Split | Clips | Anomalies | Max residual | Max peak | Median level drop: mixture / vocals / accompaniment |
+| --- | --- | --- | --- | --- | --- | --- |
+| phone | train | 94 | none | 1 LSB | 0.822 | 5.5 / 3.1 / 7.1 dB |
+| phone | test | 50 | none | 1 LSB | 0.633 | 5.7 / 2.9 / 8.0 dB |
+| narrowband | train | 94 | none | 1 LSB | 0.652 | 6.8 / 3.7 / 9.1 dB |
+| narrowband | test | 50 | none | 1 LSB | 0.617 | 7.5 / 3.7 / 10.3 dB |
+
+The level drop is `10 log10(clean energy / degraded energy)` per clip. The
+accompaniment loses more than the vocals, because the band-pass removes the
+bass and the highs. **Going by these medians, the vocals are therefore 4–5 dB
+(phone) and 5–7 dB (narrowband) louder relative to the accompaniment than in
+the clean mixtures**, which changes the mixture reference of T3-07.
+
+![Mixture spectrograms: clean, phone and narrowband](../results/task3_degradation_spectrograms.png)
+
+### Validation split
+
+The degraded copies keep the clip names, so `task3_uvr/splits/train.json`
+and `task3_uvr/splits/validation.json` apply to them unchanged. The same
+artists stay out of training, and the test set is still never used for
+tuning.

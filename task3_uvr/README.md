@@ -244,3 +244,155 @@ No artist is in both the training and validation lists.
 
 Two of the validation artists, Skelpolu and The Long Wait, also have clips in
 the official test set.
+
+## SDR evaluation (T3-04)
+
+`task3_uvr/evaluate.py` measures the SDR of MDX-Net ONNX models on
+MUSDB18-7 without the GUI. The issue calls the script `4_evaluate.py`;
+`python -m` needs a valid module name, hence `evaluate.py`.
+
+```bash
+export ML_TEK5_MUSDB7_DIR=<course project>/2_3_uvr/uvr_my_models/data/musdb7
+export ML_TEK5_UVR_DIR=<UVR>    # only read: models and model_data
+
+uv run python -m task3_uvr.evaluate \
+    --models UVR-MDX-NET-Inst_HQ_3 Benchmark_CentreChannel \
+    --splits validation test
+```
+
+- `--models` takes ONNX paths, or names in `<UVR>/models/MDX_Net_Models/`.
+- The mixture reference is always added, unless `--no-mixture` is given.
+- Validation uses `task3_uvr/splits/validation.json`; test uses every clip in
+  `musdb7/test/`.
+- Per-clip rows go to `results/task3_sdr_clips.csv`: model, hash, split,
+  clip, stem, SDR, reference energy, separation time. Median and mean SDR per
+  model, split and stem go to `results/task3_uvr.csv`.
+
+**Use the validation split for model selection, early stopping and any
+other tuning. The test scores are for final reporting only.**
+
+### Inference: a port of UVR v5.6
+
+`task3_uvr/mdx_inference.py` ports `SeperateMDX` (`separate.py`) and the
+STFT of `lib_v5/tfc_tdf_v3.py`. It runs in this repository's environment:
+onnxruntime 1.31.1 and torch 2.15 CPU, not UVR's 1.13.1.
+
+- **Settings** are read from the model's hash, as UVR does: the MD5 of the
+  file's last 10 MB, looked up in `model_data/<hash>.json`, then in
+  `model_data.json`.
+- **STFT**: hop 1024, periodic Hann window, `center=True`. Only the first
+  `dim_f` bins go to the model, and bins 0–2 are zeroed. The inverse
+  STFT puts the missing bins back as zeros.
+- **Chunking**: `n_fft/2` zeros are added at the start, and zeros at the end
+  up to whole chunks. A chunk is `1024 × (segment − 1)` samples. With
+  overlap "Default" the step is `chunk − n_fft`, and chunks are cross-faded
+  with a Hann window and a divider. The result is trimmed and cut to the
+  input length. A 6.8 s clip takes 3 chunks.
+- **Stems**: primary = model output × `compensate`; secondary = mixture −
+  primary. CSV rows always use "vocals" and "accompaniment", whatever the
+  model's primary stem (Instrumental for HQ 3, Vocals for the benchmark).
+- **Supported settings**: segment size = `dim_t` (UVR then uses
+  onnxruntime), overlap Default, batch size 1, no denoise, no pitch shift,
+  no secondary model. Other settings raise an error. `margin` and `chunks`
+  are assigned by UVR v5.6 but never read by `SeperateMDX.demix`.
+- **Match Freq Cut** (`--match-freq-cut`, off by default): the secondary
+  stem becomes the mixture sent through the STFT round trip without the
+  model (overlap 0.02, no compensate) minus the primary stem. This removes
+  the mixture's content below about 21 Hz from the secondary stem. On Al
+  James that is −31 dB of the mixture's energy, mostly a DC offset of
+  −0.0013. The reference GUI run had this option off (see below), so this
+  path is **not checked against GUI output**. UVR's `data.pkl` showed it as
+  on, but it was saved on 2026-11-12, before the 2026-11-13 reference run.
+
+### SDR definition
+
+The global SDR of the Music Demixing Challenge, per stem and clip:
+
+    SDR = 10 log10((Σ s² + ε) / (Σ (s − ŝ)² + ε)),   ε = 1e-7
+
+The sums run over both channels and all samples. A perfect estimate gives
+about 10 log10(Σ s² / 1e-7) instead of infinity, and a silent stem with a
+silent estimate gives 0 dB. Reasons for this choice:
+
+- museval's SDR is the median over 1 s frames, so a 6.8 s clip would give
+  only about 7 values.
+- museval drops frames where the reference is silent, which vocals often
+  are. The global SDR is always defined.
+- It is cheap and has no dependencies.
+
+The CSV's `reference_energy` column flags clips with almost silent vocals,
+where the vocal SDR means little. The **mixture reference** uses the
+mixture as the estimate of both stems. It gives the score of doing nothing,
+so a model is only useful above it.
+
+### Comparison with the GUI
+
+`task3_uvr/compare_gui.py` runs the pipeline on the GUI's input and compares
+the outputs. The reference run is HQ 3 on the test clip "Al James -
+Schoolboy Facination", with Segment Size 256, Overlap Default, CPU, 16-bit
+PCM output and no normalization:
+
+```bash
+uv run python -m task3_uvr.compare_gui --gui-dir <folder with the GUI's WAVs>
+```
+
+Results are in `results/task3_gui_compare.json`. The clip has 300,032 × 2 =
+600,064 samples per stem.
+
+| Stem | Max abs diff, float output | Samples differing after 16-bit conversion | SDR vs GUI (16-bit) | SDR vs ground truth, GUI / pipeline |
+| --- | --- | --- | --- | --- |
+| Accompaniment (primary) | 3.07e-5 (1.0 LSB) | 693, by 1 LSB | 97.4 dB | 11.564 / 11.564 dB |
+| Vocals (secondary) | 3.06e-5 (1.0 LSB) | 687, by 1 LSB | 96.3 dB | 10.447 / 10.447 dB |
+
+The pipeline reproduces the GUI. The GUI writes 16-bit PCM, so a float
+output differs from it by up to half an LSB, 1.5e-5. Once written as 16-bit
+PCM the same way UVR does (`soundfile`, `PCM_16`), 99.9% of samples are
+identical. The others are off by one LSB (3.05e-5). Floating-point
+differences between onnxruntime 1.31.1 + torch 2.15 and UVR's onnxruntime
+1.13.1 put those samples on the other side of a rounding boundary; T3-05
+measured those runtime differences at about 1e-5 on this model. No sample
+is above full scale, so clipping plays no part.
+
+With Match Freq Cut on, the vocals differ from the GUI by up to 1.1e-2
+(28 dB SDR against the GUI), which shows that the GUI run had it off.
+Its SDR against the ground truth is 10.508 dB instead of 10.447 dB.
+
+### Results
+
+Run on 2026-11-13, CPU only (Intel Core i7-1165G7), onnxruntime 1.31.1,
+torch 2.15.0, Match Freq Cut off. Median global SDR in dB per clip; the
+means are in `results/task3_uvr.csv`, the per-clip values in
+`results/task3_sdr_clips.csv`.
+
+| Model | Split | Clips | Vocals | Accompaniment | Separation time |
+| --- | --- | --- | --- | --- | --- |
+| Mixture (reference) | validation | 14 | −3.83 | 3.83 | — |
+| Benchmark_CentreChannel | validation | 14 | −3.92 | 0.27 | 1.4 s |
+| UVR-MDX-NET Inst HQ 3 | validation | 14 | **10.57** | **14.26** | 168 s |
+| Mixture (reference) | test | 50 | −4.49 | 4.49 | — |
+| Benchmark_CentreChannel | test | 50 | −4.10 | 0.30 | 5.4 s |
+| UVR-MDX-NET Inst HQ 3 | test | 50 | **10.15** | **14.66** | 547 s |
+
+The full run (3 models × 64 clips) took 12 min 08 s, with a peak memory
+of 3.0 GB. HQ 3 takes about 11 s per clip; the other two are negligible.
+
+- **Mixture reference.** With the mixture as the estimate, the vocal SDR is
+  10 log10(V/A) and the accompaniment SDR is 10 log10(A/V), where V and A
+  are the stem energies. The two medians are therefore exact opposites. The
+  vocals are about 4 dB quieter than the accompaniment.
+- **HQ 3** improves on the mixture reference by about 14.5 dB on vocals and
+  10 dB on accompaniment. It does better than the reference on all 64 vocal
+  scores and on 63 of 64 accompaniment scores. The exception is
+  "PR - Happy Daze" (test), whose vocals are almost silent: the mixture is
+  already 22.0 dB from the accompaniment, and HQ 3 gets 19.6 dB.
+- **Benchmark_CentreChannel** does worse than doing nothing on accompaniment
+  (0.3 dB against 3.8–4.5 dB; better on only 2 of 64 clips). It takes the
+  centre of the stereo image as vocals, so everything mixed centre, such as
+  bass and kick, leaves the accompaniment. Its vocals are close to the
+  mixture reference.
+- **Near-silent vocals.** The two "PR - …" test clips have the lowest vocal
+  energy (`reference_energy` 74 and 140, against 612 for the next one).
+  Their vocal SDRs (HQ 3: −2.4 and 2.8 dB) say little about separation
+  quality and pull the means down, which is why the medians are reported.
+- **Validation and test are close** for HQ 3 (within 0.5 dB). As said above,
+  later choices between models use the validation split only.

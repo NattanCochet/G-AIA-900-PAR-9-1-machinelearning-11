@@ -1,0 +1,95 @@
+# uv environment for Ultimate Vocal Remover v5.6 (task 3).
+# Copy this file, uv.lock and .python-version from task3_uvr/uvr_env/ to the
+# UVR root, then run: uv sync && uv run UVR.py
+#
+# Built from the UVR v5.6 requirements.txt:
+# - torch==1.9.0+cu111 is replaced by a recent CPU torch (no NVIDIA GPU on the
+#   machine). torch>=2.5 is required because the course scripts call
+#   torch.onnx.export(..., dynamo=False, opset_version=17).
+# - The versions that matter for UVR stay pinned: numpy<1.24,
+#   librosa 0.9.2, onnxruntime 1.13.1, pytorch_lightning 2.0.0.
+# - certifi, urllib3 and cryptography are no longer pinned: the 2022 versions
+#   bring nothing to UVR, and outdated root certificates break HTTPS downloads
+#   (download center, Zenodo).
+# - pip and PySoundFile are removed: uv does not need pip, and PySoundFile is
+#   the old name of soundfile.
+# Constraints relaxed because of a conflict are marked "RELAXED".
+
+[project]
+name = "uvr-env"
+version = "0.1.0"
+description = "Ultimate Vocal Remover v5.6 + entraînement/scoring MDX-Net (ML Tek5, tâche 2.3)"
+# .python-version pins 3.10.18, which bundles Tk 8.6. The uv 3.10.22 build
+# bundles Tk 9, with which the tkdnd 2.9.2 library shipped with UVR fails to load.
+requires-python = "==3.10.*"
+dependencies = [
+    # --- UVR audio core / inference ---
+    "numpy>=1.23.4,<1.24",
+    "librosa==0.9.2",
+    # librosa 0.9.2 imports pkg_resources, removed from setuptools as of 81.
+    "setuptools<81",
+    # RELAXED (was ==0.2.2): matchering 2.0.6 requires resampy>=0.4.2.
+    "resampy>=0.4.2",
+    "onnxruntime==1.13.1",
+    "soundfile>=0.11.0",
+    "audioread==3.0.0",
+    "scipy>=1.9.3,<1.12",
+    "samplerate==0.1.0",
+    "pydub==0.25.1",
+    "pyrubberband==0.3.0",
+    "soundstretch==1.2",
+    "matchering==2.0.6",
+    # --- Models (demucs, VR) ---
+    "diffq==0.2.3",
+    # REMOVED: Dora==0.0.3 on PyPI is an unrelated exploratory analysis tool,
+    # never imported by UVR; it depends on the deprecated "sklearn" package,
+    # which refuses to install.
+    "einops==0.6.0",
+    "julius==0.2.7",
+    "ml_collections==0.1.1",
+    "omegaconf==2.2.3",
+    "pytorch_lightning==2.0.0",
+    "onnx2pytorch",
+    # --- GUI and utilities ---
+    "opencv-python==4.6.0.66",
+    # UVR uses Image.ANTIALIAS, removed in Pillow 10.
+    "Pillow>=9.3.0,<10",
+    # RELAXED (was ==1.3.0): the 1.3.0 sdist does not build with a recent
+    # setuptools; 1.2.2 exists as a wheel, with the same playsound() API.
+    "playsound==1.2.2",
+    "pyglet==1.5.23",
+    "pyperclip==1.8.2",
+    "screeninfo==0.8.1",
+    "psutil>=5.9.4",
+    "natsort==8.2.0",
+    "kthread==0.2.3",
+    "future==0.18.2",
+    "altgraph==0.17.3",
+    "PyYAML>=6.0",
+    "wget==3.2",
+    "tqdm",
+    "certifi",
+    "urllib3<2",
+    "cffi",
+    "cryptography",
+    # --- Project additions: training, ONNX export, SDR ---
+    "torch>=2.5",
+    # onnx2pytorch dependency, declared here so it comes from the CPU index,
+    # like torch (tool.uv.sources only applies to direct dependencies).
+    "torchvision",
+    "onnx",
+    "museval",
+    "mir_eval",
+]
+
+[tool.uv]
+package = false
+
+[tool.uv.sources]
+torch = { index = "pytorch-cpu" }
+torchvision = { index = "pytorch-cpu" }
+
+[[tool.uv.index]]
+name = "pytorch-cpu"
+url = "https://download.pytorch.org/whl/cpu"
+explicit = true

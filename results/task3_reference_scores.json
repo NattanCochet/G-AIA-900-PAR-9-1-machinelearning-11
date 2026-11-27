@@ -1,0 +1,320 @@
+{
+  "source": "results/task3_sdr_clips.csv",
+  "note": "Global SDR (dB) against each dataset's own stems. Drops and gains are medians of per-clip differences. Validation on degraded data = the 'before' values of T3-10; test = final reporting only.",
+  "median_sdr_db": {
+    "musdb7": {
+      "test": {
+        "n_clips": 50,
+        "Benchmark_CentreChannel": {
+          "accompaniment": 0.29628524841865167,
+          "vocals": -4.097016121285636
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 14.655055070159714,
+          "vocals": 10.150310106995267
+        },
+        "mixture": {
+          "accompaniment": 4.492485386324036,
+          "vocals": -4.492485386324036
+        }
+      },
+      "validation": {
+        "n_clips": 14,
+        "Benchmark_CentreChannel": {
+          "accompaniment": 0.2742557794806597,
+          "vocals": -3.922204624974457
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 14.260905098201437,
+          "vocals": 10.567465329370439
+        },
+        "mixture": {
+          "accompaniment": 3.833323329998783,
+          "vocals": -3.833323329998783
+        }
+      }
+    },
+    "musdb7_narrowband": {
+      "test": {
+        "n_clips": 50,
+        "Benchmark_CentreChannel": {
+          "accompaniment": -0.5705155243745582,
+          "vocals": 0.9545488254146085
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 5.5243014132707104,
+          "vocals": 6.646749747379958
+        },
+        "mixture": {
+          "accompaniment": -1.5179215744095675,
+          "vocals": 1.517922490398691
+        }
+      },
+      "validation": {
+        "n_clips": 14,
+        "Benchmark_CentreChannel": {
+          "accompaniment": -0.7181247484373785,
+          "vocals": 1.5091324298693398
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 6.07672091756346,
+          "vocals": 8.601691793699768
+        },
+        "mixture": {
+          "accompaniment": -2.3946117419368385,
+          "vocals": 2.394609742722439
+        }
+      }
+    },
+    "musdb7_phone": {
+      "test": {
+        "n_clips": 50,
+        "Benchmark_CentreChannel": {
+          "accompaniment": 0.04486880738136609,
+          "vocals": 0.5996629453061859
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 8.248152062431563,
+          "vocals": 9.081032243194898
+        },
+        "mixture": {
+          "accompaniment": -0.3521196823337291,
+          "vocals": 0.3521194208446038
+        }
+      },
+      "validation": {
+        "n_clips": 14,
+        "Benchmark_CentreChannel": {
+          "accompaniment": 0.20889086809355167,
+          "vocals": 1.302182331807876
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": 8.8166557423176,
+          "vocals": 10.468329915307294
+        },
+        "mixture": {
+          "accompaniment": -0.9235224959879721,
+          "vocals": 0.9235220444203294
+        }
+      }
+    }
+  },
+  "hq3_drop_db": {
+    "musdb7_phone": {
+      "test": {
+        "accompaniment": {
+          "median_drop_db": 6.345858895557255,
+          "n_clips_dropping": 50,
+          "n_clips": 50
+        },
+        "vocals": {
+          "median_drop_db": 1.057148782517145,
+          "n_clips_dropping": 41,
+          "n_clips": 50
+        }
+      },
+      "validation": {
+        "accompaniment": {
+          "median_drop_db": 5.742184811486554,
+          "n_clips_dropping": 14,
+          "n_clips": 14
+        },
+        "vocals": {
+          "median_drop_db": 0.5275224044851772,
+          "n_clips_dropping": 10,
+          "n_clips": 14
+        }
+      }
+    },
+    "musdb7_narrowband": {
+      "test": {
+        "accompaniment": {
+          "median_drop_db": 8.806562590961708,
+          "n_clips_dropping": 50,
+          "n_clips": 50
+        },
+        "vocals": {
+          "median_drop_db": 3.2918945518935834,
+          "n_clips_dropping": 44,
+          "n_clips": 50
+        }
+      },
+      "validation": {
+        "accompaniment": {
+          "median_drop_db": 7.565287110999078,
+          "n_clips_dropping": 14,
+          "n_clips": 14
+        },
+        "vocals": {
+          "median_drop_db": 1.4400686861356595,
+          "n_clips_dropping": 12,
+          "n_clips": 14
+        }
+      }
+    }
+  },
+  "gain_over_mixture_db": {
+    "musdb7": {
+      "test": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": -4.097016121141992,
+            "n_clips_above_mixture": 2,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": 0.29628524830505976,
+            "n_clips_above_mixture": 44,
+            "n_clips": 50
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 10.150310106967467,
+            "n_clips_above_mixture": 49,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": 14.655055069470937,
+            "n_clips_above_mixture": 50,
+            "n_clips": 50
+          }
+        }
+      },
+      "validation": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": -3.922204624932708,
+            "n_clips_above_mixture": 0,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": 0.2742557794903704,
+            "n_clips_above_mixture": 11,
+            "n_clips": 14
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 10.567465330383989,
+            "n_clips_above_mixture": 14,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": 14.260905097612234,
+            "n_clips_above_mixture": 14,
+            "n_clips": 14
+          }
+        }
+      }
+    },
+    "musdb7_narrowband": {
+      "test": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": 0.9545503967106022,
+            "n_clips_above_mixture": 37,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": -0.5705139407607491,
+            "n_clips_above_mixture": 16,
+            "n_clips": 50
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 6.64672226210135,
+            "n_clips_above_mixture": 49,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": 5.524304824978232,
+            "n_clips_above_mixture": 47,
+            "n_clips": 50
+          }
+        }
+      },
+      "validation": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": 1.5091330027294072,
+            "n_clips_above_mixture": 10,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": -0.7181239092873115,
+            "n_clips_above_mixture": 4,
+            "n_clips": 14
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 8.601691107066035,
+            "n_clips_above_mixture": 14,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": 6.076717203666325,
+            "n_clips_above_mixture": 13,
+            "n_clips": 14
+          }
+        }
+      }
+    },
+    "musdb7_phone": {
+      "test": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": 0.5996614132599465,
+            "n_clips_above_mixture": 29,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": 0.04486693938066799,
+            "n_clips_above_mixture": 26,
+            "n_clips": 50
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 9.081031783625916,
+            "n_clips_above_mixture": 49,
+            "n_clips": 50
+          },
+          "vocals": {
+            "median_gain_db": 8.248166576274745,
+            "n_clips_above_mixture": 50,
+            "n_clips": 50
+          }
+        }
+      },
+      "validation": {
+        "Benchmark_CentreChannel": {
+          "accompaniment": {
+            "median_gain_db": 1.302184775338746,
+            "n_clips_above_mixture": 10,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": 0.20889061205144643,
+            "n_clips_above_mixture": 9,
+            "n_clips": 14
+          }
+        },
+        "UVR-MDX-NET-Inst_HQ_3": {
+          "accompaniment": {
+            "median_gain_db": 10.468324617783377,
+            "n_clips_above_mixture": 14,
+            "n_clips": 14
+          },
+          "vocals": {
+            "median_gain_db": 8.816671620978077,
+            "n_clips_above_mixture": 14,
+            "n_clips": 14
+          }
+        }
+      }
+    }
+  }
+}

@@ -2,13 +2,16 @@
 
     uv run python -m task3_uvr.evaluate \
         --models UVR-MDX-NET-Inst_HQ_3 Benchmark_CentreChannel \
-        --splits validation test
+        --splits validation test [--dataset musdb7_phone]
 
 Models are ONNX paths, or names in <UVR>/models/MDX_Net_Models/. The UVR
 folder (only read, for the models and their settings) comes from --uvr-dir or
 ML_TEK5_UVR_DIR, the musdb7 folder from --data-dir or ML_TEK5_MUSDB7_DIR.
-The validation and train splits are task3_uvr/splits/*.json (clips from
-musdb7/train/); the test split is every clip in musdb7/test/.
+--dataset picks musdb7 (default) or one of its degraded copies (T3-06), read
+next to it: <musdb7 parent>/musdb7_phone/ or musdb7_narrowband/. Their labels
+are the degraded stems. The validation and train splits are
+task3_uvr/splits/*.json (clips from <dataset>/train/); the test split is every
+clip in <dataset>/test/.
 
 Each model separates every clip as UVR does (task3_uvr.mdx_inference), and
 the "mixture" reference uses the mixture itself as the estimate of both
@@ -16,11 +19,13 @@ stems. The global SDR (task3_uvr.sdr) is computed per stem, named "vocals"
 and "accompaniment" whatever the model's primary stem.
 
 Outputs:
-- results/task3_sdr_clips.csv: one row per model, split, clip and stem.
-  Rows of a previous run with the same model, split and settings are
-  replaced.
-- results/task3_uvr.csv: median and mean SDR per model, split and stem
-  (common.log_result).
+- results/task3_sdr_clips.csv: one row per dataset, model, split, clip and
+  stem. Rows of a previous run with the same dataset, model, split and
+  settings are replaced. A file written before the dataset column existed
+  (T3-04, clean data only) gets dataset "musdb7" on its rows.
+- results/task3_uvr.csv: median and mean SDR per dataset, model, split and
+  stem (common.log_result). The dataset is in the config column, so the
+  common header is unchanged.
 
 Use the validation split for model selection; the test split is for final
 reporting only.
@@ -47,7 +52,32 @@ SUMMARY_CSV = Path("results") / "task3_uvr.csv"
 SPLITS_DIR = Path(__file__).parent / "splits"
 STEMS = ("vocals", "accompaniment")
 MIXTURE = "mixture"
-KEY = ["model", "split", "match_freq_cut"]
+DATASETS = ("musdb7", "musdb7_phone", "musdb7_narrowband")
+DEFAULT_DATASET = DATASETS[0]
+KEY = ["dataset", "model", "split", "match_freq_cut"]
+COLUMNS = [
+    "date",
+    "dataset",
+    "model",
+    "model_hash",
+    "split",
+    "match_freq_cut",
+    "clip",
+    "stem",
+    "sdr_db",
+    "reference_energy",
+    "seconds",
+]
+
+
+def dataset_dir(data_dir: Path, dataset: str) -> Path:
+    """Folder of a dataset: musdb7 itself, or a degraded copy next to it."""
+    if dataset not in DATASETS:
+        raise ValueError(f"unknown dataset {dataset!r}, expected one of {DATASETS}")
+    path = data_dir if dataset == DEFAULT_DATASET else data_dir.parent / dataset
+    if not path.is_dir():
+        sys.exit(f"Not a folder: {path}")
+    return path
 
 
 def split_clips(data_dir: Path, split: str) -> list[Path]:
@@ -85,17 +115,43 @@ def evaluate_split(name: str, estimator, clips: list[Path]) -> tuple[list[dict],
     return rows, total
 
 
+def add_dataset_column(frame: pd.DataFrame) -> pd.DataFrame:
+    """Rows from before the dataset column were all on clean musdb7."""
+    if "dataset" in frame.columns:
+        return frame
+    return frame.assign(dataset=DEFAULT_DATASET)[COLUMNS]
+
+
+def write_csv(frame: pd.DataFrame, path: Path) -> None:
+    path.parent.mkdir(parents=True, exist_ok=True)
+    tmp = path.with_suffix(".tmp")
+    frame.to_csv(tmp, index=False)
+    tmp.replace(path)
+
+
+def migrate_clips_csv(path: Path) -> bool:
+    """Add the dataset column to an older per-clip CSV; True if it changed.
+
+    Values are read and written back as pandas writes them, so they keep
+    their exact text.
+    """
+    if not path.exists():
+        return False
+    old = pd.read_csv(path, dtype=str, keep_default_na=False)
+    if "dataset" in old.columns:
+        return False
+    write_csv(add_dataset_column(old), path)
+    return True
+
+
 def save_clip_rows(new: pd.DataFrame, path: Path) -> None:
     if path.exists():
-        old = pd.read_csv(path)
+        old = add_dataset_column(pd.read_csv(path))
         done = new[KEY].drop_duplicates()
         old = old.merge(done, on=KEY, how="left", indicator=True)
         old = old[old["_merge"] == "left_only"].drop(columns="_merge")
         new = pd.concat([old, new], ignore_index=True)
-    path.parent.mkdir(parents=True, exist_ok=True)
-    tmp = path.with_suffix(".tmp")
-    new.to_csv(tmp, index=False)
-    tmp.replace(path)
+    write_csv(new, path)
 
 
 def main(argv: list[str] | None = None) -> int:
@@ -108,7 +164,15 @@ def main(argv: list[str] | None = None) -> int:
         choices=["train", "validation", "test"],
     )
     parser.add_argument("--uvr-dir")
-    parser.add_argument("--data-dir")
+    parser.add_argument(
+        "--data-dir", help="musdb7 folder (default: $ML_TEK5_MUSDB7_DIR)"
+    )
+    parser.add_argument(
+        "--dataset",
+        default=DEFAULT_DATASET,
+        choices=DATASETS,
+        help="musdb7 or a degraded copy next to it (default: musdb7)",
+    )
     parser.add_argument(
         "--match-freq-cut",
         action="store_true",
@@ -119,7 +183,9 @@ def main(argv: list[str] | None = None) -> int:
     )
     args = parser.parse_args(argv)
 
-    data_dir = resolve_data_dir(args.data_dir)
+    data_dir = dataset_dir(resolve_data_dir(args.data_dir), args.dataset)
+    if migrate_clips_csv(CLIPS_CSV):
+        print(f"{CLIPS_CSV}: added the dataset column ({DEFAULT_DATASET})")
     estimators = {}  # name -> (hash, settings dict, estimator)
     if not args.no_mixture:
         estimators[MIXTURE] = ("", {}, lambda mix: {s: mix for s in STEMS})
@@ -148,7 +214,7 @@ def main(argv: list[str] | None = None) -> int:
     for split in args.splits:
         clips = split_clips(data_dir, split)
         for name, (model_hash, settings, estimator) in estimators.items():
-            print(f"{name} on {split} ({len(clips)} clips)")
+            print(f"{name} on {args.dataset} {split} ({len(clips)} clips)")
             rows, total = evaluate_split(name, estimator, clips)
             frame = pd.DataFrame(rows).assign(
                 model=name,
@@ -156,24 +222,12 @@ def main(argv: list[str] | None = None) -> int:
                 split=split,
                 match_freq_cut=args.match_freq_cut,
                 date=date,
-            )
-            frame = frame[
-                [
-                    "date",
-                    "model",
-                    "model_hash",
-                    "split",
-                    "match_freq_cut",
-                    "clip",
-                    "stem",
-                    "sdr_db",
-                    "reference_energy",
-                    "seconds",
-                ]
-            ]
+                dataset=args.dataset,
+            )[COLUMNS]
             save_clip_rows(frame, CLIPS_CSV)
 
             config = {
+                "dataset": args.dataset,
                 "model": name,
                 "model_hash": model_hash,
                 "n_clips": len(clips),
@@ -199,7 +253,7 @@ def main(argv: list[str] | None = None) -> int:
                         config=config,
                     )
                 print(
-                    f"{name} {split} {stem}: median {values.median():.2f} dB, "
+                    f"{name} {args.dataset} {split} {stem}: median {values.median():.2f} dB, "
                     f"mean {values.mean():.2f} dB"
                 )
     print("->", CLIPS_CSV, SUMMARY_CSV)

@@ -265,9 +265,13 @@ uv run python -m task3_uvr.evaluate \
 - The mixture reference is always added, unless `--no-mixture` is given.
 - Validation uses `task3_uvr/splits/validation.json`; test uses every clip in
   `musdb7/test/`.
-- Per-clip rows go to `results/task3_sdr_clips.csv`: model, hash, split,
-  clip, stem, SDR, reference energy, separation time. Median and mean SDR per
-  model, split and stem go to `results/task3_uvr.csv`.
+- `--dataset` picks `musdb7` (default) or a degraded copy next to it,
+  `musdb7_phone` or `musdb7_narrowband` (T3-06, T3-07).
+- Per-clip rows go to `results/task3_sdr_clips.csv`: dataset, model, hash,
+  split, clip, stem, SDR, reference energy, separation time. Median and mean
+  SDR per dataset, model, split and stem go to `results/task3_uvr.csv`, with
+  the dataset in the `config` column (rows written before T3-07 have none and
+  are on `musdb7`).
 
 **Use the validation split for model selection, early stopping and any
 other tuning. The test scores are for final reporting only.**
@@ -521,3 +525,159 @@ The degraded copies keep the clip names, so `task3_uvr/splits/train.json`
 and `task3_uvr/splits/validation.json` apply to them unchanged. The same
 artists stay out of training, and the test set is still never used for
 tuning.
+
+## Reference scores (T3-07)
+
+HQ 3, the benchmark and the mixture reference on the two degraded datasets,
+next to the clean scores of T3-04 (not rerun). On degraded data **the labels
+are the degraded stems**. These scores are the baseline for every later
+model (T3-08 small network, T3-10 fine-tuning).
+
+```bash
+export ML_TEK5_MUSDB7_DIR=<course project>/2_3_uvr/uvr_my_models/data/musdb7
+export ML_TEK5_UVR_DIR=<UVR>
+
+for dataset in musdb7_phone musdb7_narrowband; do
+    uv run python -m task3_uvr.evaluate \
+        --models UVR-MDX-NET-Inst_HQ_3 Benchmark_CentreChannel \
+        --splits validation test --dataset $dataset
+done
+uv run python -m task3_uvr.reference_scores   # -> results/task3_reference_scores.json, task3_reference_sdr.png
+uv run python -m task3_uvr.make_excerpts      # -> task3_uvr/artifacts/excerpts/
+```
+
+Run on 2026-11-27, same machine and versions as T3-04 (CPU only, Intel Core
+i7-1165G7, onnxruntime 1.31.1, torch 2.15.0, Match Freq Cut off). Each
+dataset took about 11 min (phone 11 min 18 s, narrowband 10 min 25 s), with
+a peak memory of 3.0 GB. After the run, the 384 clean rows of
+`results/task3_sdr_clips.csv` are identical to T3-04's, and Al James (clean,
+test) is still 10.447 dB on vocals and 11.564 dB on accompaniment.
+
+### Median SDR
+
+Median global SDR per clip, in dB, against each dataset's own stems.
+Validation has 14 clips, test 50.
+
+| Model | Split | Vocals: clean | phone | narrowband | Accomp.: clean | phone | narrowband |
+| --- | --- | --- | --- | --- | --- | --- | --- |
+| Mixture (reference) | validation | −3.83 | 0.92 | 2.39 | 3.83 | −0.92 | −2.39 |
+| Benchmark_CentreChannel | validation | −3.92 | 1.30 | 1.51 | 0.27 | 0.21 | −0.72 |
+| UVR-MDX-NET Inst HQ 3 | validation | **10.57** | **10.47** | **8.60** | **14.26** | **8.82** | **6.08** |
+| Mixture (reference) | test | −4.49 | 0.35 | 1.52 | 4.49 | −0.35 | −1.52 |
+| Benchmark_CentreChannel | test | −4.10 | 0.60 | 0.95 | 0.30 | 0.04 | −0.57 |
+| UVR-MDX-NET Inst HQ 3 | test | **10.15** | **9.08** | **6.65** | **14.66** | **8.25** | **5.52** |
+
+The means and per-clip values are in `results/task3_uvr.csv` and
+`results/task3_sdr_clips.csv`. `results/task3_reference_scores.json` holds
+the medians, drops and gains below.
+
+### Drop of HQ 3 on degraded data
+
+Median over clips of (clean SDR − degraded SDR), paired by clip, in dB. In
+brackets, the number of clips whose SDR drops.
+
+| Degraded dataset | Split | Vocals | Accompaniment |
+| --- | --- | --- | --- |
+| phone | validation | 0.53 (10/14) | 5.74 (14/14) |
+| phone | test | 1.06 (41/50) | 6.35 (50/50) |
+| narrowband | validation | 1.44 (12/14) | 7.57 (14/14) |
+| narrowband | test | 3.29 (44/50) | 8.81 (50/50) |
+
+The raw vocal SDR barely moves on phone. That is because the task got
+easier for vocals, not because HQ 3 copes: the vocals are louder relative to
+the accompaniment in degraded data. The median per-clip change of the mixture
+reference's vocal SDR, 10 log10(V/A), is +4.8 dB on phone and +6.3 dB on
+narrowband (test). Raw SDR across datasets compares different tasks; the gain
+over the mixture below does not.
+
+### Gain over the mixture reference
+
+Median over clips of (model SDR − mixture SDR on the same dataset), in dB.
+In brackets, the number of clips above the mixture.
+
+| Model | Dataset | Split | Vocals | Accompaniment |
+| --- | --- | --- | --- | --- |
+| HQ 3 | clean | validation | +14.26 (14/14) | +10.57 (14/14) |
+| HQ 3 | phone | validation | +8.82 (14/14) | +10.47 (14/14) |
+| HQ 3 | narrowband | validation | +6.08 (13/14) | +8.60 (14/14) |
+| HQ 3 | clean | test | +14.66 (50/50) | +10.15 (49/50) |
+| HQ 3 | phone | test | +8.25 (50/50) | +9.08 (49/50) |
+| HQ 3 | narrowband | test | +5.52 (47/50) | +6.65 (49/50) |
+| Benchmark | clean | validation | +0.27 (11/14) | −3.92 (0/14) |
+| Benchmark | phone | validation | +0.21 (9/14) | +1.30 (10/14) |
+| Benchmark | narrowband | validation | −0.72 (4/14) | +1.51 (10/14) |
+| Benchmark | clean | test | +0.30 (44/50) | −4.10 (2/50) |
+| Benchmark | phone | test | +0.04 (26/50) | +0.60 (29/50) |
+| Benchmark | narrowband | test | −0.57 (16/50) | +0.95 (37/50) |
+
+**The gain on one stem equals the raw SDR of the other stem.** Both models
+write the secondary stem as mixture − primary, so the vocal and accompaniment
+errors are the same signal `e` (with opposite signs). With stem energies V and
+A and error energy E:
+
+    SDR_vocals − SDR_mixture,vocals = 10 log10(V/E) − 10 log10(V/A) = 10 log10(A/E) = SDR_accompaniment
+
+and the other way round, up to ε. This holds per clip and therefore for the
+medians: in the tables, HQ 3's vocal gain on clean test (+14.66) is its
+accompaniment SDR (14.66). The gain table is thus not new information.
+It still says the useful thing plainly: **measured against what doing nothing
+gives, HQ 3's vocals lose a median 6.35 dB per clip on phone and 8.81 dB on
+narrowband (test; medians 14.66 → 8.25 → 5.52 dB)**, much more than the 1.06
+and 3.29 dB the raw vocal SDR suggests. Those per-clip values are the
+accompaniment drops of the table above. Any later model must share this structure (secondary = mixture −
+primary) for the identity to hold; otherwise report both tables.
+
+- **HQ 3** stays well above the mixture reference on every dataset, on 47 to
+  50 of 50 test clips per stem. It degrades gracefully, more on narrowband
+  (300–3400 Hz, more reverb) than on phone.
+- **Benchmark_CentreChannel** stays within about 1.5 dB of doing nothing on
+  degraded data. Its clean accompaniment loss (−4 dB) disappears, probably
+  because the band-pass removes most of the centred bass and kick that it
+  wrongly takes out of the accompaniment (not measured here).
+
+### "Before" values for T3-10
+
+Fine-tuning (T3-10) selects models on the **validation** split. Its "before"
+values are those of the original HQ 3 on the degraded validation clips:
+
+| Dataset | Split | HQ 3 vocals | HQ 3 accompaniment | Mixture reference vocals | Mixture reference accompaniment |
+| --- | --- | --- | --- | --- | --- |
+| phone | validation (14 clips) | **10.47** | **8.82** | 0.92 | −0.92 |
+| narrowband | validation (14 clips) | **8.60** | **6.08** | 2.39 | −2.39 |
+
+The clean validation scores (10.57 / 14.26 dB) are the values fine-tuning
+must not lose too much of. The test rows above are for final reporting only.
+
+### Figure
+
+![SDR per clip on the test split, by model and dataset](../results/task3_reference_sdr.png)
+
+One box per model and dataset, 50 test clips each; the box is the
+interquartile range, the line the median, the whiskers 1.5 × IQR. The
+outliers near −22 dB (mixture and benchmark) and the two low HQ 3 points on
+clean vocals are the two "PR - …" clips with almost silent vocals (see T3-04).
+
+### Audio excerpts
+
+`task3_uvr.make_excerpts` writes, for three test clips and each dataset,
+`task3_uvr/artifacts/excerpts/<dataset>/<clip>/` (ignored by git): the
+mixture, the true vocals and accompaniment, and the HQ 3 and benchmark
+outputs as 16-bit WAV. `excerpts/compare/<clip>.wav` plays the clean
+mixture, then HQ 3's vocals on clean, phone and narrowband, 0.5 s apart.
+`excerpts/index.md` lists every file with its SDR (equal to the CSV values).
+The clips are chosen from the CSV:
+
+| Clip | Why | HQ 3 vocals: clean / phone / narrowband |
+| --- | --- | --- |
+| Al James - Schoolboy Facination | reference clip of T3-04 | 10.45 / 9.39 / 7.11 dB |
+| Speak Softly - Like Horses | largest HQ 3 vocal drop, clean → phone | 9.06 / 2.97 / 4.45 dB |
+| Triviul feat. The Fiend - Widow | loudest vocals in clean data (+0.43 dB vs accompaniment) | 11.49 / 11.03 / 11.13 dB |
+
+- **Speak Softly** is an outlier: its 6.1 dB vocal drop on phone is the
+  largest by far (the next is 3.9 dB). Its phone settings are not extreme
+  (rt60 0.67 s, wet 0.31, 288–3887 Hz), and HQ 3 does better on its
+  narrowband version.
+- On 9 of 50 test clips, HQ 3's raw vocal SDR is higher on phone than on
+  clean, by up to 3.4 dB ("Cristina Vane - So Easy"). This is the louder
+  relative vocals again: on the same clips, the gain over the mixture still
+  drops.

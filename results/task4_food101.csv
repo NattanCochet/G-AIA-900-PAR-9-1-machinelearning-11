@@ -1,0 +1,3 @@
+date,task,seed,config,split,metric,score,duration_seconds
+2026-11-13T14:35:29+00:00,task4_food101,0,"{""batch_size"": 32, ""distillation_weight"": null, ""epochs"": 5, ""learning_rate"": 0.0001, ""mode"": ""teacher"", ""model"": ""resnet50"", ""parameters"": 23714981, ""temperature"": null}",test,accuracy,0.8121188118811882,4033.3247502249997
+2026-11-13T14:45:59+00:00,task4_food101,0,"{""batch_size"": 32, ""distillation_weight"": 0.5, ""epochs"": 5, ""learning_rate"": 0.0001, ""mode"": ""student"", ""model"": ""mobilenetv3_small_100"", ""parameters"": 1621381, ""temperature"": 4.0}",test,accuracy,0.7514059405940594,2633.596080988

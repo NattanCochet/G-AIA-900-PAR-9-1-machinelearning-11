@@ -383,3 +383,771 @@ date,dataset,model,model_hash,split,match_freq_cut,clip,stem,sdr_db,reference_en
 2026-11-13,musdb7,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,We Fell From The Sky - Not You,accompaniment,0.6957466549774853,6640.289886277169,0.0983043380001618
 2026-11-13,musdb7,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,vocals,-1.979109749967938,5485.785887425765,0.09559814499971253
 2026-11-13,musdb7,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,accompaniment,0.2692522706633333,9206.086580047384,0.09559814499971253
+2026-11-27,musdb7_phone,mixture,,validation,False,Alexander Ross - Goodbye Bolero,vocals,1.2744268514293036,830.7608628664166,2.4250000478787115e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,-1.2744240617261426,619.4888539444655,2.4250000478787115e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Alexander Ross - Velvet Curtain,vocals,-2.5434981891730004,1622.721374171786,5.023999960940273e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Alexander Ross - Velvet Curtain,accompaniment,2.5434999936652107,2914.7011632202193,5.023999960940273e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,AvaLuna - Waterduct,vocals,-0.1765951796975676,1673.326677247882,4.9870000111695845e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,AvaLuna - Waterduct,accompaniment,0.1765933358586403,1742.7718218201771,4.9870000111695845e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Drumtracks - Ghost Bitch,vocals,0.7102531216175849,2208.318457509391,3.3970000004046597e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Drumtracks - Ghost Bitch,accompaniment,-0.7102479868058724,1875.1521829366684,3.3970000004046597e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Giselle - Moss,vocals,0.5046422232374382,2395.526799213141,6.025999937264714e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Giselle - Moss,accompaniment,-0.504639167605383,2132.7355859838426,6.025999937264714e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,2.1508006676199494,1560.2375921159983,4.069000056006189e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,-2.1508079786900827,950.8466688832268,4.069000056006189e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Skelpolu - Human Mistakes,vocals,-2.9395224635036783,1492.9755520150065,7.304000064323191e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Skelpolu - Human Mistakes,accompaniment,2.9395303740092187,2937.685153208673,7.304000064323191e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Skelpolu - Together Alone,vocals,4.268560732575123,1753.0748083591461,4.773999989993172e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Skelpolu - Together Alone,accompaniment,-4.268552075447809,656.0618643658236,4.773999989993172e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Sweet Lights - You Let Me Down,vocals,0.09954128391404672,3054.5887722074986,6.344999974317034e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Sweet Lights - You Let Me Down,accompaniment,-0.09954098677562997,2985.3711719494313,6.344999974317034e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Swinging Steaks - Lost My Way,vocals,2.00829257225182,1779.1525184838101,3.976000016336911e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Swinging Steaks - Lost My Way,accompaniment,-2.0082903944089256,1120.4272057581693,3.976000016336911e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,The Long Wait - Back Home To Blue,vocals,1.1367909672230738,2232.9226563721895,2.791999918372312e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,The Long Wait - Back Home To Blue,accompaniment,-1.1367970051700718,1718.677205041051,2.791999918372312e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Blood To Bone,vocals,1.9763704228177892,1345.6211342671886,4.313999966143456e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Blood To Bone,accompaniment,-1.9763751175222233,853.6616965644062,4.313999966143456e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Facade,vocals,-1.7391390394623247,3628.8345588278025,3.475999960755871e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Facade,accompaniment,1.7391377631769265,5416.032074406743,3.475999960755871e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Pennies,vocals,2.474247231893372,2965.771221430972,3.927999955521955e-06
+2026-11-27,musdb7_phone,mixture,,validation,False,Young Griffo - Pennies,accompaniment,-2.47424791918513,1677.694890556857,3.927999955521955e-06
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Goodbye Bolero,vocals,11.120947409314283,830.7608628664166,9.848254620000034
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,9.846530728724014,619.4888539444655,9.848254620000034
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Velvet Curtain,vocals,5.00830064925514,1622.721374171786,8.059525510000071
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Velvet Curtain,accompaniment,7.551806377732179,2914.7011632202193,8.059525510000071
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,AvaLuna - Waterduct,vocals,4.221550282084044,1673.326677247882,8.15810513100007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,AvaLuna - Waterduct,accompaniment,4.398137230865632,1742.7718218201771,8.15810513100007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Drumtracks - Ghost Bitch,vocals,11.516639083362644,2208.318457509391,8.354450106999934
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Drumtracks - Ghost Bitch,accompaniment,10.806391018050729,1875.1521829366684,8.354450106999934
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Giselle - Moss,vocals,5.858516879401988,2395.526799213141,8.407947622999927
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Giselle - Moss,accompaniment,5.353876599850352,2132.7355859838426,8.407947622999927
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,11.871663239223743,1560.2375921159983,8.587828779999995
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,9.720852963896728,950.8466688832268,8.587828779999995
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Human Mistakes,vocals,4.419631082702894,1492.9755520150065,8.584692524999923
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Human Mistakes,accompaniment,7.359160819886617,2937.685153208673,8.584692524999923
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Together Alone,vocals,12.24047105216846,1753.0748083591461,9.018631919000086
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Together Alone,accompaniment,7.971913702125587,656.0618643658236,9.018631919000086
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Sweet Lights - You Let Me Down,vocals,1.8222069734443722,3054.5887722074986,11.534135399999968
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Sweet Lights - You Let Me Down,accompaniment,1.722665925721335,2985.3711719494313,11.534135399999968
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Swinging Steaks - Lost My Way,vocals,11.271141523432984,1779.1525184838101,9.096899202000031
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Swinging Steaks - Lost My Way,accompaniment,9.262837297823442,1120.4272057581693,9.096899202000031
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,The Long Wait - Back Home To Blue,vocals,10.491444266778993,2232.9226563721895,9.316688013999965
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,The Long Wait - Back Home To Blue,accompaniment,9.354647185992986,1718.677205041051,9.316688013999965
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Blood To Bone,vocals,10.445215563835596,1345.6211342671886,9.25387178099993
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Blood To Bone,accompaniment,8.468829926881474,853.6616965644062,9.25387178099993
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Facade,vocals,8.781010746203876,3628.8345588278025,11.744891686000074
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Facade,accompaniment,10.520148994162392,5416.032074406743,11.744891686000074
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Pennies,vocals,11.638745332831718,2965.771221430972,8.863444761999972
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Pennies,accompaniment,9.164481557753728,1677.694890556857,8.863444761999972
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Goodbye Bolero,vocals,1.569299074599779,830.7608628664166,0.08549257699996815
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,0.2948725972044379,619.4888539444655,0.08549257699996815
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Velvet Curtain,vocals,-2.4632029908885107,1622.721374171786,0.09133767299999818
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Velvet Curtain,accompaniment,0.08029700290642841,2914.7011632202193,0.09133767299999818
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,AvaLuna - Waterduct,vocals,1.481998956312983,1673.326677247882,0.09076550899999347
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,AvaLuna - Waterduct,accompaniment,1.6585951551633515,1742.7718218201771,0.09076550899999347
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Drumtracks - Ghost Bitch,vocals,1.3215689452165043,2208.318457509391,0.08936374099994282
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Drumtracks - Ghost Bitch,accompaniment,0.6113190711397176,1875.1521829366684,0.08936374099994282
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Giselle - Moss,vocals,-1.4860975568466626,2395.526799213141,0.09206380500006617
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Giselle - Moss,accompaniment,-1.9907396986735213,2132.7355859838426,0.09206380500006617
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,2.834042634656779,1560.2375921159983,0.09240055400005076
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,0.6832374656861242,950.8466688832268,0.09240055400005076
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Human Mistakes,vocals,-2.611692626735408,1492.9755520150065,0.09032959900002879
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Human Mistakes,accompaniment,0.32783213910561526,2937.685153208673,0.09032959900002879
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Together Alone,vocals,3.0423124953057306,1753.0748083591461,0.09605788799990478
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Together Alone,accompaniment,-1.2262406640832793,656.0618643658236,0.09605788799990478
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Sweet Lights - You Let Me Down,vocals,0.05352014079824375,3054.5887722074986,0.09542096699999547
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Sweet Lights - You Let Me Down,accompaniment,-0.046020706400798236,2985.3711719494313,0.09542096699999547
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Swinging Steaks - Lost My Way,vocals,2.593825946992902,1779.1525184838101,0.10080505099995207
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Swinging Steaks - Lost My Way,accompaniment,0.585535785348167,1120.4272057581693,0.10080505099995207
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,The Long Wait - Back Home To Blue,vocals,1.2827957183992478,2232.9226563721895,0.17701269399992725
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,The Long Wait - Back Home To Blue,accompaniment,0.1460054875618307,1718.677205041051,0.17701269399992725
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Blood To Bone,vocals,1.1986034461313793,1345.6211342671886,0.10541703000001235
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Blood To Bone,accompaniment,-0.7777713839310387,853.6616965644062,0.10541703000001235
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Facade,vocals,-1.4673625665356058,3628.8345588278025,0.09549489300002278
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Facade,accompaniment,0.2717762486252726,5416.032074406743,0.09549489300002278
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Pennies,vocals,2.2554116557075514,2965.771221430972,0.0890746790000776
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Pennies,accompaniment,-0.2188366936139985,1677.694890556857,0.0890746790000776
+2026-11-27,musdb7_phone,mixture,,test,False,AM Contra - Heart Peripheral,vocals,7.907297304205782,2616.735896792263,1.076000103239494e-06
+2026-11-27,musdb7_phone,mixture,,test,False,AM Contra - Heart Peripheral,accompaniment,-7.907314167032078,423.6710634622723,1.076000103239494e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Al James - Schoolboy Facination,vocals,1.9723716012645038,1477.6042283037677,6.40500002191402e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Al James - Schoolboy Facination,accompaniment,-1.9723749429040986,938.2547635026276,6.40500002191402e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Angels In Amplifiers - I'm Alright,vocals,0.46106672967981327,2841.2453742865473,4.75399997412751e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Angels In Amplifiers - I'm Alright,accompaniment,-0.4610700290618467,2555.0644129607826,4.75399997412751e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Arise - Run Run Run,vocals,-2.0120043762074826,907.9750121505931,3.835000029539515e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Arise - Run Run Run,accompaniment,2.011989840266581,1443.0242556985468,3.835000029539515e-06
+2026-11-27,musdb7_phone,mixture,,test,False,BKS - Bulldozer,vocals,-1.8043168098468119,1729.2028062893078,4.0119999766830006e-06
+2026-11-27,musdb7_phone,mixture,,test,False,BKS - Bulldozer,accompaniment,1.804322035082449,2619.858232853934,4.0119999766830006e-06
+2026-11-27,musdb7_phone,mixture,,test,False,BKS - Too Much,vocals,3.843655818161817,1414.7338401386514,4.725999929178215e-06
+2026-11-27,musdb7_phone,mixture,,test,False,BKS - Too Much,accompaniment,-3.843664386474399,583.8595372717828,4.725999929178215e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,-0.8209529518096698,685.2555096298456,6.994000045779103e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,0.8209478622368918,827.8430005311966,6.994000045779103e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Bobby Nobody - Stitch Up,vocals,-1.9120023212390826,1334.480423880741,4.471000011108117e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Bobby Nobody - Stitch Up,accompaniment,1.9119970802027355,2072.5846090056,4.471000011108117e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Buitraker - Revo X,vocals,-4.77360991196533,1170.7952176537365,4.806999982065463e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Buitraker - Revo X,accompaniment,4.773606278447692,3514.324743703939,4.806999982065463e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Carlos Gonzalez - A Place For Us,vocals,2.1229054998990233,3240.620044540614,3.452999976616411e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Carlos Gonzalez - A Place For Us,accompaniment,-2.1229056907851787,1987.63968911767,3.452999976616411e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Cristina Vane - So Easy,vocals,6.267094412953701,953.4788037315011,4.196999952910119e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Cristina Vane - So Easy,accompaniment,-6.267095571603064,225.21711790841073,4.196999952910119e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Detsky Sad - Walkie Talkie,vocals,2.1786841328328648,2290.1412893496454,3.5430000480118906e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Detsky Sad - Walkie Talkie,accompaniment,-2.178678474508215,1386.7379531376064,3.5430000480118906e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,3.4270226758977995,3796.135517460294,3.4539999660410103e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,-3.427020676678251,1724.4057732634246,3.4539999660410103e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Forkupines - Semantics,vocals,-1.071007776938946,1871.78631991148,4.358000069260015e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Forkupines - Semantics,accompaniment,1.0710071904016845,2395.2846970697865,4.358000069260015e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Georgia Wonder - Siren,vocals,-0.4810390699324219,1243.4481002762914,3.3249999660256435e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Georgia Wonder - Siren,accompaniment,0.48104999855769404,1389.0950042800978,3.3249999660256435e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Girls Under Glass - We Feel Alright,vocals,-1.9973062418213745,1603.7932446775958,3.8069999845902203e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Girls Under Glass - We Feel Alright,accompaniment,1.9973078998334626,2540.2637471938506,3.8069999845902203e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Hollow Ground - Ill Fate,vocals,1.1445519243845501,1073.1746213538572,3.048000053240685e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Hollow Ground - Ill Fate,accompaniment,-1.1445494590496361,824.5468274056911,3.048000053240685e-06
+2026-11-27,musdb7_phone,mixture,,test,False,James Elder & Mark M Thompson - The English Actor,vocals,-0.5561719416872786,3368.1810290832072,9.72499992712983e-06
+2026-11-27,musdb7_phone,mixture,,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,0.5561768680934186,3828.3610912756994,9.72499992712983e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Juliet's Rescue - Heartbeats,vocals,1.0819496734731322,974.0840698778629,2.9650000215042382e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Juliet's Rescue - Heartbeats,accompaniment,-1.0819516784053378,759.2788456799462,2.9650000215042382e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Little Chicago's Finest - My Own,vocals,-1.346035533962605,179.28942979034036,4.321999995227088e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Little Chicago's Finest - My Own,accompaniment,1.3460405440396697,244.4325094781816,4.321999995227088e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Louis Cressy Band - Good Time,vocals,-4.061549491283319,1204.8448716271669,4.9239999952988e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Louis Cressy Band - Good Time,accompaniment,4.06155724999257,3069.629189480096,4.9239999952988e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Lyndsey Ollard - Catching Up,vocals,5.6655722921700225,1929.1087432578206,1.0963000022456981e-05
+2026-11-27,musdb7_phone,mixture,,test,False,Lyndsey Ollard - Catching Up,accompaniment,-5.665572255928099,523.358285180293,1.0963000022456981e-05
+2026-11-27,musdb7_phone,mixture,,test,False,M.E.R.C. Music - Knockout,vocals,-0.46650722778457826,1626.9916084604338,3.848999995170743e-06
+2026-11-27,musdb7_phone,mixture,,test,False,M.E.R.C. Music - Knockout,accompaniment,0.4665060866617953,1811.4908216726035,3.848999995170743e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Moosmusic - Big Dummy Shake,vocals,2.25137486475926,2584.057975699194,4.201000024295354e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Moosmusic - Big Dummy Shake,accompaniment,-2.2513732182100368,1538.738243165426,4.201000024295354e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Motor Tapes - Shore,vocals,-9.53743110440633,449.1350304065272,6.02900001922535e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Motor Tapes - Shore,accompaniment,9.537437933308022,4037.5704115713015,6.02900001922535e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Mu - Too Bright,vocals,4.956794837096881,1513.0420967722312,2.9469999844877748e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Mu - Too Bright,accompaniment,-4.95679879225096,483.2488448051736,2.9469999844877748e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Nerve 9 - Pray For The Rain,vocals,3.620893752004861,3579.329815289937,3.3860000030472293e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Nerve 9 - Pray For The Rain,accompaniment,-3.620890550515793,1554.9368808083236,3.3860000030472293e-06
+2026-11-27,musdb7_phone,mixture,,test,False,PR - Happy Daze,vocals,-13.902154495408976,81.23012629058212,4.447999913281819e-06
+2026-11-27,musdb7_phone,mixture,,test,False,PR - Happy Daze,accompaniment,13.902154821359346,1994.9522333377972,4.447999913281819e-06
+2026-11-27,musdb7_phone,mixture,,test,False,PR - Oh No,vocals,-14.350208783612487,34.20846388954669,3.1600000056641875e-06
+2026-11-27,musdb7_phone,mixture,,test,False,PR - Oh No,accompaniment,14.350184463478433,931.4380908636376,3.1600000056641875e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Punkdisco - Oral Hygiene,vocals,2.050167744283099,814.022112345323,3.483000000414904e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Punkdisco - Oral Hygiene,accompaniment,-2.050161505840041,507.7152909813449,3.483000000414904e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Raft Monk - Tiring,vocals,1.1867488654307983,1973.9919845722616,2.75700006113766e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Raft Monk - Tiring,accompaniment,-1.1867435369285133,1502.0031293705106,2.75700006113766e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,4.4161601773408705,4530.856070634909,4.776000082529208e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,-4.416156052754666,1638.9460912859067,4.776000082529208e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Secretariat - Borderline,vocals,-0.6763194644474724,2378.478521671146,4.763999982060341e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Secretariat - Borderline,accompaniment,0.6763195064603267,2779.272873720154,4.763999982060341e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Secretariat - Over The Top,vocals,-0.4055560311487747,1451.0718483161181,3.93100003748259e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Secretariat - Over The Top,accompaniment,0.4055596349253181,1593.1050603240728,3.93100003748259e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Side Effects Project - Sing With Me,vocals,4.729500354213785,1217.2797831166536,3.895000077136501e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Side Effects Project - Sing With Me,accompaniment,-4.72950621120714,409.6755173904821,3.895000077136501e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Signe Jakobsen - What Have You Done To Me,vocals,0.6749275827818364,4095.968481939286,3.2609999607302598e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,-0.674930945751373,3506.41738710925,3.2609999607302598e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Skelpolu - Resurrection,vocals,2.3165056459888276,3019.2631222577766,3.1499999977313564e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Skelpolu - Resurrection,accompaniment,-2.316505533829957,1771.1313724750653,3.1499999977313564e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Speak Softly - Broken Man,vocals,-3.6378579974877354,973.337345466949,2.7849999924001168e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Speak Softly - Broken Man,accompaniment,3.637852430024431,2249.310137407854,2.7849999924001168e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Speak Softly - Like Horses,vocals,-0.5436980482845815,2558.2123790951446,3.0239999659897876e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Speak Softly - Like Horses,accompaniment,0.5436994137882091,2899.3892820673063,3.0239999659897876e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Doppler Shift - Atrophy,vocals,0.24317211200939426,2104.8186840852723,3.2499999633728294e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Doppler Shift - Atrophy,accompaniment,-0.24316933560561152,1990.203563359566,3.2499999633728294e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,1.7176005408360178,3447.947798731737,3.21400000302674e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,-1.7176004819200617,2321.671156199649,3.21400000302674e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Easton Ellises - Falcon 69,vocals,-2.4577887666847893,2697.3241548091173,3.633999995145132e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Easton Ellises - Falcon 69,accompaniment,2.4577857294149834,4750.202933083288,3.633999995145132e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Long Wait - Dark Horses,vocals,3.4167165957679133,1172.323444784619,3.2799999871713226e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Long Wait - Dark Horses,accompaniment,-3.4167066478293657,533.7975376369432,3.2799999871713226e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Mountaineering Club - Mallory,vocals,0.7328445365185434,911.7859041132033,3.8410000797739485e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Mountaineering Club - Mallory,accompaniment,-0.73285045031163,770.2079567555338,3.8410000797739485e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,2.116779333046744,988.9586306530982,3.375000005689799e-06
+2026-11-27,musdb7_phone,mixture,,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,-2.1167771978138687,607.4352498659864,3.375000005689799e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Timboz - Pony,vocals,0.08615723645746592,620.1273569362238,2.9689999792026356e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Timboz - Pony,accompaniment,-0.08615695087355058,607.9465738963336,2.9689999792026356e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Tom McKenzie - Directions,vocals,-4.395260840732637,648.8810060368851,4.234000016367645e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Tom McKenzie - Directions,accompaniment,4.395268763354774,1785.2170935021713,4.234000016367645e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Triviul feat. The Fiend - Widow,vocals,5.2557825563254745,2714.0176571533084,3.973999923800875e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Triviul feat. The Fiend - Widow,accompaniment,-5.255787801025443,809.1593390610069,3.973999923800875e-06
+2026-11-27,musdb7_phone,mixture,,test,False,We Fell From The Sky - Not You,vocals,-4.110927162284103,709.8170245122164,3.014999947481556e-06
+2026-11-27,musdb7_phone,mixture,,test,False,We Fell From The Sky - Not You,accompaniment,4.110928733460217,1829.106665397063,3.014999947481556e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Zeno - Signs,vocals,0.21533331842197295,3269.7078211009502,3.96600000840408e-06
+2026-11-27,musdb7_phone,mixture,,test,False,Zeno - Signs,accompaniment,-0.21533048407322164,3111.5427464609966,3.96600000840408e-06
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,AM Contra - Heart Peripheral,vocals,13.705421833162323,2616.735896792263,9.107195527000044
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,AM Contra - Heart Peripheral,accompaniment,5.798094351714733,423.6710634622723,9.107195527000044
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Al James - Schoolboy Facination,vocals,9.389442783841188,1477.6042283037677,9.155043270000078
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Al James - Schoolboy Facination,accompaniment,7.41706646599172,938.2547635026276,9.155043270000078
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Angels In Amplifiers - I'm Alright,vocals,12.384772636646728,2841.2453742865473,9.827427825999962
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Angels In Amplifiers - I'm Alright,accompaniment,11.923685772835517,2555.0644129607826,9.827427825999962
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Arise - Run Run Run,vocals,10.444086477252947,907.9750121505931,9.023802061000083
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Arise - Run Run Run,accompaniment,12.456100324609602,1443.0242556985468,9.023802061000083
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Bulldozer,vocals,6.731057192184801,1729.2028062893078,9.40222096399998
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Bulldozer,accompaniment,8.535375898049342,2619.858232853934,9.40222096399998
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Too Much,vocals,11.28385898570684,1414.7338401386514,9.04235402400002
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Too Much,accompaniment,7.440182166473547,583.8595372717828,9.04235402400002
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,6.086130025787289,685.2555096298456,9.789782183999932
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,6.907069930138407,827.8430005311966,9.789782183999932
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Bobby Nobody - Stitch Up,vocals,9.87593842762664,1334.480423880741,10.575008937000007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Bobby Nobody - Stitch Up,accompaniment,11.787924701489436,2072.5846090056,10.575008937000007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Buitraker - Revo X,vocals,5.586013557739067,1170.7952176537365,15.010680011999966
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Buitraker - Revo X,accompaniment,10.359607507794898,3514.324743703939,15.010680011999966
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Carlos Gonzalez - A Place For Us,vocals,8.08409507011432,3240.620044540614,11.637260322999964
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Carlos Gonzalez - A Place For Us,accompaniment,5.961188347243769,1987.63968911767,11.637260322999964
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Cristina Vane - So Easy,vocals,17.410903509384514,953.4788037315011,9.136118644000021
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Cristina Vane - So Easy,accompaniment,11.143749199684134,225.21711790841073,9.136118644000021
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Detsky Sad - Walkie Talkie,vocals,9.747110966148556,2290.1412893496454,9.229233464000004
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Detsky Sad - Walkie Talkie,accompaniment,7.568435565899265,1386.7379531376064,9.229233464000004
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,14.130139592461488,3796.135517460294,8.973783873000002
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,10.703113064260528,1724.4057732634246,8.973783873000002
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Forkupines - Semantics,vocals,6.687099429024899,1871.78631991148,11.22442077400001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Forkupines - Semantics,accompaniment,7.758092387082364,2395.2846970697865,11.22442077400001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Georgia Wonder - Siren,vocals,8.031767139392707,1243.4481002762914,9.229507039000055
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Georgia Wonder - Siren,accompaniment,8.512819730867374,1389.0950042800978,9.229507039000055
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Girls Under Glass - We Feel Alright,vocals,6.05443559418386,1603.7932446775958,9.017887237999958
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Girls Under Glass - We Feel Alright,accompaniment,8.051731037925155,2540.2637471938506,9.017887237999958
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Hollow Ground - Ill Fate,vocals,6.76364688427965,1073.1746213538572,9.351045010000007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Hollow Ground - Ill Fate,accompaniment,5.619081598542943,824.5468274056911,9.351045010000007
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,James Elder & Mark M Thompson - The English Actor,vocals,4.946736070090737,3368.1810290832072,12.1297219060001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,5.502912187944846,3828.3610912756994,12.1297219060001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Juliet's Rescue - Heartbeats,vocals,9.427224987139422,974.0840698778629,12.265455626999938
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Juliet's Rescue - Heartbeats,accompaniment,8.345247553450458,759.2788456799462,12.265455626999938
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Little Chicago's Finest - My Own,vocals,8.24226264171298,179.28942979034036,11.135553730999845
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Little Chicago's Finest - My Own,accompaniment,9.588219299061613,244.4325094781816,11.135553730999845
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Louis Cressy Band - Good Time,vocals,9.921674971183949,1204.8448716271669,9.406894878000003
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Louis Cressy Band - Good Time,accompaniment,13.98320644707951,3069.629189480096,9.406894878000003
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Lyndsey Ollard - Catching Up,vocals,11.979599317957202,1929.1087432578206,10.612217090000058
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Lyndsey Ollard - Catching Up,accompaniment,6.31403203489363,523.358285180293,10.612217090000058
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,M.E.R.C. Music - Knockout,vocals,8.492772712722969,1626.9916084604338,9.412655867000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,M.E.R.C. Music - Knockout,accompaniment,8.959259736258588,1811.4908216726035,9.412655867000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Moosmusic - Big Dummy Shake,vocals,11.057191502052248,2584.057975699194,9.942540183999881
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Moosmusic - Big Dummy Shake,accompaniment,8.805801623729662,1538.738243165426,9.942540183999881
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Motor Tapes - Shore,vocals,0.0449055309325829,449.1350304065272,10.26673431900008
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Motor Tapes - Shore,accompaniment,9.582344682764452,4037.5704115713015,10.26673431900008
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Mu - Too Bright,vocals,16.422226078326375,1513.0420967722312,9.646187726000107
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Mu - Too Bright,accompaniment,11.465368574172484,483.2488448051736,9.646187726000107
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Nerve 9 - Pray For The Rain,vocals,7.4135128537609525,3579.329815289937,8.880160917000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Nerve 9 - Pray For The Rain,accompaniment,3.7926215693656538,1554.9368808083236,8.880160917000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Happy Daze,vocals,-0.013971038774876791,81.23012629058212,9.425193358999877
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Happy Daze,accompaniment,13.888173639191335,1994.9522333377972,9.425193358999877
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Oh No,vocals,0.1803256913515907,34.20846388954669,12.17692302599994
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Oh No,accompaniment,14.530504896876781,931.4380908636376,12.17692302599994
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Punkdisco - Oral Hygiene,vocals,10.201225583166298,814.022112345323,9.198528388999875
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Punkdisco - Oral Hygiene,accompaniment,8.151056571412669,507.7152909813449,9.198528388999875
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Raft Monk - Tiring,vocals,5.6719449453887005,1973.9919845722616,14.35876003999988
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Raft Monk - Tiring,accompaniment,4.485198223132763,1502.0031293705106,14.35876003999988
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,14.258438052533997,4530.856070634909,13.926569329999893
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,9.842276175995192,1638.9460912859067,13.926569329999893
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Borderline,vocals,9.500571977539314,2378.478521671146,13.61755608600015
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Borderline,accompaniment,10.176884519902334,2779.272873720154,13.61755608600015
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Over The Top,vocals,10.417683898949086,1451.0718483161181,11.950935146999882
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Over The Top,accompaniment,10.823231460463283,1593.1050603240728,11.950935146999882
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Side Effects Project - Sing With Me,vocals,12.489550913577176,1217.2797831166536,13.534249565999971
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Side Effects Project - Sing With Me,accompaniment,7.760024305170806,409.6755173904821,13.534249565999971
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Signe Jakobsen - What Have You Done To Me,vocals,10.248342409858747,4095.968481939286,13.38632884599997
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,9.573411458752117,3506.41738710925,13.38632884599997
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Skelpolu - Resurrection,vocals,3.9494559080145137,3019.2631222577766,9.48582850799994
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Skelpolu - Resurrection,accompaniment,1.6329502647249792,1771.1313724750653,9.48582850799994
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Broken Man,vocals,9.853778837112754,973.337345466949,14.09733583100001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Broken Man,accompaniment,13.491618815368945,2249.310137407854,14.09733583100001
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Like Horses,vocals,2.9677565760833664,2558.2123790951446,11.170508601000165
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Like Horses,accompaniment,3.5114541580697844,2899.3892820673063,11.170508601000165
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Doppler Shift - Atrophy,vocals,6.315697931837786,2104.8186840852723,9.684859206000056
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Doppler Shift - Atrophy,accompaniment,6.0725149780554935,1990.203563359566,9.684859206000056
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,4.726008284887369,3447.947798731737,15.519325856000023
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,3.008404893021434,2321.671156199649,15.519325856000023
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises - Falcon 69,vocals,0.12455610662998413,2697.3241548091173,9.98334613399993
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises - Falcon 69,accompaniment,2.5823415201129696,4750.202933083288,9.98334613399993
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Long Wait - Dark Horses,vocals,10.096426275513881,1172.323444784619,10.408895737999956
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Long Wait - Dark Horses,accompaniment,6.6796949667766885,533.7975376369432,10.408895737999956
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Mountaineering Club - Mallory,vocals,8.772621702548607,911.7859041132033,9.365426887000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Mountaineering Club - Mallory,accompaniment,8.039771708044382,770.2079567555338,9.365426887000012
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,10.178630280231404,988.9586306530982,9.880730333999963
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,8.0618617775099,607.4352498659864,9.880730333999963
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Timboz - Pony,vocals,3.706024711530818,620.1273569362238,9.862258578000137
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Timboz - Pony,accompaniment,3.6198599788496617,607.9465738963336,9.862258578000137
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Tom McKenzie - Directions,vocals,8.011188024457855,648.8810060368851,9.979807084999948
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Tom McKenzie - Directions,accompaniment,12.406425110234805,1785.2170935021713,9.979807084999948
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Triviul feat. The Fiend - Widow,vocals,11.027194820601274,2714.0176571533084,12.284159533000093
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Triviul feat. The Fiend - Widow,accompaniment,5.771399046004735,809.1593390610069,12.284159533000093
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,We Fell From The Sky - Not You,vocals,7.1858949574323585,709.8170245122164,9.595733855000162
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,We Fell From The Sky - Not You,accompaniment,11.296791454481243,1829.106665397063,9.595733855000162
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Zeno - Signs,vocals,9.797799566429887,3269.7078211009502,11.464167965999877
+2026-11-27,musdb7_phone,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Zeno - Signs,accompaniment,9.582462644868379,3111.5427464609966,11.464167965999877
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,AM Contra - Heart Peripheral,vocals,6.04226115208664,2616.735896792263,0.0853031369999826
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,AM Contra - Heart Peripheral,accompaniment,-1.8650514832827858,423.6710634622723,0.0853031369999826
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Al James - Schoolboy Facination,vocals,2.1296176120503,1477.6042283037677,0.09971223799993822
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Al James - Schoolboy Facination,accompaniment,0.1572490060073671,938.2547635026276,0.09971223799993822
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Angels In Amplifiers - I'm Alright,vocals,0.7681196480742359,2841.2453742865473,0.09644366900010937
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Angels In Amplifiers - I'm Alright,accompaniment,0.30705404089727073,2555.0644129607826,0.09644366900010937
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Arise - Run Run Run,vocals,-1.5282985447859785,907.9750121505931,0.09349023599997963
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Arise - Run Run Run,accompaniment,0.4837070752250184,1443.0242556985468,0.09349023599997963
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Bulldozer,vocals,-2.499735604801508,1729.2028062893078,0.08899313000006259
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Bulldozer,accompaniment,-0.6954185042749507,2619.858232853934,0.08899313000006259
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Too Much,vocals,4.150214632493643,1414.7338401386514,0.08607832299981055
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Too Much,accompaniment,0.30655316674261324,583.8595372717828,0.08607832299981055
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,-0.47531552679235095,685.2555096298456,0.08781640699999116
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,0.3456376880842435,827.8430005311966,0.08781640699999116
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Bobby Nobody - Stitch Up,vocals,-1.9187945635454553,1334.480423880741,0.08796802300003037
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Bobby Nobody - Stitch Up,accompaniment,-0.0067929735140081215,2072.5846090056,0.08796802300003037
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Buitraker - Revo X,vocals,-1.760845220540205,1170.7952176537365,0.09665147900000193
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Buitraker - Revo X,accompaniment,3.012767166335895,3514.324743703939,0.09665147900000193
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Carlos Gonzalez - A Place For Us,vocals,1.8573583712783437,3240.620044540614,0.10703330000001188
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Carlos Gonzalez - A Place For Us,accompaniment,-0.26554432791339433,1987.63968911767,0.10703330000001188
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Cristina Vane - So Easy,vocals,4.7224843361891224,953.4788037315011,0.10455333699997027
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Cristina Vane - So Easy,accompaniment,-1.5446016180830766,225.21711790841073,0.10455333699997027
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Detsky Sad - Walkie Talkie,vocals,2.3750673507677496,2290.1412893496454,0.08700156899999456
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Detsky Sad - Walkie Talkie,accompaniment,0.19638608962731624,1386.7379531376064,0.08700156899999456
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,3.90815201700169,3796.135517460294,0.09752561699997386
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,0.48113131188791025,1724.4057732634246,0.09752561699997386
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Forkupines - Semantics,vocals,-1.2967779771204502,1871.78631991148,0.09604000299987092
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Forkupines - Semantics,accompaniment,-0.22576629244348234,2395.2846970697865,0.09604000299987092
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Georgia Wonder - Siren,vocals,0.20542248212670794,1243.4481002762914,0.0978702519998933
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Georgia Wonder - Siren,accompaniment,0.6864645147918608,1389.0950042800978,0.0978702519998933
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Girls Under Glass - We Feel Alright,vocals,-1.0978610979993848,1603.7932446775958,0.10200392599995212
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Girls Under Glass - We Feel Alright,accompaniment,0.8994501212469304,2540.2637471938506,0.10200392599995212
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Hollow Ground - Ill Fate,vocals,1.1732938842952105,1073.1746213538572,0.2006761780000943
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Hollow Ground - Ill Fate,accompaniment,0.0287438145271837,824.5468274056911,0.2006761780000943
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,James Elder & Mark M Thompson - The English Actor,vocals,-0.495180022836603,3368.1810290832072,0.09492047399999137
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,0.06099380023554848,3828.3610912756994,0.09492047399999137
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Juliet's Rescue - Heartbeats,vocals,0.2956674442251335,974.0840698778629,0.0920571189999464
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Juliet's Rescue - Heartbeats,accompaniment,-0.786283169924813,759.2788456799462,0.0920571189999464
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Little Chicago's Finest - My Own,vocals,-0.7450370930878762,179.28942979034036,0.09120481900004052
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Little Chicago's Finest - My Own,accompaniment,0.6010078541054623,244.4325094781816,0.09120481900004052
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Louis Cressy Band - Good Time,vocals,-1.7151797365693657,1204.8448716271669,0.08840967000014643
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Louis Cressy Band - Good Time,accompaniment,2.346368685270554,3069.629189480096,0.08840967000014643
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Lyndsey Ollard - Catching Up,vocals,3.541117209840443,1929.1087432578206,0.08921882899994671
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Lyndsey Ollard - Catching Up,accompaniment,-2.1244483138810986,523.358285180293,0.08921882899994671
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,M.E.R.C. Music - Knockout,vocals,-0.5032852878554135,1626.9916084604338,0.1146428009999454
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,M.E.R.C. Music - Knockout,accompaniment,-0.036779239261245024,1811.4908216726035,0.1146428009999454
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Moosmusic - Big Dummy Shake,vocals,1.806256052538332,2584.057975699194,0.09612846200002423
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Moosmusic - Big Dummy Shake,accompaniment,-0.4451196949782421,1538.738243165426,0.09612846200002423
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Motor Tapes - Shore,vocals,-7.7540872505905085,449.1350304065272,0.0954406849998577
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Motor Tapes - Shore,accompaniment,1.7833442642668644,4037.5704115713015,0.0954406849998577
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Mu - Too Bright,vocals,4.799758841457823,1513.0420967722312,0.09062805899998239
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Mu - Too Bright,accompaniment,-0.15703837871712226,483.2488448051736,0.09062805899998239
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Nerve 9 - Pray For The Rain,vocals,2.242104493788377,3579.329815289937,0.0956313650001448
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Nerve 9 - Pray For The Rain,accompaniment,-1.3787903954489553,1554.9368808083236,0.0956313650001448
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Happy Daze,vocals,-13.405112888106526,81.23012629058212,0.09637510000015936
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Happy Daze,accompaniment,0.4970440342447705,1994.9522333377972,0.09637510000015936
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Oh No,vocals,-12.977150331008247,34.20846388954669,0.09902380900007302
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Oh No,accompaniment,1.3730619311572776,931.4380908636376,0.09902380900007302
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Punkdisco - Oral Hygiene,vocals,1.1480456692429217,814.022112345323,0.09687583400000221
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Punkdisco - Oral Hygiene,accompaniment,-0.9021176568394382,507.7152909813449,0.09687583400000221
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Raft Monk - Tiring,vocals,0.6596827622033342,1973.9919845722616,0.09202610500005903
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Raft Monk - Tiring,accompaniment,-0.5270619489629278,1502.0031293705106,0.09202610500005903
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,3.3982087952998565,4530.856070634909,0.08937165599991204
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,-1.0179504568907973,1638.9460912859067,0.08937165599991204
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Borderline,vocals,-0.874891928605738,2378.478521671146,0.10302890599996317
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Borderline,accompaniment,-0.1985735505325203,2779.272873720154,0.10302890599996317
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Over The Top,vocals,0.24398372282455666,1451.0718483161181,0.13678880099996604
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Over The Top,accompaniment,0.6495399126123242,1593.1050603240728,0.13678880099996604
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Side Effects Project - Sing With Me,vocals,4.656615530603432,1217.2797831166536,0.11295402699988699
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Side Effects Project - Sing With Me,accompaniment,-0.07288397829807276,409.6755173904821,0.11295402699988699
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Signe Jakobsen - What Have You Done To Me,vocals,1.205471157847813,4095.968481939286,0.11203723699986767
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,0.5305428375017158,3506.41738710925,0.11203723699986767
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Skelpolu - Resurrection,vocals,1.7405804829921478,3019.2631222577766,0.09923819799996636
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Skelpolu - Resurrection,accompaniment,-0.5759247512565091,1771.1313724750653,0.09923819799996636
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Broken Man,vocals,-2.862412925518255,973.337345466949,0.11105748399995719
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Broken Man,accompaniment,0.7754447016832716,2249.310137407854,0.11105748399995719
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Like Horses,vocals,-0.6747357519457462,2558.2123790951446,0.10274109499982842
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Like Horses,accompaniment,-0.13103791988062616,2899.3892820673063,0.10274109499982842
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Doppler Shift - Atrophy,vocals,-0.8344740794779637,2104.8186840852723,0.10716141299985793
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Doppler Shift - Atrophy,accompaniment,-1.0776450320673439,1990.203563359566,0.10716141299985793
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,1.5077522852125849,3447.947798731737,0.10379764699996485
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,-0.20984895156262473,2321.671156199649,0.10379764699996485
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises - Falcon 69,vocals,-2.240978494747325,2697.3241548091173,0.10410167000009096
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises - Falcon 69,accompaniment,0.21681044699996327,4750.202933083288,0.10410167000009096
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Long Wait - Dark Horses,vocals,2.6071324581885036,1172.323444784619,0.1049406470001486
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Long Wait - Dark Horses,accompaniment,-0.8095817571725262,533.7975376369432,0.1049406470001486
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Mountaineering Club - Mallory,vocals,0.8242557050687932,911.7859041132033,0.11041965399999754
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Mountaineering Club - Mallory,accompaniment,0.09140574793652817,770.2079567555338,0.11041965399999754
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,1.812908438347717,988.9586306530982,0.10589663399991878
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,-0.30386821333224007,607.4352498659864,0.10589663399991878
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Timboz - Pony,vocals,0.827160621333955,620.1273569362238,0.09143576000019493
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Timboz - Pony,accompaniment,0.741007661613088,607.9465738963336,0.09143576000019493
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Tom McKenzie - Directions,vocals,-3.6575919907992156,648.8810060368851,0.08917444300004718
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Tom McKenzie - Directions,accompaniment,0.7376678745879099,1785.2170935021713,0.08917444300004718
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Triviul feat. The Fiend - Widow,vocals,3.01663113030044,2714.0176571533084,0.1035480790001202
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Triviul feat. The Fiend - Widow,accompaniment,-2.2391529757889077,809.1593390610069,0.1035480790001202
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,We Fell From The Sky - Not You,vocals,-3.0867951676799037,709.8170245122164,0.1022850260001178
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,We Fell From The Sky - Not You,accompaniment,1.024133681737643,1829.106665397063,0.1022850260001178
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,vocals,0.5396431284090377,3269.7078211009502,0.10189700399996582
+2026-11-27,musdb7_phone,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,accompaniment,0.3243107544810858,3111.5427464609966,0.10189700399996582
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Alexander Ross - Goodbye Bolero,vocals,1.4809664898615502,873.5301919337362,1.5599998732795939e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,-1.480961855600007,621.1279827756807,1.5599998732795939e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Alexander Ross - Velvet Curtain,vocals,-2.1348649124759365,1281.199627793394,5.7810000271274475e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Alexander Ross - Velvet Curtain,accompaniment,2.134874387174442,2094.610648316331,5.7810000271274475e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,AvaLuna - Waterduct,vocals,-1.8744400693870178,1292.906372949481,4.060000037497957e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,AvaLuna - Waterduct,accompaniment,1.874441868941,1990.7249246593565,4.060000037497957e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Drumtracks - Ghost Bitch,vocals,2.8014759631532273,1542.2384708821774,4.3679999635060085e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Drumtracks - Ghost Bitch,accompaniment,-2.8014724507580757,809.1032198956236,4.3679999635060085e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Giselle - Moss,vocals,3.5353687002513605,2332.673658666201,4.724000064015854e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Giselle - Moss,accompaniment,-3.5353620928941893,1033.5168265029788,4.724000064015854e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,2.492453038304688,1276.9244164768606,3.015999936906155e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,-2.4924594599371903,719.3156282566488,3.015999936906155e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Skelpolu - Human Mistakes,vocals,0.8539801496061593,1014.1882082112134,4.8829999741428765e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Skelpolu - Human Mistakes,accompaniment,-0.8539794305060486,833.1445163171738,4.8829999741428765e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Skelpolu - Together Alone,vocals,4.687346011543216,1380.566267369315,4.065999974045553e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Skelpolu - Together Alone,accompaniment,-4.687338789972665,469.1625289982185,4.065999974045553e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Sweet Lights - You Let Me Down,vocals,2.2967664471401896,2038.4416961623356,4.029999900012626e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Sweet Lights - You Let Me Down,accompaniment,-2.2967640239364866,1201.2178010661155,4.029999900012626e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Swinging Steaks - Lost My Way,vocals,4.7615566248654435,1319.7324015423656,4.0439999793306924e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Swinging Steaks - Lost My Way,accompaniment,-4.761554757607901,440.8902753377333,4.0439999793306924e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,The Long Wait - Back Home To Blue,vocals,3.1809098658301997,2203.588666697964,3.490000153760775e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,The Long Wait - Back Home To Blue,accompaniment,-3.180914442337728,1059.348690056242,3.490000153760775e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Blood To Bone,vocals,2.0661482078495954,1185.713710386306,3.7610000163113e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Blood To Bone,accompaniment,-2.0661441988523355,736.826602214016,3.7610000163113e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Facade,vocals,-0.9402560136563791,3012.5161365736276,4.174999958195258e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Facade,accompaniment,0.940256897037216,3740.719181621447,4.174999958195258e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Pennies,vocals,3.00831563349699,2092.373485653661,3.256000127294101e-06
+2026-11-27,musdb7_narrowband,mixture,,validation,False,Young Griffo - Pennies,accompaniment,-3.008308504907944,1046.6667999485508,3.256000127294101e-06
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Goodbye Bolero,vocals,9.84408405345628,873.5301919337362,9.681967278999991
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,8.36313378026093,621.1279827756807,9.681967278999991
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Velvet Curtain,vocals,3.4226381092262455,1281.199627793394,9.321092470000167
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Alexander Ross - Velvet Curtain,accompaniment,5.557505503556365,2094.610648316331,9.321092470000167
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,AvaLuna - Waterduct,vocals,4.015633837700191,1292.906372949481,9.546722735000003
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,AvaLuna - Waterduct,accompaniment,5.890073131801433,1990.7249246593565,9.546722735000003
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Drumtracks - Ghost Bitch,vocals,10.022857158881584,1542.2384708821774,9.542993324999998
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Drumtracks - Ghost Bitch,accompaniment,7.221362623698235,809.1032198956236,9.542993324999998
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Giselle - Moss,vocals,7.832254939194877,2332.673658666201,9.438764703999823
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Giselle - Moss,accompaniment,4.296880851987751,1033.5168265029788,9.438764703999823
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,9.478732273604278,1276.9244164768606,9.635467054999935
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,6.98627125602409,719.3156282566488,9.635467054999935
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Human Mistakes,vocals,5.85833431060485,1014.1882082112134,9.675643433999994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Human Mistakes,accompaniment,5.004344403199996,833.1445163171738,9.675643433999994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Together Alone,vocals,12.317292441462747,1380.566267369315,9.636002530000042
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Skelpolu - Together Alone,accompaniment,7.629942716460521,469.1625289982185,9.636002530000042
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Sweet Lights - You Let Me Down,vocals,2.1782639071153556,2038.4416961623356,10.064171275000035
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Sweet Lights - You Let Me Down,accompaniment,-0.11849673167907367,1201.2178010661155,10.064171275000035
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Swinging Steaks - Lost My Way,vocals,6.476735988873977,1319.7324015423656,9.438967534999847
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Swinging Steaks - Lost My Way,accompaniment,1.7151801940688274,440.8902753377333,9.438967534999847
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,The Long Wait - Back Home To Blue,vocals,9.371128648204657,2203.588666697964,9.611596278999968
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,The Long Wait - Back Home To Blue,accompaniment,6.1902248269124,1059.348690056242,9.611596278999968
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Blood To Bone,vocals,9.589503787944176,1185.713710386306,8.98468060900018
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Blood To Bone,accompaniment,7.523357762485407,736.826602214016,8.98468060900018
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Facade,vocals,5.022959611301815,3012.5161365736276,9.54612351899982
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Facade,accompaniment,5.963217008214521,3740.719181621447,9.54612351899982
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Pennies,vocals,11.017290378099423,2092.373485653661,9.298184637000077
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,validation,False,Young Griffo - Pennies,accompaniment,8.00895009504378,1046.6667999485508,9.298184637000077
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Goodbye Bolero,vocals,1.6841691915199297,873.5301919337362,0.15724198199995953
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Goodbye Bolero,accompaniment,0.20320435387173202,621.1279827756807,0.15724198199995953
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Velvet Curtain,vocals,-1.0803522573296283,1281.199627793394,0.10021890999996685
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Alexander Ross - Velvet Curtain,accompaniment,1.0545145054774139,2094.610648316331,0.10021890999996685
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,AvaLuna - Waterduct,vocals,-0.7216791907156801,1292.906372949481,0.0995389750000868
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,AvaLuna - Waterduct,accompaniment,1.152764151804553,1990.7249246593565,0.0995389750000868
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Drumtracks - Ghost Bitch,vocals,2.2126078672381913,1542.2384708821774,0.08676835300002494
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Drumtracks - Ghost Bitch,accompaniment,-0.5888716628748276,809.1032198956236,0.08676835300002494
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Giselle - Moss,vocals,-0.08067555131323434,2332.673658666201,0.10804679199986822
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Giselle - Moss,accompaniment,-3.616039022255112,1033.5168265029788,0.10804679199986822
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Phre The Eon - Everybody's Falling Apart,vocals,2.398018896696331,1276.9244164768606,0.09020493000002716
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Phre The Eon - Everybody's Falling Apart,accompaniment,-0.09443706626982885,719.3156282566488,0.09020493000002716
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Human Mistakes,vocals,0.6603248467997723,1014.1882082112134,0.08511787400016146
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Human Mistakes,accompaniment,-0.19365299554626988,833.1445163171738,0.08511787400016146
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Together Alone,vocals,2.946966850652256,1380.566267369315,0.08364623499983281
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Skelpolu - Together Alone,accompaniment,-1.7403785894932386,469.1625289982185,0.08364623499983281
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Sweet Lights - You Let Me Down,vocals,1.33409566821875,2038.4416961623356,0.08133305000001201
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Sweet Lights - You Let Me Down,accompaniment,-0.9626642279494114,1201.2178010661155,0.08133305000001201
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Swinging Steaks - Lost My Way,vocals,2.406346884391756,1319.7324015423656,0.09836776199995256
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Swinging Steaks - Lost My Way,accompaniment,-2.355209304067109,440.8902753377333,0.09836776199995256
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,The Long Wait - Back Home To Blue,vocals,2.102788665937956,2203.588666697964,0.08830389800004923
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,The Long Wait - Back Home To Blue,accompaniment,-1.0781204233360284,1059.348690056242,0.08830389800004923
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Blood To Bone,vocals,1.2187684851900085,1185.713710386306,0.08883638699990115
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Blood To Bone,accompaniment,-0.8473778339999294,736.826602214016,0.08883638699990115
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Facade,vocals,-0.2802427647146476,3012.5161365736276,0.09274932500011346
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Facade,accompaniment,0.6600148622639678,3740.719181621447,0.09274932500011346
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Pennies,vocals,1.8490411403573095,2092.373485653661,0.08735982500002137
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,validation,False,Young Griffo - Pennies,accompaniment,-1.159274494053848,1046.6667999485508,0.08735982500002137
+2026-11-27,musdb7_narrowband,mixture,,test,False,AM Contra - Heart Peripheral,vocals,7.5159920193276015,2460.234535708092,1.5660000372008653e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,AM Contra - Heart Peripheral,accompaniment,-7.516001187740225,435.88970660604537,1.5660000372008653e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Al James - Schoolboy Facination,vocals,2.3171181511146894,1422.8146380521357,4.636000085156411e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Al James - Schoolboy Facination,accompaniment,-2.3171107595685285,834.5205784365535,4.636000085156411e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Angels In Amplifiers - I'm Alright,vocals,2.8194508303479395,2966.275388984941,4.8080000851769e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Angels In Amplifiers - I'm Alright,accompaniment,-2.819451914609795,1549.766729887575,4.8080000851769e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Arise - Run Run Run,vocals,-1.1194007219605429,516.3043975569308,4.257000000507105e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Arise - Run Run Run,accompaniment,1.119404237467232,668.1075411736965,4.257000000507105e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,BKS - Bulldozer,vocals,-2.0000986428437404,1010.4782611476257,4.088999958185013e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,BKS - Bulldozer,accompaniment,2.0000953263893098,1601.5364112863317,4.088999958185013e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,BKS - Too Much,vocals,3.7243076340336527,1038.7966847466305,3.826000011031283e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,BKS - Too Much,accompaniment,-3.724312453401342,440.65549749229103,3.826000011031283e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,0.4328197570477351,692.2223808951676,4.071999910593149e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,-0.432830285784394,626.5604322450235,4.071999910593149e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Bobby Nobody - Stitch Up,vocals,-0.299429906004871,835.5406864685938,3.6760000057256548e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Bobby Nobody - Stitch Up,accompaniment,0.2994300385182919,895.180950941518,3.6760000057256548e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Buitraker - Revo X,vocals,-3.566465987268341,940.6016741711646,4.7959999847080326e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Buitraker - Revo X,accompaniment,3.5664692144438344,2138.22079261858,4.7959999847080326e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Carlos Gonzalez - A Place For Us,vocals,2.075471215119085,3126.6558443820104,4.377000095701078e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Carlos Gonzalez - A Place For Us,accompaniment,-2.0754731105678106,1938.7985640214756,4.377000095701078e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Cristina Vane - So Easy,vocals,7.630100464260003,819.1697968123481,4.327999931774684e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Cristina Vane - So Easy,accompaniment,-7.630085794425008,141.37254908215255,4.327999931774684e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Detsky Sad - Walkie Talkie,vocals,2.5947825212665454,1927.954994859174,4.224000122121652e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Detsky Sad - Walkie Talkie,accompaniment,-2.5947788594299848,1060.7635441059247,4.224000122121652e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,5.304434501096692,2733.981950400397,4.648999947676202e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,-5.3044417430705435,806.0308296587318,4.648999947676202e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Forkupines - Semantics,vocals,0.693568001708787,1899.624444837682,3.7620000057358993e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Forkupines - Semantics,accompaniment,-0.6935651549257567,1619.2402884848416,3.7620000057358993e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Georgia Wonder - Siren,vocals,-0.38016970598579425,740.0237177582458,4.340000032243552e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Georgia Wonder - Siren,accompaniment,0.3801513909333559,807.7215971462429,4.340000032243552e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Girls Under Glass - We Feel Alright,vocals,0.32839252488263604,1226.1238393979147,3.5209998259233544e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Girls Under Glass - We Feel Alright,accompaniment,-0.3283920100566446,1136.8287770049646,3.5209998259233544e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Hollow Ground - Ill Fate,vocals,1.7695193212937834,1132.8234694292769,5.158000021765474e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Hollow Ground - Ill Fate,accompaniment,-1.7695103427493892,753.721064270474,5.158000021765474e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,James Elder & Mark M Thompson - The English Actor,vocals,1.105130959094728,2724.2277563828975,4.302999968786025e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,-1.105129229817777,2112.1769577842206,4.302999968786025e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Juliet's Rescue - Heartbeats,vocals,1.3094833938739332,971.6418552054092,4.235000005792244e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Juliet's Rescue - Heartbeats,accompaniment,-1.3094856533848231,718.7166325673461,4.235000005792244e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Little Chicago's Finest - My Own,vocals,-2.9161653502769784,155.86427629832178,3.811999931713217e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Little Chicago's Finest - My Own,accompaniment,2.9161773183952273,305.0439288886264,3.811999931713217e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Louis Cressy Band - Good Time,vocals,-3.208998933611605,1075.458203902468,4.4219998471817235e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Louis Cressy Band - Good Time,accompaniment,3.209003089037154,2251.6127648325637,4.4219998471817235e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Lyndsey Ollard - Catching Up,vocals,7.363512900322381,2032.6778019322082,4.109999963475275e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Lyndsey Ollard - Catching Up,accompaniment,-7.363513864785175,373.00744946766645,4.109999963475275e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,M.E.R.C. Music - Knockout,vocals,0.9590981365043294,1197.543545375578,3.946000106225256e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,M.E.R.C. Music - Knockout,accompaniment,-0.9590950512611813,960.2441111868247,3.946000106225256e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Moosmusic - Big Dummy Shake,vocals,3.063981423258152,2367.2640277780592,4.551000074570766e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Moosmusic - Big Dummy Shake,accompaniment,-3.0639864720776644,1169.0904651619494,4.551000074570766e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Motor Tapes - Shore,vocals,-9.016235508546368,516.7314649643376,4.006000153822242e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Motor Tapes - Shore,accompaniment,9.01623443171885,4119.914172111079,4.006000153822242e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Mu - Too Bright,vocals,6.8453668460632064,1166.3151803957298,4.678999857787858e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Mu - Too Bright,accompaniment,-6.845363608050837,241.1454145759344,4.678999857787858e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Nerve 9 - Pray For The Rain,vocals,3.5739762254047083,3094.168277407065,3.468999921096838e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Nerve 9 - Pray For The Rain,accompaniment,-3.573979053317502,1358.7695585079491,3.468999921096838e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,PR - Happy Daze,vocals,-12.104683106662723,74.08119775075465,4.482000122152385e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,PR - Happy Daze,accompaniment,12.104697513850668,1202.7552039772272,4.482000122152385e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,PR - Oh No,vocals,-14.382537251479555,24.538809902966022,4.209000053378986e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,PR - Oh No,accompaniment,14.382552643161777,673.1443185731769,4.209000053378986e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Punkdisco - Oral Hygiene,vocals,2.764645887117819,783.5034047057852,3.5260000004200265e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Punkdisco - Oral Hygiene,accompaniment,-2.7646501216471226,414.5490335924551,3.5260000004200265e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Raft Monk - Tiring,vocals,1.5994640120792387,1633.7365422751755,3.862999847115134e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Raft Monk - Tiring,accompaniment,-1.5994567285381647,1130.4095514956862,3.862999847115134e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,8.405740322640114,4451.788759667426,3.7689999317080947e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,-8.405737189917774,642.6295594722033,3.7689999317080947e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Secretariat - Borderline,vocals,1.5087447989041762,1096.7607811484486,4.2729998313006945e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Secretariat - Borderline,accompaniment,-1.5087465995053084,774.8858839534223,4.2729998313006945e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Secretariat - Over The Top,vocals,1.054877271907945,974.3236897401512,3.3989999792538583e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Secretariat - Over The Top,accompaniment,-1.0548883999684964,764.2132746875286,3.3989999792538583e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Side Effects Project - Sing With Me,vocals,5.380744467814034,926.8145113680512,3.7849999898753595e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Side Effects Project - Sing With Me,accompaniment,-5.380743676328916,268.483929567039,3.7849999898753595e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Signe Jakobsen - What Have You Done To Me,vocals,2.3277447598718353,3018.593881269917,3.4130000585719245e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,-2.3277486943672727,1766.1590193947777,3.4130000585719245e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Skelpolu - Resurrection,vocals,1.5271001818932057,1716.418966689147,3.905000085069332e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Skelpolu - Resurrection,accompaniment,-1.5270965493138267,1207.5734249511734,3.905000085069332e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Speak Softly - Broken Man,vocals,-2.163099158276812,696.7517899740487,3.6520000321615953e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Speak Softly - Broken Man,accompaniment,2.1631015067010906,1146.5375581867993,3.6520000321615953e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Speak Softly - Like Horses,vocals,1.2014377902558222,2434.621970541775,3.7149998206587043e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Speak Softly - Like Horses,accompaniment,-1.2014422423142097,1846.23754435312,3.7149998206587043e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Doppler Shift - Atrophy,vocals,1.8205533008385852,1568.5154467476532,4.1560001591278706e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Doppler Shift - Atrophy,accompaniment,-1.8205587973494977,1031.414775303565,4.1560001591278706e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,1.863288374825581,1711.1538052018732,3.4590000268508447e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,-1.8632937620832013,1114.1925077661872,3.4590000268508447e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Easton Ellises - Falcon 69,vocals,0.1777451509350942,2245.4945491068065,4.764999857798102e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Easton Ellises - Falcon 69,accompaniment,-0.1777447525812317,2155.448100268841,4.764999857798102e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Long Wait - Dark Horses,vocals,4.354530930396605,816.9570282064378,3.6129999898548704e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Long Wait - Dark Horses,accompaniment,-4.354537506887612,299.74070757161826,3.6129999898548704e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Mountaineering Club - Mallory,vocals,1.3775159984203598,797.8783790292218,3.7629999951604987e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Mountaineering Club - Mallory,accompaniment,-1.3775195195112073,581.0124353859574,3.7629999951604987e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,4.336488892084564,659.2996166059747,1.0625999948388198e-05
+2026-11-27,musdb7_narrowband,mixture,,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,-4.336490756255791,242.90329021587968,1.0625999948388198e-05
+2026-11-27,musdb7_narrowband,mixture,,test,False,Timboz - Pony,vocals,-0.7292812533073538,580.4591256389394,3.923000122085796e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Timboz - Pony,accompaniment,0.7292714971349139,686.5933106858283,3.923000122085796e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Tom McKenzie - Directions,vocals,5.4870128624374175,459.24873245693743,5.2310001592559274e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Tom McKenzie - Directions,accompaniment,-5.486992534221534,129.8223067112267,5.2310001592559274e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Triviul feat. The Fiend - Widow,vocals,5.403111094220537,2644.1925569549203,3.2369998734793626e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Triviul feat. The Fiend - Widow,accompaniment,-5.4031107235164155,762.0477758701891,3.2369998734793626e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,We Fell From The Sky - Not You,vocals,-3.517847625276906,497.15904356725514,4.759999910675106e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,We Fell From The Sky - Not You,accompaniment,3.517845300008618,1117.5828174082562,4.759999910675106e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Zeno - Signs,vocals,1.0232653180441846,2568.7364504784346,4.1330001749884104e-06
+2026-11-27,musdb7_narrowband,mixture,,test,False,Zeno - Signs,accompaniment,-1.0232650737419893,2029.5183332664892,4.1330001749884104e-06
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,AM Contra - Heart Peripheral,vocals,7.244581613121499,2460.234535708092,9.585644941999817
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,AM Contra - Heart Peripheral,accompaniment,-0.2714139381054687,435.88970660604537,9.585644941999817
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Al James - Schoolboy Facination,vocals,7.110558068880048,1422.8146380521357,9.747453354000072
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Al James - Schoolboy Facination,accompaniment,4.793441061433279,834.5205784365535,9.747453354000072
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Angels In Amplifiers - I'm Alright,vocals,12.047238312925506,2966.275388984941,10.152129277000085
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Angels In Amplifiers - I'm Alright,accompaniment,9.227778259396501,1549.766729887575,10.152129277000085
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Arise - Run Run Run,vocals,3.769356600152837,516.3043975569308,9.84246512599998
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Arise - Run Run Run,accompaniment,4.888764049265049,668.1075411736965,9.84246512599998
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Bulldozer,vocals,3.581935176476028,1010.4782611476257,9.424280883999927
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Bulldozer,accompaniment,5.58203023169442,1601.5364112863317,9.424280883999927
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Too Much,vocals,9.125935032628739,1038.7966847466305,9.472561266000184
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,BKS - Too Much,accompaniment,5.401616653636431,440.65549749229103,9.472561266000184
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,4.805467304626133,692.2223808951676,9.674649823999971
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,4.372641896925713,626.5604322450235,9.674649823999971
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Bobby Nobody - Stitch Up,vocals,7.501309171837697,835.5406864685938,9.43315518899999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Bobby Nobody - Stitch Up,accompaniment,7.800723517966961,895.180950941518,9.43315518899999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Buitraker - Revo X,vocals,3.637557973172677,940.6016741711646,9.470970203999968
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Buitraker - Revo X,accompaniment,7.204023558246943,2138.22079261858,9.470970203999968
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Carlos Gonzalez - A Place For Us,vocals,6.1958210939216745,3126.6558443820104,9.688607631999957
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Carlos Gonzalez - A Place For Us,accompaniment,4.120349971495391,1938.7985640214756,9.688607631999957
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Cristina Vane - So Easy,vocals,15.394524159329743,819.1697968123481,9.75066056799983
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Cristina Vane - So Easy,accompaniment,7.764334945716421,141.37254908215255,9.75066056799983
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Detsky Sad - Walkie Talkie,vocals,8.472675810104738,1927.954994859174,9.540042158999995
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Detsky Sad - Walkie Talkie,accompaniment,5.87789527503391,1060.7635441059247,9.540042158999995
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,9.576572629598356,2733.981950400397,9.747457379000025
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,4.272130067084587,806.0308296587318,9.747457379000025
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Forkupines - Semantics,vocals,7.083127938196117,1899.624444837682,9.626479953999933
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Forkupines - Semantics,accompaniment,6.389552554166455,1619.2402884848416,9.626479953999933
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Georgia Wonder - Siren,vocals,5.904810145572758,740.0237177582458,9.490619404999961
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Georgia Wonder - Siren,accompaniment,6.284969676438986,807.7215971462429,9.490619404999961
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Girls Under Glass - We Feel Alright,vocals,5.794968355519331,1226.1238393979147,9.401947168000106
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Girls Under Glass - We Feel Alright,accompaniment,5.466572594847001,1136.8287770049646,9.401947168000106
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Hollow Ground - Ill Fate,vocals,4.7822311409570215,1132.8234694292769,9.750375246999965
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Hollow Ground - Ill Fate,accompaniment,3.012710132748304,753.721064270474,9.750375246999965
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,James Elder & Mark M Thompson - The English Actor,vocals,4.331450572941465,2724.2277563828975,9.686395199000117
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,3.2263166676771045,2112.1769577842206,9.686395199000117
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Juliet's Rescue - Heartbeats,vocals,8.992939470388519,971.6418552054092,9.646669766000059
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Juliet's Rescue - Heartbeats,accompaniment,7.683425350127621,718.7166325673461,9.646669766000059
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Little Chicago's Finest - My Own,vocals,6.550511675449648,155.86427629832178,9.4613382739999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Little Chicago's Finest - My Own,accompaniment,9.466643316370128,305.0439288886264,9.4613382739999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Louis Cressy Band - Good Time,vocals,5.889598912115098,1075.458203902468,9.407534681000016
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Louis Cressy Band - Good Time,accompaniment,9.09859964253714,2251.6127648325637,9.407534681000016
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Lyndsey Ollard - Catching Up,vocals,11.177835991112646,2032.6778019322082,9.479398631000095
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Lyndsey Ollard - Catching Up,accompaniment,3.8143134427110823,373.00744946766645,9.479398631000095
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,M.E.R.C. Music - Knockout,vocals,7.8770359978944775,1197.543545375578,9.658188613999982
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,M.E.R.C. Music - Knockout,accompaniment,6.917940537176905,960.2441111868247,9.658188613999982
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Moosmusic - Big Dummy Shake,vocals,10.857551018414442,2367.2640277780592,9.582917036000026
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Moosmusic - Big Dummy Shake,accompaniment,7.793571758744812,1169.0904651619494,9.582917036000026
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Motor Tapes - Shore,vocals,0.10023786984059833,516.7314649643376,9.45922414000006
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Motor Tapes - Shore,accompaniment,9.116473697385032,4119.914172111079,9.45922414000006
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Mu - Too Bright,vocals,13.230814740584766,1166.3151803957298,9.462391420999893
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Mu - Too Bright,accompaniment,6.385413942376616,241.1454145759344,9.462391420999893
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Nerve 9 - Pray For The Rain,vocals,6.349057735839546,3094.168277407065,9.459512343000142
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Nerve 9 - Pray For The Rain,accompaniment,2.7750732694143228,1358.7695585079491,9.459512343000142
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Happy Daze,vocals,0.006251298843867905,74.08119775075465,9.178417270999944
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Happy Daze,accompaniment,12.110939399955953,1202.7552039772272,9.178417270999944
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Oh No,vocals,-0.012131797465472629,24.538809902966022,9.869815315000096
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,PR - Oh No,accompaniment,14.370405709202645,673.1443185731769,9.869815315000096
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Punkdisco - Oral Hygiene,vocals,11.134539547198363,783.5034047057852,9.519619168999952
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Punkdisco - Oral Hygiene,accompaniment,8.369890138552234,414.5490335924551,9.519619168999952
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Raft Monk - Tiring,vocals,5.573306495477427,1633.7365422751755,9.524351927999987
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Raft Monk - Tiring,accompaniment,3.9738465204161,1130.4095514956862,9.524351927999987
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,2.36490496729017,4451.788759667426,9.514489047000097
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,-6.040832773615579,642.6295594722033,9.514489047000097
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Borderline,vocals,9.194773639507597,1096.7607811484486,10.012467461000142
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Borderline,accompaniment,7.686020894791867,774.8858839534223,10.012467461000142
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Over The Top,vocals,8.725955262215612,974.3236897401512,9.498085750999962
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Secretariat - Over The Top,accompaniment,7.671072277635405,764.2132746875286,9.498085750999962
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Side Effects Project - Sing With Me,vocals,9.718953723682333,926.8145113680512,9.657089124000095
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Side Effects Project - Sing With Me,accompaniment,4.338206297686495,268.483929567039,9.657089124000095
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Signe Jakobsen - What Have You Done To Me,vocals,8.748134279960798,3018.593881269917,9.797360088999994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,6.420390367800019,1766.1590193947777,9.797360088999994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Skelpolu - Resurrection,vocals,4.0240963809223915,1716.418966689147,9.56434896199994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Skelpolu - Resurrection,accompaniment,2.496995874781038,1207.5734249511734,9.56434896199994
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Broken Man,vocals,5.919298789456514,696.7517899740487,9.673290077000047
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Broken Man,accompaniment,8.082384178315177,1146.5375581867993,9.673290077000047
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Like Horses,vocals,4.448900101241897,2434.621970541775,9.634476573000029
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Speak Softly - Like Horses,accompaniment,3.2474550379828706,1846.23754435312,9.634476573000029
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Doppler Shift - Atrophy,vocals,5.1436010161179135,1568.5154467476532,9.708236858999953
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Doppler Shift - Atrophy,accompaniment,3.323032162902146,1031.414775303565,9.708236858999953
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,3.343381606140161,1711.1538052018732,9.687069617000134
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,1.4800852268656273,1114.1925077661872,9.687069617000134
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises - Falcon 69,vocals,0.03647852917669256,2245.4945491068065,9.542344813
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Easton Ellises - Falcon 69,accompaniment,-0.1412663481000836,2155.448100268841,9.542344813
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Long Wait - Dark Horses,vocals,8.083854683027717,816.9570282064378,9.422622364000063
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Long Wait - Dark Horses,accompaniment,3.729315313518499,299.74070757161826,9.422622364000063
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Mountaineering Club - Mallory,vocals,6.742987819310267,797.8783790292218,9.482776272000137
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Mountaineering Club - Mallory,accompaniment,5.365459006716593,581.0124353859574,9.482776272000137
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,8.86333771642547,659.2996166059747,9.727495427999884
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,4.5268407079783035,242.90329021587968,9.727495427999884
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Timboz - Pony,vocals,0.17973798440620853,580.4591256389394,9.683766748999915
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Timboz - Pony,accompaniment,0.9090052442243917,686.5933106858283,9.683766748999915
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Tom McKenzie - Directions,vocals,9.881626553003057,459.24873245693743,9.62704531899999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Tom McKenzie - Directions,accompaniment,4.394585620772325,129.8223067112267,9.62704531899999
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Triviul feat. The Fiend - Widow,vocals,11.130677125131117,2644.1925569549203,9.501984506999861
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Triviul feat. The Fiend - Widow,accompaniment,5.7275548231221265,762.0477758701891,9.501984506999861
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,We Fell From The Sky - Not You,vocals,5.224175583519788,497.15904356725514,9.497535796999955
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,We Fell From The Sky - Not You,accompaniment,8.742005723207896,1117.5828174082562,9.497535796999955
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Zeno - Signs,vocals,7.0130745240858605,2568.7364504784346,9.702085132999855
+2026-11-27,musdb7_narrowband,UVR-MDX-NET-Inst_HQ_3,55657dd70583b0fedfba5f67df11d711,test,False,Zeno - Signs,accompaniment,5.989809251776891,2029.5183332664892,9.702085132999855
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,AM Contra - Heart Peripheral,vocals,2.9675810974300134,2460.234535708092,0.09414476400002059
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,AM Contra - Heart Peripheral,accompaniment,-4.548426607414454,435.88970660604537,0.09414476400002059
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Al James - Schoolboy Facination,vocals,1.400624950629478,1422.8146380521357,0.10625657299988234
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Al James - Schoolboy Facination,accompaniment,-0.9164924462859679,834.5205784365535,0.10625657299988234
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Angels In Amplifiers - I'm Alright,vocals,1.690387972528303,2966.275388984941,0.09710145999997621
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Angels In Amplifiers - I'm Alright,accompaniment,-1.129062865435385,1549.766729887575,0.09710145999997621
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Arise - Run Run Run,vocals,-0.6480702947394773,516.3043975569308,0.10267171600003167
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Arise - Run Run Run,accompaniment,0.4713377084892535,668.1075411736965,0.10267171600003167
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Bulldozer,vocals,-1.5588167600633476,1010.4782611476257,0.10686241200005497
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Bulldozer,accompaniment,0.44128383403081556,1601.5364112863317,0.10686241200005497
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Too Much,vocals,2.3411566211225336,1038.7966847466305,0.12248263399987991
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,BKS - Too Much,accompaniment,-1.3831530316977765,440.65549749229103,0.12248263399987991
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Ben Carrigan - We'll Talk About It All Tonight,vocals,0.19182095331276883,692.2223808951676,0.10827915699996993
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Ben Carrigan - We'll Talk About It All Tonight,accompaniment,-0.241003626965051,626.5604322450235,0.10827915699996993
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Bobby Nobody - Stitch Up,vocals,-0.4185147334895969,835.5406864685938,0.10452203299996654
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Bobby Nobody - Stitch Up,accompaniment,-0.11908695614722353,895.180950941518,0.10452203299996654
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Buitraker - Revo X,vocals,-0.5425237798195269,940.6016741711646,0.09909822500003429
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Buitraker - Revo X,accompaniment,3.023943811216381,2138.22079261858,0.09909822500003429
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Carlos Gonzalez - A Place For Us,vocals,1.4974505807450424,3126.6558443820104,0.1164062569998805
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Carlos Gonzalez - A Place For Us,accompaniment,-0.578022519953469,1938.7985640214756,0.1164062569998805
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Cristina Vane - So Easy,vocals,2.6436063332936595,819.1697968123481,0.10434200600002441
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Cristina Vane - So Easy,accompaniment,-4.986475104976692,141.37254908215255,0.10434200600002441
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Detsky Sad - Walkie Talkie,vocals,2.347557782295534,1927.954994859174,0.10676452400002745
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Detsky Sad - Walkie Talkie,accompaniment,-0.24722297128716572,1060.7635441059247,0.10676452400002745
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Enda Reilly - Cur An Long Ag Seol,vocals,2.549989616102755,2733.981950400397,0.09313687700000628
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Enda Reilly - Cur An Long Ag Seol,accompaniment,-2.7544465772961058,806.0308296587318,0.09313687700000628
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Forkupines - Semantics,vocals,0.07475296069348286,1899.624444837682,0.10620385700008228
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Forkupines - Semantics,accompaniment,-0.6188104145371534,1619.2402884848416,0.10620385700008228
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Georgia Wonder - Siren,vocals,-0.147437859734927,740.0237177582458,0.10686379100002341
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Georgia Wonder - Siren,accompaniment,0.2327301241633263,807.7215971462429,0.10686379100002341
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Girls Under Glass - We Feel Alright,vocals,0.9639295230916352,1226.1238393979147,0.10403767800016794
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Girls Under Glass - We Feel Alright,accompaniment,0.6355382963804456,1136.8287770049646,0.10403767800016794
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Hollow Ground - Ill Fate,vocals,0.8019496696071954,1132.8234694292769,0.10558054199987055
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Hollow Ground - Ill Fate,accompaniment,-0.9675625390324416,753.721064270474,0.10558054199987055
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,James Elder & Mark M Thompson - The English Actor,vocals,0.5305351668990614,2724.2277563828975,0.1041113179999229
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,James Elder & Mark M Thompson - The English Actor,accompaniment,-0.5745981564796638,2112.1769577842206,0.1041113179999229
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Juliet's Rescue - Heartbeats,vocals,0.42373072393200495,971.6418552054092,0.1068599909999648
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Juliet's Rescue - Heartbeats,accompaniment,-0.885754841565499,718.7166325673461,0.1068599909999648
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Little Chicago's Finest - My Own,vocals,-1.392211987878977,155.86427629832178,0.10612038900012521
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Little Chicago's Finest - My Own,accompaniment,1.5239559161472926,305.0439288886264,0.10612038900012521
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Louis Cressy Band - Good Time,vocals,-1.51372672307346,1075.458203902468,0.10331683399999747
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Louis Cressy Band - Good Time,accompaniment,1.6952777572122923,2251.6127648325637,0.10331683399999747
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Lyndsey Ollard - Catching Up,vocals,2.8345800049437866,2032.6778019322082,0.1050357150002128
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Lyndsey Ollard - Catching Up,accompaniment,-4.528936465746675,373.00744946766645,0.1050357150002128
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,M.E.R.C. Music - Knockout,vocals,0.6111003181134554,1197.543545375578,0.10444206499983011
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,M.E.R.C. Music - Knockout,accompaniment,-0.3479938619368027,960.2441111868247,0.10444206499983011
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Moosmusic - Big Dummy Shake,vocals,2.5623947400673988,2367.2640277780592,0.09297579300005054
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Moosmusic - Big Dummy Shake,accompaniment,-0.5015850919815785,1169.0904651619494,0.09297579300005054
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Motor Tapes - Shore,vocals,-7.444384845605191,516.7314649643376,0.09403405500006556
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Motor Tapes - Shore,accompaniment,1.5718480890980837,4119.914172111079,0.09403405500006556
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Mu - Too Bright,vocals,3.2361348259384313,1166.3151803957298,0.09319471699996029
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Mu - Too Bright,accompaniment,-3.6092375575370115,241.1454145759344,0.09319471699996029
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Nerve 9 - Pray For The Rain,vocals,2.396420485430864,3094.168277407065,0.09445608700002595
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Nerve 9 - Pray For The Rain,accompaniment,-1.1775582528468458,1358.7695585079491,0.09445608700002595
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Happy Daze,vocals,-10.503213885885735,74.08119775075465,0.09593445600012274
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Happy Daze,accompaniment,1.601469709613522,1202.7552039772272,0.09593445600012274
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Oh No,vocals,-12.82482993065823,24.538809902966022,0.09245075099988753
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,PR - Oh No,accompaniment,1.5577064930464857,673.1443185731769,0.09245075099988753
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Punkdisco - Oral Hygiene,vocals,1.8701679307907568,783.5034047057852,0.0923364389998369
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Punkdisco - Oral Hygiene,accompaniment,-0.8944741249105761,414.5490335924551,0.0923364389998369
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Raft Monk - Tiring,vocals,0.7787634460101667,1633.7365422751755,0.09383555599993088
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Raft Monk - Tiring,accompaniment,-0.8207003942957032,1130.4095514956862,0.09383555599993088
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Sambasevam Shanmugam - Kaathaadi,vocals,4.696057823445498,4451.788759667426,0.09365190399989842
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Sambasevam Shanmugam - Kaathaadi,accompaniment,-3.709686326595726,642.6295594722033,0.09365190399989842
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Borderline,vocals,0.910141175127057,1096.7607811484486,0.09376223200001732
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Borderline,accompaniment,-0.5986037027040823,774.8858839534223,0.09376223200001732
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Over The Top,vocals,0.9911301518183202,974.3236897401512,0.09412473699990187
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Secretariat - Over The Top,accompaniment,-0.06374972601453,764.2132746875286,0.09412473699990187
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Side Effects Project - Sing With Me,vocals,3.7680055640467995,926.8145113680512,0.09342349200005629
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Side Effects Project - Sing With Me,accompaniment,-1.6127281240912112,268.483929567039,0.09342349200005629
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Signe Jakobsen - What Have You Done To Me,vocals,1.7613126705460036,3018.593881269917,0.09381239100002858
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Signe Jakobsen - What Have You Done To Me,accompaniment,-0.5664328922694526,1766.1590193947777,0.09381239100002858
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Skelpolu - Resurrection,vocals,1.7812835745465725,1716.418966689147,0.08712692700009939
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Skelpolu - Resurrection,accompaniment,0.2541887119029301,1207.5734249511734,0.08712692700009939
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Broken Man,vocals,-1.1607821500097009,696.7517899740487,0.09595826500003568
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Broken Man,accompaniment,1.0023208680470475,1146.5375581867993,0.09595826500003568
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Like Horses,vocals,1.6172477823078422,2434.621970541775,0.09525842299990472
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Speak Softly - Like Horses,accompaniment,0.4158083997863762,1846.23754435312,0.09525842299990472
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Doppler Shift - Atrophy,vocals,0.47978987817237173,1568.5154467476532,0.09418186799985051
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Doppler Shift - Atrophy,accompaniment,-1.3407655595287093,1031.414775303565,0.09418186799985051
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises (Baumi) - SDRNR,vocals,1.0966622929953094,1711.1538052018732,0.09409196699994027
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises (Baumi) - SDRNR,accompaniment,-0.7666274393984323,1114.1925077661872,0.09409196699994027
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises - Falcon 69,vocals,0.2637292790700512,2245.4945491068065,0.09360358200001428
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Easton Ellises - Falcon 69,accompaniment,0.08598531832061554,2155.448100268841,0.09360358200001428
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Long Wait - Dark Horses,vocals,2.7538235284058814,816.9570282064378,0.09238002699999015
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Long Wait - Dark Horses,accompaniment,-1.6007061909089835,299.74070757161826,0.09238002699999015
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Mountaineering Club - Mallory,vocals,0.9451681277375819,797.8783790292218,0.09247612900003332
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Mountaineering Club - Mallory,accompaniment,-0.43234903252709317,581.0124353859574,0.09247612900003332
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Sunshine Garcia Band - For I Am The Moon,vocals,2.6982557290712035,659.2996166059747,0.09313662699992165
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,The Sunshine Garcia Band - For I Am The Moon,accompaniment,-1.6382265405042653,242.90329021587968,0.09313662699992165
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Timboz - Pony,vocals,-0.1785611633668296,580.4591256389394,0.09337482199998703
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Timboz - Pony,accompaniment,0.5507208824842846,686.5933106858283,0.09337482199998703
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Tom McKenzie - Directions,vocals,3.0820081706522546,459.24873245693743,0.09428911500003778
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Tom McKenzie - Directions,accompaniment,-2.4049875007728314,129.8223067112267,0.09428911500003778
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Triviul feat. The Fiend - Widow,vocals,3.0881453119286792,2644.1925569549203,0.09250175100009983
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Triviul feat. The Fiend - Widow,accompaniment,-2.314972889230996,762.0477758701891,0.09250175100009983
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,We Fell From The Sky - Not You,vocals,-2.2831177728946845,497.15904356725514,0.09284206399979666
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,We Fell From The Sky - Not You,accompaniment,1.2347312684059202,1117.5828174082562,0.09284206399979666
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,vocals,0.710370415715582,2568.7364504784346,0.09427364300017871
+2026-11-27,musdb7_narrowband,Benchmark_CentreChannel,f01b94fa57838f02fa167d9cfce6ebd5,test,False,Zeno - Signs,accompaniment,-0.31289649802785346,2029.5183332664892,0.09427364300017871

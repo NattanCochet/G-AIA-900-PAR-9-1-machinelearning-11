@@ -79,8 +79,15 @@ def load_settings(model_path: Path, hash_dir: Path) -> tuple[str, MdxSettings]:
     raise KeyError(f"no UVR settings for {model_path.name} (hash {model_hash})")
 
 
+N_ZEROED_BINS = 3  # separate.py:590, spek[:, :, :3, :] *= 0
+
+
 class STFT:
-    """lib_v5/tfc_tdf_v3.py STFT: [B, 2, T] waves <-> [B, 4, dim_f, frames]."""
+    """lib_v5/tfc_tdf_v3.py STFT: [B, 2, T] waves <-> [B, 4, dim_f, frames].
+
+    The window and the padding follow the input's device, so the same code
+    runs on the GPU when fine-tuning (T3-10). The values are unchanged.
+    """
 
     def __init__(self, n_fft: int, hop_length: int, dim_f: int):
         self.n_fft = n_fft
@@ -96,7 +103,7 @@ class STFT:
             x,
             n_fft=self.n_fft,
             hop_length=self.hop_length,
-            window=self.window,
+            window=self.window.to(x.device),
             center=True,
             return_complex=True,
         )
@@ -111,7 +118,7 @@ class STFT:
         batch_dims = x.shape[:-3]
         c, f, t = x.shape[-3:]
         n = self.n_fft // 2 + 1
-        f_pad = torch.zeros([*batch_dims, c, n - f, t])
+        f_pad = torch.zeros([*batch_dims, c, n - f, t], dtype=x.dtype, device=x.device)
         x = torch.cat([x, f_pad], -2)
         x = x.reshape([*batch_dims, c // 2, 2, n, t]).reshape([-1, 2, n, t])
         x = x.permute([0, 2, 3, 1])
@@ -120,10 +127,19 @@ class STFT:
             x,
             n_fft=self.n_fft,
             hop_length=self.hop_length,
-            window=self.window,
+            window=self.window.to(x.device),
             center=True,
         )
         return x.reshape([*batch_dims, 2, -1])
+
+
+def model_input(stft: STFT, wave: torch.Tensor) -> torch.Tensor:
+    """The spectrogram UVR gives the model (separate.py:589-590): STFT of the
+    [B, 2, T] wave, 3 lowest bins zeroed. Shared by inference and T3-10's
+    fine-tuning, so both see exactly the same input."""
+    spek = stft(wave)
+    spek[:, :, :N_ZEROED_BINS, :] *= 0
+    return spek
 
 
 def spectral_chunk_fn(
@@ -135,8 +151,7 @@ def spectral_chunk_fn(
     stft = STFT(settings.n_fft, settings.hop, settings.dim_f)
 
     def run(wave: np.ndarray) -> np.ndarray:
-        spek = stft(torch.tensor(wave, dtype=torch.float32))
-        spek[:, :, :3, :] *= 0
+        spek = model_input(stft, torch.tensor(wave, dtype=torch.float32))
         pred = spek.numpy() if model is None else model(spek.numpy())
         return stft.inverse(torch.tensor(pred)).numpy()
 

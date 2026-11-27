@@ -521,3 +521,223 @@ The degraded copies keep the clip names, so `task3_uvr/splits/train.json`
 and `task3_uvr/splits/validation.json` apply to them unchanged. The same
 artists stay out of training, and the test set is still never used for
 tuning.
+
+## Small network from scratch (T3-08)
+
+The subject asks for a small network (a few layers at most), trained from
+scratch, added to the GUI and compared with the benchmark, on several
+datasets, possibly with data augmentation. A poor result is acceptable if it
+is analysed.
+
+### Model
+
+`SmallMaskNet` (`task3_uvr/small_nn.py`) has **37,746 parameters**, about
+440 times fewer than HQ 3 (16.7 M). It follows UVR's MDX-Net contract: input
+`[B, 4, 2048, 256]` (L-re, L-im, R-re, R-im), output the vocal spectrogram
+with the same shape. UVR computes the accompaniment as mixture − vocals.
+
+| Step | Layer | Output | Parameters |
+| --- | --- | --- | --- |
+| 1 | Magnitude of each channel, then `log1p` | `[B, 2, 2048, 256]` | 0 |
+| 2 | Conv 3×3, 2 → 16, plus a learned bias per frequency bin, ReLU | `[B, 16, 2048, 256]` | 304 + 32,768 |
+| 3 | Conv 3×3, dilation 2, 16 → 16, ReLU | same | 2,320 |
+| 4 | Conv 3×3, dilation 4, 16 → 16, ReLU | same | 2,320 |
+| 5 | Conv 1×1, 16 → 2, sigmoid: one mask per channel | `[B, 2, 2048, 256]` | 34 |
+| 6 | Each mask multiplies the real and imaginary parts of its channel | `[B, 4, 2048, 256]` | 0 |
+
+The receptive field is 15 bins × 15 frames, about 160 Hz × 350 ms.
+
+Why a mask on the magnitude:
+
+- **The output can only remove energy.** The mask lies in [0, 1], so each
+  bin of the estimate is a fraction of the mixture's. A network this small
+  cannot produce a spectrogram from scratch: values span several orders of
+  magnitude, and real and imaginary parts swing in sign from bin to bin.
+  Deciding which bins are vocal is easier. At initialisation the mask is
+  about 0.5 everywhere, already a sensible estimate.
+- **`log1p` of the magnitude** compresses that range before the
+  convolutions, which see levels in decibel-like steps.
+- **The mixture's phase is kept.** This is also the method's ceiling: where
+  vocals and accompaniment overlap in a bin, no mask recovers the vocal phase.
+- **A bias per frequency bin.** A convolution treats every frequency the
+  same; vocals do not. The 32,768 bias values, most of the model, let each
+  bin start from its own prior. The model is still convolutional in time.
+- **Both channels go into the first convolution**, so the masks can use the
+  stereo position, the benchmark's only cue: vocals are usually centred.
+
+Only `Conv`, `Relu`, `Sigmoid`, `Mul`, `Add`, `Sqrt`, `Log`, `Slice` and
+`Concat` reach the ONNX graph (opset 17, IR 8). UVR's onnxruntime 1.13.1
+loads the export and matches PyTorch within 1.1e-5 (relative 5e-7).
+
+### Data
+
+- **Training**: the 80 clips of `task3_uvr/splits/train.json`, from the
+  chosen dataset (`--dataset musdb7`, `musdb7_phone` or `musdb7_narrowband`).
+  The labels are that dataset's own stems. All clips are loaded in memory
+  (about 0.4 GB). Each step draws `--batch-size` chunks of 261,120 samples
+  (5.9 s, one UVR chunk) from the 6.8 s clips.
+- **`--remix`** (on by default): the vocals of one random clip over the
+  accompaniment of another, each at its own random position. This gives
+  80 × 80 pairs of songs instead of 80, as in the course's `make_batch`.
+  **`--no-remix`**: one clip, one position, its real mixture. *This differs
+  from the course*, whose `make_batch` draws the vocals and the
+  accompaniment at independent positions even with `remix=False`, which is
+  already a remix within the song.
+- **Validation loss**: 2 fixed chunks per clip of the 14 clips in
+  `task3_uvr/splits/validation.json` (seed 1234, never remixed), so 28
+  chunks. Every run and every evaluation uses the same audio.
+- **SDR**: the 14 validation clips and the 50 test clips, measured once after
+  training. The test set never influences training or the choice of steps.
+
+Every random draw for the batches comes from one `random.Random(seed)`. Its
+state is saved in the checkpoint.
+
+### Loss and optimisation
+
+**L1 on the spectrogram**, not on the waveform: the mean absolute difference
+between the output and the STFT of the true vocals, over the four channels.
+Real and imaginary parts are compared, so phase errors count. The 3 lowest
+bins of the target are zeroed, as UVR zeroes them in the input: the model
+cannot act on them. The loss is in linear STFT amplitude, so loud
+low-frequency bins dominate it. Adam, learning rate 1e-3, no schedule.
+
+### Commands
+
+Run from the repository root, with `ML_TEK5_MUSDB7_DIR` set (see
+[Data (T3-03)](#data-t3-03)).
+
+```bash
+# End-to-end check on CPU (about 20 s): 20 steps of batch 2 on 4 training and
+# 2 validation clips, a stop and resume at step 10, ONNX export, SDR on 2
+# validation and 2 test clips. Outputs only in task3_uvr/artifacts/smoke/.
+uv run python -m task3_uvr.train_small_nn --smoke
+
+# One run
+uv run python -m task3_uvr.train_small_nn --dataset musdb7_phone --no-remix \
+    --steps 4000 --batch-size 8 --checkpoint <dir>/SmallMaskNet_musdb7_phone_noremix.pt
+
+# Resume after an interruption: same command plus --resume. The settings that
+# define the run (dataset, remix, batch size, lr, seed) must be the same;
+# --steps may be larger, to train longer.
+uv run python -m task3_uvr.train_small_nn ... --resume
+
+# UVR's onnxruntime 1.13.1 loads the export and matches PyTorch
+uv run --project <UVR> --no-sync python -m task3_uvr.check_onnx_io \
+    --model task3_uvr/artifacts/small_nn/SmallMaskNet_musdb7_remix.onnx
+
+# All loss curves in one figure
+uv run python -m task3_uvr.plot_small_nn <dir>/SmallMaskNet_*_log.csv
+```
+
+Other options: `--seed`, `--lr`, `--device` (`auto` takes CUDA if there is
+one), `--eval-every` (100), `--checkpoint-every` (500), `--stop-after N` (save
+and stop after N steps in this session), `--sdr-splits` (none to skip the
+SDR).
+
+`--resume` continues exactly where the checkpoint stopped. The model,
+optimiser, RNG states and data generator come back, and log rows written
+after the checkpoint are dropped. On CPU a resumed run gives the same
+weights and losses as an uninterrupted one (`tests/test_small_nn.py`). On a
+GPU the batches are the same, but cuDNN may differ in the last bits. Without
+`--resume`, an existing checkpoint is an error. With `--resume` and no
+checkpoint, training starts from step 0, so the Colab cells always pass it.
+
+Outputs of a run:
+
+| File | Content | Versioned |
+| --- | --- | --- |
+| `<checkpoint>.pt` | Model, optimiser, RNG and data-generator state | no |
+| `<checkpoint>_log.csv` | Step, mean training loss since the previous row, validation loss, training time | no |
+| `<artifacts>/SmallMaskNet_<dataset>_<variant>.onnx` | Model for UVR (default `task3_uvr/artifacts/small_nn/`) | no |
+| `<artifacts>/model_data/<hash>.json` | Its UVR settings: compensate 1.0, dim_f 2048, dim_t 8, n_fft 4096, primary stem Vocals | no |
+| `<artifacts>/SmallMaskNet_..._io.npz` | One input and PyTorch's output, for `check_onnx_io` | no |
+| `results/task3_sdr_clips.csv` | Per-clip SDR, with `dataset`, `model` and `variant` (`remix`, `noremix`) | yes |
+| `results/task3_uvr.csv` | Median and mean SDR per split and stem, final training and validation loss | yes |
+| `results/task3_small_nn_loss_<dataset>_<variant>.png` | Loss curves of the run | yes |
+
+The SDR goes through `task3_uvr.mdx_inference`, the UVR v5.6 port, with the
+settings read back from the model's hash, as UVR does. Installing the model
+in the GUI (T3-09) means copying the ONNX file to
+`<UVR>/models/MDX_Net_Models/` and its JSON to `model_data/`.
+
+### Colab
+
+`task3_uvr/colab_train.ipynb` builds on `common/colab_remote_gpu_setup.ipynb`
+and is shared with T3-10. It checks the GPU, mounts Drive, clones `BRANCH`
+with the `GITHUB_TOKEN` secret and installs the task 3 packages as SETUP-05
+does. It then unzips the data to `/content/data` and sets
+`ML_TEK5_MUSDB7_DIR`. There is one cell per T3-08 run. Checkpoints, logs and
+ONNX files go to `ml_tek5_checkpoints/task3/small_nn/` on Drive. Results
+CSVs and figures are copied to `ml_tek5_checkpoints/task3/results/`
+after every run.
+
+The data comes from one archive, made locally and uploaded once:
+
+```bash
+uv run python -m task3_uvr.pack_data   # -> <musdb7 parent>/ml_tek5_task3_data.zip
+```
+
+It holds `musdb7/`, `musdb7_phone/`, `musdb7_narrowband/` (train and test)
+and `splits/`, which is 1,586 files. It is **1.39 GB** (1.56 GB of WAV;
+deflate saves only 11% on audio). Packing takes about 50 s. The script
+checks the clip counts and every CRC, and refuses to write inside the
+repository.
+
+### Time per run
+
+The smoke test takes 18 s in total, 0.58 s per step at batch 2 (CPU,
+Intel Core i7-1165G7). At batch 8 a step takes **2.5 s on this CPU**:
+batch drawing, STFT, forward and backward, measured over 10 steps. The
+convolutions take about 126 GFLOP per step. A T4 offers 8 TFLOPS in FP32,
+but batch drawing stays on the CPU and 16-channel convolutions use the GPU
+poorly. Assuming a **conservative factor of 10**, a step takes about
+0.25 s on a T4:
+
+| Steps | Training on a T4 (estimate) | Plus validation, export, SDR on 64 clips |
+| --- | --- | --- |
+| 2,000 | 8 min | about 10 min |
+| 4,000 | 17 min | about 20 min |
+| 8,000 | 33 min | about 37 min |
+
+The log's `train_seconds` column gives the real figure after the first 100
+steps.
+
+**CPU learning check** (2026-11-27, same CPU, not versioned): 300 steps of
+batch 8 on musdb7 with remix, 14 min. The validation loss fell from 0.468
+(step 10, measured in the batch-8 timing run) to 0.322 at step 300, and it
+was still falling. The training loss stayed at the validation loss's level,
+so there is no overfitting yet. Validation SDR after those 300 steps: vocals
+**2.10 dB**, accompaniment **6.21 dB** (medians, 14 clips). That beats the
+mixture reference (−3.83 / 3.83) and the benchmark (−3.92 / 0.27), and is far
+below HQ 3 (10.57 / 14.26). Learning rate 1e-3 is therefore stable.
+
+**Recommended: 4,000 steps per run** (32,000 chunks, about 20 min on a T4),
+the Colab notebook's default. If the validation curve is still falling at
+the end, raise `STEPS` and rerun the cell: the run resumes from its final
+checkpoint.
+
+### Results
+
+To fill after the Colab runs. Median global SDR in dB against each
+dataset's own stems, so that the rows compare within one dataset. The
+reference rows come from T3-07 (`results/task3_reference_scores.json`).
+With accompaniment = mixture − vocals, **the gain of one stem over the
+mixture reference equals the raw SDR of the other stem**, as T3-07 showed:
+both stems have the same error signal. The accompaniment column is
+therefore also the vocal gain over doing nothing.
+
+| Dataset | Model | Validation vocals | Validation accompaniment | Test vocals | Test accompaniment |
+| --- | --- | --- | --- | --- | --- |
+| musdb7 | Mixture (reference) | −3.83 | 3.83 | −4.49 | 4.49 |
+| musdb7 | Benchmark_CentreChannel | −3.92 | 0.27 | −4.10 | 0.30 |
+| musdb7 | HQ 3 | 10.57 | 14.26 | 10.15 | 14.66 |
+| musdb7 | SmallMaskNet, remix | | | | |
+| musdb7 | SmallMaskNet, no remix | | | | |
+| musdb7_phone | Mixture (reference) | 0.92 | −0.92 | 0.35 | −0.35 |
+| musdb7_phone | Benchmark_CentreChannel | 1.30 | 0.21 | 0.60 | 0.04 |
+| musdb7_phone | HQ 3 | 10.47 | 8.82 | 9.08 | 8.25 |
+| musdb7_phone | SmallMaskNet, remix | | | | |
+| musdb7_phone | SmallMaskNet, no remix | | | | |
+
+Choose between variants on validation only. Report the test columns once,
+at the end.

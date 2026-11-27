@@ -741,3 +741,223 @@ therefore also the vocal gain over doing nothing.
 
 Choose between variants on validation only. Report the test columns once,
 at the end.
+
+## Fine-tuning HQ 3 on degraded audio (T3-10)
+
+`task3_uvr/finetune.py` fine-tunes `UVR-MDX-NET-Inst_HQ_3` on one degraded
+dataset and measures the validation SDR before and after, on that dataset
+and on clean musdb7 (to check that it does not forget).
+
+### Method
+
+- **Model**: HQ 3's ONNX file, converted with onnx2pytorch (T3-05). The
+  script refuses any other file (UVR hash
+  `55657dd70583b0fedfba5f67df11d711`), because it uses HQ 3's settings:
+  n_fft 6144, dim_f 3072, 256 frames, compensate 1.022.
+- **Input**: the spectrogram UVR gives HQ 3 (`mdx_inference.model_input`,
+  shared with inference). One training example is one UVR chunk of
+  261,120 samples (5.9 s), at a random position in one of the 80 clips of
+  `splits/train.json`.
+- **Target: the accompaniment.** HQ 3's primary stem is Instrumental. The
+  target is the dataset's own accompaniment, so for `musdb7_phone` it is
+  the phone-degraded accompaniment.
+- **Loss**: L1 in the time domain between compensate × iSTFT(output) and
+  the accompaniment. This is the primary stem as UVR computes it for one
+  chunk, before overlap-add. UVR's vocals are mixture − primary, so the
+  vocal error is the same signal with the opposite sign: the loss trains
+  both stems.
+- **BatchNorm stays in eval mode** for the whole run, with HQ 3's running
+  statistics (T3-05: train mode changes the output by 2.6 times its
+  largest value). Every step checks it.
+- **Optimisation**: Adam, lr **1e-6** after a linear warmup over 100 steps,
+  gradient norm clipped to 1. On the smoke test, one step at 1e-6 moved
+  the output by 0.5% of its largest value. `--freeze encoder` or
+  `--freeze all-but-last-N` trains fewer layers.
+- **Validation**: every 100 steps, the L1 loss and the per-chunk
+  accompaniment SDR on 2 fixed chunks per validation clip (seed 1234), on
+  the dataset and on clean musdb7.
+- **End of the run**: export to
+  `HQ3_ft_<dataset>_<tag>_s<steps>.onnx` (opset 17, legacy exporter
+  `dynamo=False`). Each export has its own file name and hash, with
+  `model_data/<hash>.json` holding HQ 3's settings. The script then checks
+  parity with PyTorch in onnxruntime, then in onnxruntime 1.13.1 (UVR's).
+  Last, it measures the global SDR on the 14 validation clips with the UVR
+  port, in onnxruntime, as T3-04 and T3-07 did. The test SDR is measured
+  only with `--report-test`.
+
+### Commands
+
+Run from the repository root, with `ML_TEK5_MUSDB7_DIR` and
+`ML_TEK5_UVR_DIR` set. The script finds HQ 3 in
+`<UVR>/models/MDX_Net_Models/` and onnxruntime 1.13.1 in
+`<UVR>/.venv/bin/python`; `--model` and `--ort113-python` override them.
+
+```bash
+# CPU check, about 2 min and 6 GB. Run it alone, under a memory cap, so that
+# running out of memory stops the command and not the editor.
+systemd-run --user --scope -p MemoryMax=9G -p MemorySwapMax=2G \
+    uv run python -m task3_uvr.finetune --smoke
+
+# One run (GPU)
+uv run python -m task3_uvr.finetune --dataset musdb7_phone \
+    --steps 2000 --batch-size 2 --device cuda --artifacts-dir <dir>
+
+# Resume after an interruption: same command plus --resume
+uv run python -m task3_uvr.finetune ... --resume
+
+# Before/after table again, from results/task3_sdr_clips.csv
+uv run python -m task3_uvr.finetune_report --model HQ3_ft_musdb7_phone_lr1e-06_s2000
+```
+
+Other options: `--lr`, `--warmup-steps`, `--freeze`, `--remix`, `--seed`,
+`--tag`, `--eval-every` (100), `--checkpoint-every` (250), `--stop-after N`,
+`--no-sdr`, `--sdr-backend torch` (PyTorch weights on the GPU, faster; then
+the original HQ 3 is also measured in PyTorch), `--report-test`. A run is
+named after the settings that change the model, for example
+`HQ3_ft_musdb7_phone_lr1e-06`. `--resume` refuses a checkpoint saved with
+other settings.
+
+Outputs of a run:
+
+| File | Content | Versioned |
+| --- | --- | --- |
+| `<artifacts>/HQ3_ft_<run>.pt` | Model, optimiser, scheduler, RNG and data-generator state (267 MB) | no |
+| `<artifacts>/HQ3_ft_<run>_log.csv` | Step, learning rate, training loss and gradient norm since the previous row, validation loss and SDR on the dataset and on clean musdb7 | no |
+| `<artifacts>/HQ3_ft_<run>_s<steps>.onnx` | Fine-tuned model for UVR (67 MB) | no |
+| `<artifacts>/model_data/<hash>.json` | Its UVR settings, HQ 3's | no |
+| `results/task3_sdr_clips.csv` | Per-clip SDR, `variant` `onnx` (or `torch`) | yes |
+| `results/task3_uvr.csv` | Median and mean SDR, final losses | yes |
+| `results/task3_finetune_before_after.csv` | Before/after table | yes |
+| `results/task3_finetune.json` | Run summary: settings, export checks, weight change, medians | yes |
+| `results/task3_finetune_loss_<run>.png` | Loss curves | yes |
+
+### Smoke test
+
+`--smoke` checks the whole pipeline on CPU with as little memory as
+possible: 2 torch threads, batch 1, one training step, one training clip
+and one validation clip. It runs in four phases, with `gc.collect()`
+between them and the peak RSS of each:
+
+1. **lr 0, forward only** (`torch.no_grad()`, no optimiser): on one
+   validation chunk, the converted model's output must match HQ 3 in
+   onnxruntime. The training estimate must match UVR's inference path for
+   that chunk.
+2. **One step at lr 1e-6**, then the checkpoint. All 166 tensors must
+   change; the BatchNorm statistics must not.
+3. **Resume** in a new trainer: same step, same weights.
+4. **End of a run**: export, parity, onnxruntime 1.13.1, settings JSON, SDR
+   of HQ 3 and of the export on one validation clip (phone and clean), and
+   the before/after table.
+
+Result on 2026-11-27 (Intel Core i7-1165G7, 15 GB RAM, torch 2.15.0,
+onnx2pytorch 0.6.0, onnxruntime 1.31.1 and 1.13.1): **passed**, 124 s in
+total.
+
+| Phase | Time | Peak RSS |
+| --- | --- | --- |
+| 1. lr 0, forward | 10 s | 2.7 GB |
+| 2. One training step (19 s for the step) | 44 s | 5.4 GB |
+| 3. Resume | 0.4 s | 1.4 GB |
+| 4. Export and SDR | 69 s | 5.9 GB |
+| onnxruntime 1.13.1 check (subprocess) | | 3.7 GB |
+
+Whole command (`/usr/bin/time -v`): 6.0 GB. The lr-0 output matches
+onnxruntime to 9.2e-7 of its largest value. The exported model matches
+PyTorch to 6.7e-7, and 7.5e-7 in onnxruntime 1.13.1. After one step the SDR
+moves by +0.003 dB on phone and +0.006 dB on clean (one clip each): the
+step only checks the plumbing, not learning.
+
+An earlier smoke (two runs of 2 steps, two exports, SDR on 2 clips) also
+passed, but it took 7 min and 6.2 GB with 4 threads. A second heavy
+command next to it ran a 15 GB laptop out of memory, hence the cap above.
+
+### GPU settings and time
+
+One training step at batch 1 peaks at 5.4 GB on CPU with 2 threads (6.7 GB
+with 4 threads in T3-05), most of it activations. **Batch 2** should fit
+on a 16 GB GPU (T4, P100, L4), and batch 4 on a 40 GB A100. The log line at
+the end of each session gives `CUDA peak`; `task3_finetune.json` stores it
+as `cuda_peak_gb`.
+
+Estimate for **2,000 steps of batch 2 on a T4**, not measured: the step
+time assumes the GPU is about 25 times faster than 2 CPU threads (18.7 s
+per step of batch 1). Check it against the log's `train_seconds` after the
+first 100 steps:
+
+| Part | Estimate |
+| --- | --- |
+| Training, about 1.5 s per step | 50 min |
+| Validation every 100 steps (56 chunks each time) | 4 min |
+| Checkpoints every 250 steps (267 MB to Drive) | 2 min |
+| SDR in onnxruntime on CPU: 14 clips × (HQ 3 on phone, fine-tuned on phone and clean), about 25 s per clip on 2 vCPUs | 18 min |
+| **Total** | **about 1 h 15 min** |
+
+The clean musdb7 rows of the original HQ 3 are already in
+`results/task3_sdr_clips.csv`, so they are not measured again. The phone
+rows are measured on the first run; their medians must match T3-07
+(10.47 / 8.82). If they do not, the script prints a warning.
+
+2,000 steps of batch 2 draw 4,000 chunks from 80 clips of 6.8 s, which is
+about 50 passes over the training audio. If the validation loss is still
+falling at the end, raise `--steps`: the run resumes from its checkpoint.
+
+### Colab
+
+Section 8 of `task3_uvr/colab_train.ipynb`:
+
+1. Upload `UVR-MDX-NET-Inst_HQ_3.onnx` once to
+   `ml_tek5_checkpoints/task3/models/`. The data zip from T3-08 is already
+   in `ml_tek5_checkpoints/task3/`.
+2. Push the T3-10 branch; `BRANCH` in section 3 points to it.
+3. Runtime: T4 GPU. Run sections 1-5, then section 8: the first cell checks
+   the model file and the GPU. The second installs onnxruntime 1.13.1 in a
+   Python 3.10 environment with `uv`. The third defines `finetune()`
+   (batch 2, or 4 on a GPU with more than 30 GB).
+4. Run the `finetune("musdb7_phone")` cell. After a disconnect, rerun
+   sections 1-5 and the same cell: it resumes from the last checkpoint.
+5. Copy `ml_tek5_checkpoints/task3/results/` into the local `results/` and
+   commit it. Checkpoints and ONNX files stay on Drive.
+
+### Kaggle
+
+Kaggle works as a fallback when Colab's GPU quota runs out: 30 GPU hours a
+week, sessions of up to 12 hours. The notebook's Drive cells do not apply:
+
+- **Accelerator**: "GPU T4 x2" (the script uses one GPU). Prefer it to
+  the P100, whose compute capability 6.0 recent PyTorch builds may no
+  longer support.
+- **Internet**: on, in the notebook settings (it needs a phone-verified
+  account), for `git clone` and `pip`.
+- **Token**: Add-ons > Secrets > `GITHUB_TOKEN`, then
+  `from kaggle_secrets import UserSecretsClient` and
+  `UserSecretsClient().get_secret("GITHUB_TOKEN")` instead of
+  `google.colab.userdata`.
+- **Data**: upload `ml_tek5_task3_data.zip` and
+  `UVR-MDX-NET-Inst_HQ_3.onnx` as one private Kaggle dataset. Kaggle
+  unpacks the zip; the dataset appears read-only under
+  `/kaggle/input/<dataset>/`. Set `ML_TEK5_MUSDB7_DIR` to its `musdb7`
+  folder and pass `--model` with the ONNX path; skip the unzip cell.
+- **Outputs**: only `/kaggle/working/` (20 GB) survives, and only in a
+  committed run ("Save Version" > "Save & Run All"). Run the whole notebook
+  that way, with `--artifacts-dir /kaggle/working/finetune`. At the end,
+  copy `results/task3_*` to `/kaggle/working/results/`. A 2,000-step run
+  fits in one 12-hour session, so resuming across sessions is not needed.
+- **onnxruntime 1.13.1**: same `uv` cell as on Colab (Kaggle's Python is
+  newer than 3.10).
+
+### Results
+
+To fill after the GPU run. Median global SDR on the 14 validation clips,
+in dB, against each dataset's own stems. "Before" is the original HQ 3,
+from T3-07.
+
+| Data | Stem | HQ 3 (before) | Fine-tuned on musdb7_phone | Difference |
+| --- | --- | --- | --- | --- |
+| musdb7_phone | vocals | 10.47 | | |
+| musdb7_phone | accompaniment | 8.82 | | |
+| musdb7 (clean) | vocals | 10.57 | | |
+| musdb7 (clean) | accompaniment | 14.26 | | |
+
+For reference, HQ 3 on `musdb7_narrowband` (T3-07): vocals 8.60,
+accompaniment 6.08. Choose settings on validation only. Report the test SDR
+once, for the final model.

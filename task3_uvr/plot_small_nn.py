@@ -24,20 +24,28 @@ from common import new_figure, set_style
 COLORS = ("#2a78d6", "#eb6834", "#1baf7a", "#8a5cd1", "#c9a227", "#d6457a")
 
 
-def plot_losses(logs: dict[str, Path], output: Path) -> Path:
+def plot_losses(
+    logs: dict[str, Path],
+    output: Path,
+    *,
+    ylabel: str = "L1 spectrogram loss",
+    yunit: str = "STFT amplitude",
+    title: str = "SmallMaskNet: training and validation loss",
+) -> Path:
     """One figure with the training (solid) and validation (dashed) L1 loss
-    of every run, against the training step."""
+    of every run, against the training step. Rows without a training loss
+    (T3-10's step 0) only get a validation point."""
     set_style()
     fig, ax = new_figure(
-        "training step (batches)",
-        "L1 spectrogram loss",
-        yunit="STFT amplitude",
-        title="SmallMaskNet: training and validation loss",
+        "training step (batches)", ylabel, yunit=yunit, title=title
     )
     for i, (label, path) in enumerate(logs.items()):
         log = pd.read_csv(path)
         color = COLORS[i % len(COLORS)]
-        ax.plot(log["step"], log["train_loss"], color=color, label=f"{label} train")
+        trained = log.dropna(subset=["train_loss"])
+        ax.plot(
+            trained["step"], trained["train_loss"], color=color, label=f"{label} train"
+        )
         ax.plot(
             log["step"],
             log["val_loss"],
